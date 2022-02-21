@@ -1,14 +1,16 @@
+import NavLinks from "./NavLinks";
+
 const DashboardCategories = () => {
   return (
-    <section>
+    <section className="w-56 mx-auto">
       <nav>
-        <ul>
-          <li>All</li>
-          <li>UI</li>
-          <li>UX</li>
-          <li>Enhancement</li>
-          <li>Bug</li>
-          <li>Feature</li>
+        <ul className="flex flex-wrap items-center justify-between h-52">
+          <NavLinks>All</NavLinks>
+          <NavLinks>UI</NavLinks>
+          <NavLinks>UX</NavLinks>
+          <NavLinks>Enhancement</NavLinks>
+          <NavLinks>Bug</NavLinks>
+          <NavLinks>Feature</NavLinks>
         </ul>
       </nav>
     </section>

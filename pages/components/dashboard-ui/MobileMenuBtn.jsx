@@ -1,26 +1,47 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
-const MobileMenuBtn = (props) => {
-  useEffect(() => {
-    if (!props.isOpen) {
-      const element = document.getElementById("checkbox");
-      element.checked = false;
-    }
-  }, [props]);
+const MobileMenuBtn = () => {
+  const [openMenu, setOpenMenu] = useState(false);
 
-  return (
-    <label>
-      <input type="checkbox" id="checkbox" className="hidden" />
-      <div
-        className="absolute flex flex-col h-8 justify-evenly right-4 top-1"
-        onClick={props.toggleMenu}
+  const openMenuHandler = () => {
+    setOpenMenu((current) => !current);
+  };
+
+  const closeMenuHandler = () => {
+    setOpenMenu(false);
+  };
+
+  if (openMenu) {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="17"
+        onClick={closeMenuHandler}
       >
-        <div className="h-1 bg-slate-50 w-7"></div>
-        <div className="h-1 bg-white w-7"></div>
-        <div className="h-1 bg-white w-7"></div>
-      </div>
-    </label>
-  );
+        <path
+          fill="#FFF"
+          fillRule="evenodd"
+          d="M15.01.368l2.122 2.122-6.01 6.01 6.01 6.01-2.122 2.122L9 10.622l-6.01 6.01L.868 14.51 6.88 8.5.87 2.49 2.988.368 9 6.38 15.01.37z"
+        ></path>
+      </svg>
+    );
+  } else {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="17"
+        onClick={openMenuHandler}
+      >
+        <path
+          fill="#FFF"
+          fillRule="evenodd"
+          d="M0 0h20v3H0zm0 7h20v3H0zm0 7h20v3H0z"
+        ></path>
+      </svg>
+    );
+  }
 };
 
 export default MobileMenuBtn;
