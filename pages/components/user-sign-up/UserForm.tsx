@@ -82,13 +82,6 @@ const UserForm = () => {
       },
     }));
 
-    let userData = {
-      firstName: form.firstName,
-      lastName: form.lastName,
-      email: form.email,
-      password: form.confirmPassword,
-    };
-
     if (form.password != form.confirmPassword) {
       throw new Error("Please enter matching passwords!");
     }
@@ -100,13 +93,22 @@ const UserForm = () => {
       passwordisValid &&
       confirmPasswordIsValid;
 
+    let userData = {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      password: form.confirmPassword,
+    };
+
     if (!formIsValid) {
-      console.log("invalid form");
-    } else {
-      console.log("valid form");
+      return;
     }
 
-    console.log(userData);
+    fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    }).then((res) => console.log("Data has been sent to the database!"));
   };
 
   return (
