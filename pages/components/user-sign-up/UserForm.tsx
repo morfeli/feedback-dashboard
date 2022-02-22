@@ -109,6 +109,8 @@ const UserForm = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     }).then((res) => console.log("Data has been sent to the database!"));
+
+    // setForm(intialFormState);
   };
 
   return (
