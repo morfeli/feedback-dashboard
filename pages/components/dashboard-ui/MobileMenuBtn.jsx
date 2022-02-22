@@ -1,23 +1,13 @@
 import { useState } from "react";
 
-const MobileMenuBtn = () => {
-  const [openMenu, setOpenMenu] = useState(false);
-
-  const openMenuHandler = () => {
-    setOpenMenu((current) => !current);
-  };
-
-  const closeMenuHandler = () => {
-    setOpenMenu(false);
-  };
-
-  if (openMenu) {
+const MobileMenuBtn = ({ isOpen, toggleMenu }) => {
+  if (isOpen) {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"
         height="17"
-        onClick={closeMenuHandler}
+        onClick={toggleMenu}
       >
         <path
           fill="#FFF"
@@ -32,7 +22,7 @@ const MobileMenuBtn = () => {
         xmlns="http://www.w3.org/2000/svg"
         width="30"
         height="17"
-        onClick={openMenuHandler}
+        onClick={toggleMenu}
       >
         <path
           fill="#FFF"

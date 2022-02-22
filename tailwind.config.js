@@ -23,6 +23,13 @@ module.exports = {
       "jost-semibold": "600",
       "jost-bold": "700",
     },
+    inset: {
+      "2000px": "2000px",
+      "0px": "0px",
+    },
+    transitionProperty: {
+      right: "right",
+    },
   },
   plugins: [],
 };

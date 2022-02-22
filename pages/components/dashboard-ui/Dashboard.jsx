@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import DashboardHeader from "./DashboardHeader";
-import MobileNavBar from "./MobieNavBar";
+import MobileNavBar from "./MobileNavBar";
 
 const Dashboard = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const Dashboard = () => {
     <>
       <DashboardHeader isOpen={menuIsOpen} toggleMenu={toggleMenu} />
 
-      <MobileNavBar />
+      <MobileNavBar isOpen={menuIsOpen} />
     </>
   );
 };
