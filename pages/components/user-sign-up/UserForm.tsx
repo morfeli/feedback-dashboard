@@ -114,114 +114,116 @@ const UserForm = () => {
   };
 
   return (
-    <form onSubmit={submitUserData}>
-      <fieldset>
-        <legend>Sign Up</legend>
-      </fieldset>
-
-      <div>
-        <label htmlFor="firstName">
-          <input
-            id="firstName"
-            type="text"
-            placeholder="First Name"
-            onChange={(e) =>
-              setForm((current) => ({
-                ...current,
-                firstName: e.target.value,
-                touched: {
-                  ...current.touched,
-                  firstName: true,
-                },
-              }))
-            }
-            value={form.firstName}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="lastName">
-          <input
-            id="lastName"
-            type="text"
-            placeholder="Last Name"
-            onChange={(e) =>
-              setForm((current) => ({
-                ...current,
-                lastName: e.target.value,
-                touched: {
-                  ...current.touched,
-                  lastName: true,
-                },
-              }))
-            }
-            value={form.lastName}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="email">
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter your email address"
-            onChange={(e) =>
-              setForm((current) => ({
-                ...current,
-                email: e.target.value,
-                touched: {
-                  ...current.touched,
-                  email: true,
-                },
-              }))
-            }
-            value={form.email}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          <input
-            id="password"
-            type="password"
-            placeholder="Create a password"
-            required
-            onChange={(e) =>
-              setForm((current) => ({
-                ...current,
-                password: e.target.value,
-                touched: {
-                  ...current.touched,
-                  password: true,
-                },
-              }))
-            }
-            value={form.password}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="confirmPassword">
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-            required
-            onChange={(e) =>
-              setForm((current) => ({
-                ...current,
-                confirmPassword: e.target.value,
-                touched: {
-                  ...current.touched,
-                  confirmPassword: true,
-                },
-              }))
-            }
-            value={form.confirmPassword}
-          />
-        </label>
-      </div>
-      <button>Submit</button>
+    <form
+      onSubmit={submitUserData}
+      className="flex flex-col items-center justify-center pt-4"
+    >
+      <section className="flex flex-col items-center h-96 justify-evenly w-80 bg-light-blue rounded-2xl">
+        <h1>Sign Up</h1>
+        <div>
+          <label htmlFor="firstName">
+            <input
+              id="firstName"
+              type="text"
+              placeholder="First Name"
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  firstName: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    firstName: true,
+                  },
+                }))
+              }
+              value={form.firstName}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="lastName">
+            <input
+              id="lastName"
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  lastName: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    lastName: true,
+                  },
+                }))
+              }
+              value={form.lastName}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="email">
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  email: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    email: true,
+                  },
+                }))
+              }
+              value={form.email}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="password">
+            <input
+              id="password"
+              type="password"
+              placeholder="Create a password"
+              required
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  password: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    password: true,
+                  },
+                }))
+              }
+              value={form.password}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="confirmPassword">
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              required
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  confirmPassword: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    confirmPassword: true,
+                  },
+                }))
+              }
+              value={form.confirmPassword}
+            />
+          </label>
+        </div>
+        <button className="w-32 p-2 rounded-3xl bg-faded-blue">Submit</button>
+      </section>
     </form>
   );
 };
