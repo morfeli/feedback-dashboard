@@ -12,6 +12,9 @@ const SignUpPage = () => {
         </p>
       </div>
       <UserForm />
+      <div className="pt-6">
+        <p>Already a user? Please click here to login.</p>
+      </div>
     </main>
   );
 };
