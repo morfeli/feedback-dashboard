@@ -59,7 +59,7 @@ const intialFormState = {
   },
 };
 
-const UserForm = () => {
+const SignUpForm = () => {
   const [form, setForm] = useState<UserSignUp>(intialFormState);
 
   const submitUserData = (e) => {
@@ -228,4 +228,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default SignUpForm;
