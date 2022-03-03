@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+// components
 import SignUpForm from "./SignUpForm.tsx";
 
 const SignUpPage = () => {
@@ -13,7 +16,9 @@ const SignUpPage = () => {
       </div>
       <SignUpForm />
       <div className="pt-6">
-        <p>Already a user? Please click here to login.</p>
+        <Link href="/auth">
+          <p>Already a user? Please click here to login.</p>
+        </Link>
       </div>
     </main>
   );

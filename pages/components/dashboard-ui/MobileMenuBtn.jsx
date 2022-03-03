@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const MobileMenuBtn = ({ isOpen, toggleMenu }) => {
   if (isOpen) {
     return (
