@@ -18,12 +18,14 @@ const emailValidation = (value: string) => {
 type UserSignUp = {
   firstName: string;
   lastName: string;
+  userName: string;
   email: string;
   password: string;
   confirmPassword: string;
   touched: {
     firstName: boolean;
     lastName: boolean;
+    userName: boolean;
     email: boolean;
     password: boolean;
     confirmPassword: boolean;
@@ -31,6 +33,7 @@ type UserSignUp = {
   valid: {
     firstName: boolean;
     lastName: boolean;
+    userName: boolean;
     email: boolean;
     password: boolean;
     confirmPassword: boolean;
@@ -40,12 +43,14 @@ type UserSignUp = {
 const intialFormState = {
   firstName: "",
   lastName: "",
+  userName: "",
   email: "",
   password: "",
   confirmPassword: "",
   touched: {
     firstName: false,
     lastName: false,
+    userName: false,
     email: false,
     password: false,
     confirmPassword: false,
@@ -53,13 +58,14 @@ const intialFormState = {
   valid: {
     firstName: false,
     lastName: false,
+    userName: false,
     email: false,
     password: false,
     confirmPassword: false,
   },
 };
 
-const SignUpForm = () => {
+const SignUpForm = (props: any) => {
   const [form, setForm] = useState<UserSignUp>(intialFormState);
 
   const submitUserData = (e) => {
@@ -67,6 +73,7 @@ const SignUpForm = () => {
 
     const firstNameIsValid = !isEmpty(form.firstName);
     const lastNameIsValid = !isEmpty(form.lastName);
+    const userNameIsValid = !isEmpty(form.userName);
     const emailIsValid = emailValidation(form.email);
     const passwordisValid = isTenChars(form.password);
     const confirmPasswordIsValid = isTenChars(form.confirmPassword);
@@ -76,6 +83,7 @@ const SignUpForm = () => {
       validity: {
         firstName: firstNameIsValid,
         lastName: lastNameIsValid,
+        userName: userNameIsValid,
         email: emailIsValid,
         password: passwordisValid,
         confirmPassword: confirmPasswordIsValid,
@@ -86,16 +94,13 @@ const SignUpForm = () => {
       throw new Error("Please enter matching passwords!");
     }
 
-    const formIsValid =
-      firstNameIsValid &&
-      lastNameIsValid &&
-      emailIsValid &&
-      passwordisValid &&
-      confirmPasswordIsValid;
+    const formIsValid = firstNameIsValid && lastNameIsValid && userNameIsValid;
+    emailIsValid && passwordisValid && confirmPasswordIsValid;
 
     let userData = {
       firstName: form.firstName,
       lastName: form.lastName,
+      userName: form.userName,
       email: form.email,
       password: form.confirmPassword,
     };
@@ -108,9 +113,10 @@ const SignUpForm = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
-    }).then((res) => console.log("Data has been sent to the database!"));
+    }).then((res) => console.log(res));
 
-    // setForm(intialFormState);
+    setForm(intialFormState);
+    props.directUser();
   };
 
   return (
@@ -157,6 +163,26 @@ const SignUpForm = () => {
                 }))
               }
               value={form.lastName}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="userName">
+            <input
+              id="userName"
+              type="text"
+              placeholder="Username"
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  userName: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    userName: true,
+                  },
+                }))
+              }
+              value={form.userName}
             />
           </label>
         </div>

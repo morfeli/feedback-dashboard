@@ -20,32 +20,47 @@ export default async function handler(req, res) {
   if (req.method == "POST") {
     let data = req.body;
 
-    const firstNameIsValid = !isEmpty(data.firstName);
-    const lastNameisValid = !isEmpty(data.lastName);
-    const emailIsValid = emailValidation(data.email);
-    const passwordisValid = isTenChars(data.password);
+    const { firstName, lastName, email, password, userName } = data;
+
+    const firstNameIsValid = !isEmpty(firstName);
+    const lastNameisValid = !isEmpty(lastName);
+    const emailIsValid = emailValidation(email);
+    const passwordisValid = isTenChars(password);
+    const userNameIsValid = !isEmpty(userName);
 
     let userDataIsValid =
-      firstNameIsValid && lastNameisValid && emailIsValid && passwordisValid;
+      firstNameIsValid &&
+      lastNameisValid &&
+      emailIsValid &&
+      passwordisValid &&
+      userNameIsValid;
 
     if (!userDataIsValid) {
       return;
     }
 
-    const protectedPassword = await hashedPassword(data.password);
-
-    const storeUserData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      password: protectedPassword,
-    };
-
     const client = await connectToDatabase();
 
     const db = client.db();
 
-    await db.collection("users").insertOne({ user: storeUserData });
+    const existingUser = await db.collection("users").findOne({ email: email });
+
+    if (existingUser) {
+      res.status(422).json({ message: "User already exists, please log in!" });
+      console.log("User already exists, please log in!");
+      client.close();
+      return;
+    }
+
+    const protectedPassword = await hashedPassword(password);
+
+    await db.collection("users").insertOne({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: protectedPassword,
+      userName: userName,
+    });
 
     client.close();
 

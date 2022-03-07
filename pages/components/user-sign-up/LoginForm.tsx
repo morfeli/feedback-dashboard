@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { signIn } from "next-auth/react";
 
-const isEmpty = (value: string) => value.trim() === "";
+import { useEffect, useState } from "react";
 
 const isTenChars = (value: string) => value.trim().length >= 10;
 
@@ -44,9 +44,45 @@ const intialFormState = {
 
 const LoginForm = () => {
   const [form, setForm] = useState<UserLoginIn>(intialFormState);
+  const [loginResult, setLoginResult] = useState(null);
+
+  const submitLoginData = async (e) => {
+    e.preventDefault();
+
+    const emailIsValid = emailValidation(form.email);
+    const passwordisValid = isTenChars(form.password);
+
+    setForm((current) => ({
+      ...current,
+      validity: {
+        email: emailIsValid,
+        password: passwordisValid,
+      },
+    }));
+
+    const formIsValid = emailIsValid && passwordisValid;
+
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: form.email,
+      password: form.password,
+    });
+
+    if (!result.error) {
+      setLoginResult(null);
+    } else {
+      setLoginResult(result.error);
+    }
+
+    if (!formIsValid) {
+      return;
+    }
+
+    setForm(intialFormState);
+  };
 
   return (
-    <form>
+    <form onSubmit={submitLoginData}>
       <div>
         <label htmlFor="email">
           <input
@@ -88,6 +124,8 @@ const LoginForm = () => {
           />
         </label>
       </div>
+
+      {loginResult && <p>{loginResult}</p>}
       <button className="w-32 p-2 rounded-3xl bg-faded-blue">Login</button>
     </form>
   );
