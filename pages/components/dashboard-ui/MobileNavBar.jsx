@@ -1,13 +1,13 @@
 import classNames from "classnames";
-import { useEffect } from "react";
 
+// components
 import DashboardCategories from "./DashboardCategories";
 import DashboardRoadmap from "./DashboardRoadmap";
 
-const MobileNavBar = (props) => {
+const MobileNavBar = ({ isOpen }) => {
   let mobileMenuClass;
 
-  if (props.isOpen) {
+  if (isOpen) {
     mobileMenuClass = classNames(
       "block w-10/12 bg-light-gray absolute right-0px"
     );
@@ -16,12 +16,6 @@ const MobileNavBar = (props) => {
       "hidden w-10/12 bg-light-gray absolute right-2000px "
     );
   }
-
-  useEffect(() => {
-    if (props.isOpen) {
-      console.log("true");
-    }
-  }, [props.isOpen]);
 
   return (
     <div className={mobileMenuClass}>

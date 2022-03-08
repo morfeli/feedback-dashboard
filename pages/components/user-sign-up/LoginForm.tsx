@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const isTenChars = (value: string) => value.trim().length >= 10;
 
@@ -45,6 +45,7 @@ const intialFormState = {
 const LoginForm = () => {
   const [form, setForm] = useState<UserLoginIn>(intialFormState);
   const [loginResult, setLoginResult] = useState(null);
+  const router = useRouter();
 
   const submitLoginData = async (e) => {
     e.preventDefault();
@@ -62,6 +63,10 @@ const LoginForm = () => {
 
     const formIsValid = emailIsValid && passwordisValid;
 
+    if (!formIsValid) {
+      return;
+    }
+
     const result = await signIn("credentials", {
       redirect: false,
       email: form.email,
@@ -69,13 +74,9 @@ const LoginForm = () => {
     });
 
     if (!result.error) {
-      setLoginResult(null);
+      router.push("/suggestions");
     } else {
       setLoginResult(result.error);
-    }
-
-    if (!formIsValid) {
-      return;
     }
 
     setForm(intialFormState);
