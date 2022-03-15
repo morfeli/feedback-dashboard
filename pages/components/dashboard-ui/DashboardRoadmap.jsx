@@ -1,4 +1,4 @@
-import RoadmapStatus from "./RoadmapStatus";
+import RoadmapStatus from "../dashboard-ui/UI/RoadmapStatus";
 
 const DashboardRoadmap = () => {
   return (

@@ -1,4 +1,4 @@
-import NavLinks from "./NavLinks";
+import NavLinks from "../dashboard-ui/UI/NavLinks";
 
 const DashboardCategories = () => {
   return (

@@ -2,20 +2,23 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
-    colors: {
-      "button-pink": "#AD1FEA",
-      "first-blue": "#4661E6",
-      "second-blue": "#4661E6",
-      "third-blue": "#3A4374",
-      "faded-blue": "#647196",
-      "light-gray": "#F2F4FF",
-      "first-gray": "#F7F8FD",
-      "first-orange": "#F49F85",
-      "light-blue": "#62BCFA",
+    extend: {
+      colors: {
+        "button-pink": "#AD1FEA",
+        "first-blue": "#4661E6",
+        "second-blue": "#4661E6",
+        "third-blue": "#3A4374",
+        "faded-blue": "#647196",
+        "light-gray": "#F2F4FF",
+        "first-gray": "#F7F8FD",
+        "first-orange": "#F49F85",
+        "light-blue": "#62BCFA",
+      },
     },
+
     fontFamily: {
       serif: ["Jost"],
     },

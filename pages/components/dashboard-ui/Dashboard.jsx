@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import DashboardHeader from "./DashboardHeader";
-import MobileNavBar from "./MobileNavBar";
+import MobileNavBar from "../dashboard-ui/UI/MobileNavBar";
 
 const Dashboard = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);

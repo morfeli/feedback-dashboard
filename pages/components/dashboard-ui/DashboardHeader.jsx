@@ -1,4 +1,4 @@
-import MobileMenuBtn from "./MobileMenuBtn";
+import MobileMenuBtn from "../dashboard-ui/UI/MobileMenuBtn";
 
 const DashboardHeader = ({ isOpen, toggleMenu }) => {
   return (

@@ -1,8 +1,8 @@
 import classNames from "classnames";
 
 // components
-import DashboardCategories from "./DashboardCategories";
-import DashboardRoadmap from "./DashboardRoadmap";
+import DashboardCategories from "../DashboardCategories";
+import DashboardRoadmap from "../DashboardRoadmap";
 
 const MobileNavBar = ({ isOpen }) => {
   let mobileMenuClass;
