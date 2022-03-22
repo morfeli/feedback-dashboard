@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import SuggestionProvider from "./store/SuggestionProvider";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <SuggestionProvider>
+      <Component {...pageProps} />
+    </SuggestionProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
