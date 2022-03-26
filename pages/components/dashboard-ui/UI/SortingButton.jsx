@@ -19,10 +19,10 @@ const SortingButton = () => {
         className="bg-transparent"
         onChange={captureSortOption}
       >
-        <option value="Most Upvotes">Most Upvotes</option>
-        <option value="Least Upvotes">Least Upvotes</option>
-        <option value="Most Comments">Most Comments</option>
-        <option value="Least Comments">Least Comments</option>
+        <option value="Most_Upvotes">Most Upvotes</option>
+        <option value="Least_Upvotes">Least Upvotes</option>
+        <option value="Most_Comments">Most Comments</option>
+        <option value="Least_Comments">Least Comments</option>
       </select>
     </label>
   );
