@@ -1,26 +1,27 @@
 import SuggestionContext from "./suggestion-context";
 
-import { useReducer, useState, useCallback } from "react";
+import { useReducer, useCallback } from "react";
 
 const initalFeedbackState = {
-  currentOption: "Most_Upvotes",
   currentStatus: "suggestion",
+  currentOption: "Most_Upvotes",
 };
 
 const actionTypes = {
-  OPTION: "OPTION",
   STATUS: "STATUS",
+  OPTION: "OPTION",
 };
 
 const actions = {
-  option: (option) => ({ type: actionTypes.OPTION, option }),
   status: (status) => ({ type: actionTypes.STATUS, status }),
+  option: (option) => ({ type: actionTypes.OPTION, option }),
 };
 
 const reducerFN = (state, action) => {
   switch (action.type) {
     case actionTypes.OPTION: {
       let option = action.option;
+
       return {
         currentOption: option,
       };

@@ -30,3 +30,34 @@ export const extractFeedback = async (filePath) => {
   const data = JSON.parse(fileData);
   return data;
 };
+
+export function sortData(data, option) {
+  switch (option) {
+    case "Most_Upvotes": {
+      let sortedArray = data.sort(
+        (itemA, itemB) => itemB.upvotes - itemA.upvotes
+      );
+
+      return {
+        sortedArray,
+      };
+    }
+    case "Least_Upvotes": {
+      let sortedArray = data.sort(
+        (itemA, itemB) => itemA.upvotes - itemB.upvotes
+      );
+
+      return {
+        sortedArray,
+      };
+    }
+  }
+}
+
+export const filteredData = (data, status) => {
+  let filteredFeedback = data[0].productRequests.filter(
+    (item) => item.status === status
+  );
+
+  return filteredFeedback;
+};

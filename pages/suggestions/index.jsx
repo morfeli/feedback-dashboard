@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+import { useState } from "react";
 
 // components
 import Dashboard from "../components/dashboard-ui/Dashboard";
@@ -6,17 +7,22 @@ import SortingHeader from "../components/dashboard-ui/SortingHeader";
 import Suggestions from "../components/suggestions-page/Suggestions";
 
 // helper function
-import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 
-const SuggestionsPage = ({ session, dataArr }) => {
+const SuggestionsPage = ({ session }) => {
+  const [sortedArray, setSortedArray] = useState();
+
+  const updateSortedArray = (data) => {
+    setSortedArray(data);
+  };
+
   if (session) {
     return (
       <>
         <Dashboard />
 
-        <SortingHeader />
+        <SortingHeader sortArray={updateSortedArray} />
 
-        <Suggestions data={dataArr} />
+        <Suggestions sortedData={sortedArray} />
       </>
     );
   }
@@ -34,15 +40,9 @@ export const getServerSideProps = async (context) => {
         permanent: false,
       },
     };
-  } else {
-    const filePath = buildFeedbackPath();
-    const feedBackData = await extractFeedback(filePath);
-
-    const dataArr = [];
-    dataArr.push(feedBackData);
-
-    return {
-      props: { session, dataArr },
-    };
   }
+
+  return {
+    props: { session },
+  };
 };

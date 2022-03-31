@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
 const SuggestionContext = createContext({
-  currentOption: "Most Upvotes",
+  currentOption: "Most_Upvotes",
   currentStatus: "suggestion",
 
-  option: (value) => {},
-  status: (value) => {},
+  option: (option) => {},
+  status: (status) => {},
 });
 
 export default SuggestionContext;

@@ -1,30 +1,34 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useContext } from "react";
 import SuggestionContext from "../../../store/suggestion-context";
 
-const SortingButton = () => {
-  const suggestionCtx = useContext(SuggestionContext);
-
+const SortingButton = (props) => {
   const captureSortOption = (e) => {
-    suggestionCtx.option(e.target.value);
-    console.log(suggestionCtx.currentOption);
+    fetch("api/feedback/sort", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(e.target.value),
+    })
+      .then((res) => res.json())
+      .then((data) => props.sortArray(data))
+      .catch((err) => console.log(err));
   };
 
   return (
-    <label htmlFor="sortOptions" className="text-white">
-      Sort by:
-      <select
-        name="sortOptions"
-        id="sortOptions"
-        className="bg-transparent"
-        onChange={captureSortOption}
-      >
-        <option value="Most_Upvotes">Most Upvotes</option>
-        <option value="Least_Upvotes">Least Upvotes</option>
-        <option value="Most_Comments">Most Comments</option>
-        <option value="Least_Comments">Least Comments</option>
-      </select>
-    </label>
+    <>
+      <button onClick={captureSortOption} value="Most_Upvotes">
+        Most Upvotes
+      </button>
+      <button onClick={captureSortOption} value="Least_Upvotes">
+        Least Upvotes
+      </button>
+      <button onClick={captureSortOption} value="Most_Comments">
+        Most comments
+      </button>
+      <button onClick={captureSortOption} value="Least_Comments">
+        Least comments
+      </button>
+    </>
   );
 };
 
