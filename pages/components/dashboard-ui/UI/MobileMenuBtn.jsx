@@ -6,6 +6,7 @@ const MobileMenuBtn = ({ isOpen, toggleMenu }) => {
         width="30"
         height="17"
         onClick={toggleMenu}
+        className="hover:cursor-pointer"
       >
         <path
           fill="#FFF"
@@ -21,6 +22,7 @@ const MobileMenuBtn = ({ isOpen, toggleMenu }) => {
         width="30"
         height="17"
         onClick={toggleMenu}
+        className="hover:cursor-pointer"
       >
         <path
           fill="#FFF"

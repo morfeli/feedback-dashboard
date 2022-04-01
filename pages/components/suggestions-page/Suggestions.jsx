@@ -30,13 +30,15 @@ const Suggestions = ({ sortedData }) => {
 
             return (
               <li className="p-8 bg-white">
-                <h1 className="text-third-blue">{item.title}</h1>
+                <h1 className="text-third-blue font-jost-bold ">
+                  {item.title}
+                </h1>
                 <p className="py-2 text-first-blue">{item.description}</p>
-                <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray">
+                <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
                   {item.category}
                 </button>
                 <div className="flex justify-between pt-4">
-                  <button className="flex items-center p-2 capitalize text-second-blue rounded-xl bg-light-gray">
+                  <button className="flex items-center p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold">
                     <IconArrowSvg />
                     {item.upvotes}
                   </button>
