@@ -16,18 +16,13 @@ const SortingButton = (props) => {
 
   return (
     <>
-      <button onClick={captureSortOption} value="Most_Upvotes">
-        Most Upvotes
-      </button>
-      <button onClick={captureSortOption} value="Least_Upvotes">
-        Least Upvotes
-      </button>
-      <button onClick={captureSortOption} value="Most_Comments">
-        Most comments
-      </button>
-      <button onClick={captureSortOption} value="Least_Comments">
-        Least comments
-      </button>
+      <label htmlFor="sort">Sort by:</label>
+      <select name="sort" id="sort" onChange={captureSortOption}>
+        <option value="Most_Upvotes">Most Upvotes</option>
+        <option value="Least_Upvotes">Least Upvotes</option>
+        <option value="Most_Comments">Most Comments</option>
+        <option value="Least_Comments">Least Comments</option>
+      </select>
     </>
   );
 };
