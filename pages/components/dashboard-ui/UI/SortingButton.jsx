@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useContext } from "react";
-import SuggestionContext from "../../../store/suggestion-context";
 
 const SortingButton = (props) => {
   const captureSortOption = (e) => {

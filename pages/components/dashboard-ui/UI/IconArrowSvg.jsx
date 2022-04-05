@@ -4,9 +4,9 @@ export function IconArrowSvg() {
       <path
         d="M1 6l4-4 4 4"
         stroke="#4661E6"
-        stroke-width="2"
+        strokeWidth="2"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );

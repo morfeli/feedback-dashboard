@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+import Link from "next/link";
+
 import { IconArrowSvg } from "../dashboard-ui/UI/IconArrowSvg";
 import { CommentsSvg } from "../dashboard-ui/UI/CommentsSvg";
-import SuggestionContext from "../../store/suggestion-context";
 
 const Suggestions = ({ sortedData }) => {
   const [feedbacks, setFeedbacks] = useState();
@@ -17,37 +18,35 @@ const Suggestions = ({ sortedData }) => {
     setFeedbacks(sortedData);
   }, [sortedData]);
 
-  useEffect(() => {
-    console.log(feedbacks);
-  }, [feedbacks]);
-
   return (
     <>
-      <ul>
+      <ul className="space-y-4">
         {feedbacks ? (
           feedbacks.filterData.map((item, i) => {
             let comments = item.comments;
 
             return (
-              <li className="p-8 bg-white">
-                <h1 className="text-third-blue font-jost-bold ">
-                  {item.title}
-                </h1>
-                <p className="py-2 text-first-blue">{item.description}</p>
-                <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
-                  {item.category}
-                </button>
-                <div className="flex justify-between pt-4">
-                  <button className="flex items-center p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold">
-                    <IconArrowSvg />
-                    {item.upvotes}
+              <Link key={item.id} href={`suggestions/${item.id}`}>
+                <li key={item.id} className="p-4 mx-4 bg-white rounded-2xl">
+                  <h1 className="text-third-blue font-jost-bold ">
+                    {item.title}
+                  </h1>
+                  <p className="py-2 text-first-blue">{item.description}</p>
+                  <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
+                    {item.category}
                   </button>
-                  <button className="flex items-center">
-                    {" "}
-                    <CommentsSvg /> {comments ? comments.length : 0}
-                  </button>
-                </div>
-              </li>
+                  <div className="flex justify-between pt-4">
+                    <button className="flex items-center p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold">
+                      <IconArrowSvg />
+                      {item.upvotes}
+                    </button>
+                    <button className="flex items-center">
+                      {" "}
+                      <CommentsSvg /> {comments ? comments.length : 0}
+                    </button>
+                  </div>
+                </li>
+              </Link>
             );
           })
         ) : (
