@@ -1,5 +1,5 @@
 const SuggestionsComments = ({ item }) => {
-  return <h1>{totalComments}</h1>;
+  return <h1>{console.log(item)}</h1>;
 };
 
 export default SuggestionsComments;
