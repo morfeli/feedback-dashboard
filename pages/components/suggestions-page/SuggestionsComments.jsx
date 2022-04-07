@@ -1,10 +1,8 @@
-import { useState } from "react";
+import Comment from "./Comment";
 
 const SuggestionsComments = ({ item }) => {
   const comments = item.map((item) => item.comments);
 
-  const content = comments[0].map((item) => <li>{item.content}</li>);
-  console.log(content);
   const totalLength = item.map((item, i) => {
     let comments = item.comments;
     let repliesArr = comments ? comments.map((item) => item.replies) : null;
@@ -18,14 +16,25 @@ const SuggestionsComments = ({ item }) => {
   });
 
   return (
-    <section>
+    <section className="mx-4 mt-8 bg-white rounded-md">
       <div className="flex p-8">
-        <span>{totalLength}</span>
-        <h1 className="pl-2">Comments</h1>
+        <h1 className="font-jost-bold text-third-blue">
+          {totalLength} Comments
+        </h1>
       </div>
-      <ul>
-        {comments ? comments[0].map((item) => <li>{item.content}</li>) : null}
-      </ul>
+      <aside>
+        {comments
+          ? comments[0].map((item) => (
+              <Comment
+                key={item.id}
+                image={item.user.image}
+                name={item.user.name}
+                username={item.user.username}
+                content={item.content}
+              />
+            ))
+          : null}
+      </aside>
     </section>
   );
 };

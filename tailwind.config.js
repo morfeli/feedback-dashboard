@@ -29,6 +29,7 @@ module.exports = {
     inset: {
       "2000px": "2000px",
       "0px": "0px",
+      "35px": "35px",
     },
     transitionProperty: {
       right: "right",
