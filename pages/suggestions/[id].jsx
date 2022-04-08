@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 import { IconArrowSvg } from "../components/dashboard-ui/UI/IconArrowSvg";
@@ -6,6 +7,26 @@ import { CommentsSvg } from "../components/dashboard-ui/UI/CommentsSvg";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
+  const findLength = () => {
+    return item.map((item, i) => {
+      let comments = item.comments;
+
+      let commentsLength = comments ? comments.length : 0;
+
+      let replies = comments.filter((comment) => comment.replies);
+
+      let mappedReplies = replies.map((item) => item.replies);
+
+      let replyLength = mappedReplies[0] ? mappedReplies[0].length : 0;
+
+      let totalCommentsLength = commentsLength + replyLength;
+
+      return totalCommentsLength;
+    });
+  };
+
+  let length = findLength();
+
   const router = useRouter();
 
   const goBackHandler = () => {
@@ -25,9 +46,11 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
           let replies = comments.filter((comment) => comment.replies);
 
-          let repliesLength = replies[0].replies.length;
+          let mappedReplies = replies.map((item) => item.replies);
 
-          let totalCommentsLength = commentsLength + repliesLength;
+          let replyLength = mappedReplies[0] ? mappedReplies[0].length : 0;
+
+          let totalCommentsLength = commentsLength + replyLength;
 
           return (
             <li key={item.id} className="p-4 mx-4 bg-white rounded-2xl">
@@ -49,7 +72,7 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
           );
         })}
       </ul>
-      <SuggestionsComments item={item} />
+      <SuggestionsComments item={item} length={length} />
     </>
   );
 };

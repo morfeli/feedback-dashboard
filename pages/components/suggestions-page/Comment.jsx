@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import AddCommentForm from "./AddCommentForm";
+import Replies from "./Replies";
 
 const Comment = ({ image, name, username, content, replyArray }) => {
   const [reply, setReply] = useState(false);
@@ -10,7 +11,6 @@ const Comment = ({ image, name, username, content, replyArray }) => {
     setReply((current) => !current);
   };
 
-  console.log(replies);
   return (
     <div className="pt-2">
       <div className="flex items-center pl-8">
@@ -31,7 +31,15 @@ const Comment = ({ image, name, username, content, replyArray }) => {
       </div>
       <p className="p-4">{content}</p>
       {replies &&
-        replies.map((reply) => <li key={Math.random()}>{reply.content}</li>)}
+        replies.map((reply, i) => (
+          <Replies
+            key={i}
+            name={reply.user.name}
+            username={reply.user.username}
+            content={reply.content}
+            replyingTo={reply.replyingTo}
+          />
+        ))}
       {reply && <AddCommentForm username={username} />}
       <hr />
     </div>
