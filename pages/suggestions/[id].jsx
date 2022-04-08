@@ -1,22 +1,34 @@
+import { useRouter } from "next/router";
+
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 import { IconArrowSvg } from "../components/dashboard-ui/UI/IconArrowSvg";
 import { CommentsSvg } from "../components/dashboard-ui/UI/CommentsSvg";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
+  const router = useRouter();
+
+  const goBackHandler = () => {
+    router.back();
+  };
+
   return (
     <>
+      <div>
+        <button onClick={goBackHandler}>Go Back</button>
+      </div>
       <ul className="mt-8">
         {item.map((item, i) => {
           let comments = item.comments;
-          let repliesArr = comments
-            ? comments.map((item) => item.replies)
-            : null;
 
-          let totalCommentsLength;
-          if (comments && repliesArr) {
-            totalCommentsLength = comments.length + repliesArr.length;
-          }
+          let commentsLength = comments ? comments.length : 0;
+
+          let replies = comments.filter((comment) => comment.replies);
+
+          let repliesLength = replies[0].replies.length;
+
+          let totalCommentsLength = commentsLength + repliesLength;
+
           return (
             <li key={item.id} className="p-4 mx-4 bg-white rounded-2xl">
               <h1 className="text-third-blue font-jost-bold">{item.title}</h1>
