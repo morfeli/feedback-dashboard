@@ -132,34 +132,34 @@ export const filteredData = (data, status, category) => {
     (item) => item.status === status
   );
 
-  // switch (category) {
-  //   case "ui": {
-  //     filteredData = filteredData.filter((item) => item.category === "ui");
-  //     return filteredData;
-  //   }
-  //   case "ux": {
-  //     filteredData = filteredData.filter((item) => item.category === "ux");
-  //     return filteredData;
-  //   }
-  //   case "feature": {
-  //     filteredData = filteredData.filter((item) => item.category === "feature");
-  //     return filteredData;
-  //   }
-  //   case "enhancement": {
-  //     filteredData = filteredData.filter(
-  //       (item) => item.category === "enhancement"
-  //     );
-  //     return filteredData;
-  //   }
-  //   case "bug": {
-  //     filteredData = filteredData.filter((item) => item.category === "bug");
-  //     return filteredData;
-  //   }
+  switch (category) {
+    case "ui": {
+      filteredData = filteredData.filter((item) => item.category === "ui");
+      return filteredData;
+    }
+    case "ux": {
+      filteredData = filteredData.filter((item) => item.category === "ux");
+      return filteredData;
+    }
+    case "feature": {
+      filteredData = filteredData.filter((item) => item.category === "feature");
+      return filteredData;
+    }
+    case "enhancement": {
+      filteredData = filteredData.filter(
+        (item) => item.category === "enhancement"
+      );
+      return filteredData;
+    }
+    case "bug": {
+      filteredData = filteredData.filter((item) => item.category === "bug");
+      return filteredData;
+    }
 
-  //   case "all": {
-  //     return filteredData;
-  //   }
-  // }
+    case "all": {
+      return filteredData;
+    }
+  }
 
   return filteredData;
 };

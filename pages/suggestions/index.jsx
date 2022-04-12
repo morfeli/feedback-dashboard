@@ -16,6 +16,36 @@ const SuggestionsPage = ({ session, filterData }) => {
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
 
+  const filterDataByCategory = (category) => {
+    let filtered;
+    switch (category) {
+      case "ui": {
+        filtered = filterData.filter((item) => item.category === "ui");
+        console.log(filtered);
+      }
+      case "ux": {
+        filtered = filterData.filter((item) => item.category === "ux");
+        console.log(filtered);
+      }
+      case "feature": {
+        filtered = filterData.filter((item) => item.category === "feature");
+        console.log(filtered);
+      }
+      case "enhancement": {
+        filtered = filterData.filter((item) => item.category === "enhancement");
+        console.log(filtered);
+      }
+      case "bug": {
+        filtered = filterData.filter((item) => item.category === "bug");
+        console.log(filtered);
+      }
+
+      case "all": {
+        return console.log("testing");
+      }
+    }
+  };
+
   const renderSortedFeedback = (sort) => {
     switch (sort) {
       case "Most_Upvotes": {
@@ -103,18 +133,53 @@ const SuggestionsPage = ({ session, filterData }) => {
     }
   };
 
-  // useEffect(() => {
-  //   renderSortedFeedback(sort);
-  // }, [sort]);
+  // const filterDataByCategory = (category) => {
+  //   switch (category) {
+  //     case "ui": {
+  //       filteredData = filteredData.filter((item) => item.category === "ui");
+  //       return filteredData;
+  //     }
+  //     case "ux": {
+  //       filteredData = filteredData.filter((item) => item.category === "ux");
+  //       return filteredData;
+  //     }
+  //     case "feature": {
+  //       filteredData = filteredData.filter(
+  //         (item) => item.category === "feature"
+  //       );
+  //       return filteredData;
+  //     }
+  //     case "enhancement": {
+  //       filteredData = filteredData.filter(
+  //         (item) => item.category === "enhancement"
+  //       );
+  //       return filteredData;
+  //     }
+  //     case "bug": {
+  //       filteredData = filteredData.filter((item) => item.category === "bug");
+  //       return filteredData;
+  //     }
+
+  //     case "all": {
+  //       return filteredData;
+  //     }
+  //   }
+
+  //   return filteredData;
+  // };
 
   const updateSortedArray = (value) => {
     setSort(value);
   };
 
+  const updateCategory = (value) => {
+    setCategory(value);
+  };
+
   if (session) {
     return (
       <>
-        <Dashboard />
+        <Dashboard test={filterDataByCategory} category={updateCategory} />
 
         <SortingHeader
           sortArray={updateSortedArray}
@@ -122,7 +187,7 @@ const SuggestionsPage = ({ session, filterData }) => {
           data={filterData}
         />
 
-        <Suggestions data={filterData} sort={sort} />
+        <Suggestions data={filterData} />
       </>
     );
   }

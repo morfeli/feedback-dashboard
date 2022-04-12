@@ -9,6 +9,38 @@ import { CommentsSvg } from "../dashboard-ui/UI/CommentsSvg";
 const Suggestions = ({ data, sort }) => {
   const [feedbackState, setFeedbackState] = useState(data);
 
+  const filterData = (category) => {
+    let filtered;
+    switch (category) {
+      case "ui": {
+        filtered = data.filter((item) => item.category === "ui");
+        console.log(filtered);
+      }
+      case "ux": {
+        filtered = data.filter((item) => item.category === "ux");
+        console.log(filtered);
+      }
+      case "feature": {
+        filtered = data.filter((item) => item.category === "feature");
+        console.log(filtered);
+      }
+      case "enhancement": {
+        filtered = data.filter((item) => item.category === "enhancement");
+        console.log(filtered);
+      }
+      case "bug": {
+        filtered = data.filter((item) => item.category === "bug");
+        console.log(filtered);
+      }
+
+      case "all": {
+        return console.log("testing");
+      }
+    }
+  };
+
+  filterData();
+
   const renderFeedback = () => {
     return data.map((item) => {
       let comments = item.comments;

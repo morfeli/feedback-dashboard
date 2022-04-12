@@ -1,46 +1,52 @@
 import NavLinks from "../dashboard-ui/UI/NavLinks";
 
-const DashboardCategories = ({ categorySorting, toggleMenu }) => {
+const DashboardCategories = ({ category, toggleMenu, test }) => {
   return (
     <nav className="w-56 mx-auto">
       <ul className="flex flex-wrap items-center justify-between h-52">
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="all"
         >
           All
         </NavLinks>
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="ui"
         >
           UI
         </NavLinks>
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="ux"
         >
           UX
         </NavLinks>
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="enhancement"
         >
           Enhancement
         </NavLinks>
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="bug"
         >
           Bug
         </NavLinks>
         <NavLinks
-          categorySorting={categorySorting}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="feature"
         >

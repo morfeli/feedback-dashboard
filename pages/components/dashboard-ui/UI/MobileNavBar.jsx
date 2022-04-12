@@ -4,7 +4,7 @@ import classNames from "classnames";
 import DashboardCategories from "../DashboardCategories";
 import DashboardRoadmap from "../DashboardRoadmap";
 
-const MobileNavBar = ({ isOpen, categorySorting, toggleMenu }) => {
+const MobileNavBar = ({ isOpen, category, toggleMenu, test }) => {
   let mobileMenuClass;
 
   if (isOpen) {
@@ -20,8 +20,9 @@ const MobileNavBar = ({ isOpen, categorySorting, toggleMenu }) => {
   return (
     <div className={mobileMenuClass}>
       <DashboardCategories
-        categorySorting={categorySorting}
+        category={category}
         toggleMenu={toggleMenu}
+        test={test}
       />
       <DashboardRoadmap />
     </div>

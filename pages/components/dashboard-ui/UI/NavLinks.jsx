@@ -1,14 +1,7 @@
-const NavLinks = ({ children, value, categorySorting, toggle }) => {
+const NavLinks = ({ children, value, category, toggle, test }) => {
   const captureSortOption = (e) => {
-    fetch("api/feedback/sort", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(e.target.value),
-    })
-      .then((res) => res.json())
-      .then((data) => categorySorting(data))
-      .catch((err) => console.log(err));
-
+    category(e.target.value);
+    test(e.target.value);
     toggle();
   };
 
