@@ -1,18 +1,114 @@
 import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // components
 import Dashboard from "../components/dashboard-ui/Dashboard";
 import SortingHeader from "../components/dashboard-ui/SortingHeader";
 import Suggestions from "../components/suggestions-page/Suggestions";
 
-// helper function
+import {
+  buildFeedbackPath,
+  extractFeedback,
+  filteredData,
+} from "../helper/HelperFunctions";
 
-const SuggestionsPage = ({ session }) => {
-  const [sortedArray, setSortedArray] = useState();
+const SuggestionsPage = ({ session, filterData }) => {
+  const [sort, setSort] = useState("Most_Upvotes");
+  const [category, setCategory] = useState("all");
 
-  const updateSortedArray = (data) => {
-    setSortedArray(data);
+  const renderSortedFeedback = (sort) => {
+    switch (sort) {
+      case "Most_Upvotes": {
+        let sortedArray = filterData.sort(
+          (itemA, itemB) => itemB.upvotes - itemA.upvotes
+        );
+
+        return {
+          sortedArray,
+        };
+      }
+      case "Least_Upvotes": {
+        let sortedArray = filterData.sort(
+          (itemA, itemB) => itemA.upvotes - itemB.upvotes
+        );
+
+        return {
+          sortedArray,
+        };
+      }
+      case "Most_Comments": {
+        let sortedArray = filterData.sort((a, b) => {
+          const commentsA = a.comments ? a.comments.length : 0;
+          const commentsB = b.comments ? b.comments.length : 0;
+
+          const repliesA = a.comments ? a.comments : [];
+          const filteredRepliesA = repliesA.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
+
+          const repliesB = b.comments ? b.comments : [];
+          const filteredRepliesB = repliesB.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
+
+          const repliesLengthA = filteredRepliesA[0]
+            ? filteredRepliesA[0].replies.length
+            : 0;
+          const repliesLengthB = filteredRepliesB[0]
+            ? filteredRepliesB[0].replies.length
+            : 0;
+
+          const A = commentsA + repliesLengthA;
+          const B = commentsB + repliesLengthB;
+
+          return B - A;
+        });
+
+        return {
+          sortedArray,
+        };
+      }
+
+      case "Least_Comments": {
+        let sortedArray = filterData.sort((a, b) => {
+          const commentsA = a.comments ? a.comments.length : 0;
+          const commentsB = b.comments ? b.comments.length : 0;
+
+          const repliesA = a.comments ? a.comments : [];
+          const filteredRepliesA = repliesA.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
+
+          const repliesB = b.comments ? b.comments : [];
+          const filteredRepliesB = repliesB.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
+
+          const repliesLengthA = filteredRepliesA[0]
+            ? filteredRepliesA[0].replies.length
+            : 0;
+          const repliesLengthB = filteredRepliesB[0]
+            ? filteredRepliesB[0].replies.length
+            : 0;
+
+          const A = commentsA + repliesLengthA;
+          const B = commentsB + repliesLengthB;
+
+          return A - B;
+        });
+        return {
+          sortedArray,
+        };
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   renderSortedFeedback(sort);
+  // }, [sort]);
+
+  const updateSortedArray = (value) => {
+    setSort(value);
   };
 
   if (session) {
@@ -20,9 +116,13 @@ const SuggestionsPage = ({ session }) => {
       <>
         <Dashboard />
 
-        <SortingHeader sortArray={updateSortedArray} />
+        <SortingHeader
+          sortArray={updateSortedArray}
+          test={renderSortedFeedback}
+          data={filterData}
+        />
 
-        <Suggestions sortedData={sortedArray} />
+        <Suggestions data={filterData} sort={sort} />
       </>
     );
   }
@@ -40,9 +140,14 @@ export const getServerSideProps = async (context) => {
         permanent: false,
       },
     };
-  }
+  } else {
+    let filePath = buildFeedbackPath();
+    let data = await extractFeedback(filePath);
 
-  return {
-    props: { session },
-  };
+    let filterData = filteredData(data, "suggestion");
+
+    return {
+      props: { session, filterData },
+    };
+  }
 };

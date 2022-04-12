@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -19,9 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "src/*"
-      ]
+      "~/*": ["src/*"]
     },
     "incremental": true
   },
@@ -30,9 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/Header/Header.jsx",
-    "pages/api/HelperFunctions.jsx"
+    "pages/api/HelperFunctions.jsx",
+    "pages/components/suggestions-page/AddCommentForm.jsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import AddCommentForm from "./AddCommentForm";
 import Replies from "./Replies";
 
 const Comment = ({ image, name, username, content, replyArray }) => {
   const [reply, setReply] = useState(false);
-  const [replies, setReplies] = useState(replyArray);
+  const [repliedComments, setRepliedComments] = useState([]);
 
   const toggleReply = () => {
     setReply((current) => !current);
+  };
+
+  const postComment = (value) => {
+    setRepliedComments(value);
   };
 
   return (
@@ -30,8 +34,11 @@ const Comment = ({ image, name, username, content, replyArray }) => {
         </h1>
       </div>
       <p className="p-4">{content}</p>
-      {replies &&
-        replies.map((reply, i) => (
+      {repliedComments &&
+        repliedComments.map((item) => <li>{item.message}</li>)}
+
+      {replyArray &&
+        replyArray.map((reply, i) => (
           <Replies
             key={i}
             name={reply.user.name}
@@ -40,7 +47,13 @@ const Comment = ({ image, name, username, content, replyArray }) => {
             replyingTo={reply.replyingTo}
           />
         ))}
-      {reply && <AddCommentForm username={username} />}
+      {reply && (
+        <AddCommentForm
+          username={username}
+          postComment={postComment}
+          toggleReply={toggleReply}
+        />
+      )}
       <hr />
     </div>
   );

@@ -31,6 +31,14 @@ export const extractFeedback = async (filePath) => {
   return data;
 };
 
+export function sortCategory(data, category) {
+  if (category === "all") {
+    return data;
+  } else {
+    return data.filter((item) => item.category === category);
+  }
+}
+
 export function sortData(data, option) {
   switch (option) {
     case "Most_Upvotes": {
@@ -119,10 +127,39 @@ export function sortData(data, option) {
   }
 }
 
-export const filteredData = (data, status) => {
-  let filteredFeedback = data[0].productRequests.filter(
+export const filteredData = (data, status, category) => {
+  let filteredData = data.productRequests.filter(
     (item) => item.status === status
   );
 
-  return filteredFeedback;
+  // switch (category) {
+  //   case "ui": {
+  //     filteredData = filteredData.filter((item) => item.category === "ui");
+  //     return filteredData;
+  //   }
+  //   case "ux": {
+  //     filteredData = filteredData.filter((item) => item.category === "ux");
+  //     return filteredData;
+  //   }
+  //   case "feature": {
+  //     filteredData = filteredData.filter((item) => item.category === "feature");
+  //     return filteredData;
+  //   }
+  //   case "enhancement": {
+  //     filteredData = filteredData.filter(
+  //       (item) => item.category === "enhancement"
+  //     );
+  //     return filteredData;
+  //   }
+  //   case "bug": {
+  //     filteredData = filteredData.filter((item) => item.category === "bug");
+  //     return filteredData;
+  //   }
+
+  //   case "all": {
+  //     return filteredData;
+  //   }
+  // }
+
+  return filteredData;
 };

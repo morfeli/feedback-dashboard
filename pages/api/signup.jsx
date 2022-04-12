@@ -2,11 +2,11 @@
 
 import { hashedPassword, connectToDatabase } from "../helper/HelperFunctions";
 
-const isEmpty = (value: string) => value.trim() === "";
+const isEmpty = (value) => value.trim() === "";
 
-const isTenChars = (value: string) => value.trim().length >= 10;
+const isTenChars = (value) => value.trim().length >= 10;
 
-const emailValidation = (value: string) => {
+const emailValidation = (value) => {
   const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
   if (value.match(pattern)) {

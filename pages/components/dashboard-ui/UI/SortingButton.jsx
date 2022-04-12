@@ -1,15 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-
 const SortingButton = (props) => {
   const captureSortOption = (e) => {
-    fetch("api/feedback/sort", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(e.target.value),
-    })
-      .then((res) => res.json())
-      .then((data) => props.sortArray(data))
-      .catch((err) => console.log(err));
+    props.sortArray(e.target.value);
+    props.test(e.target.value);
   };
 
   return (
