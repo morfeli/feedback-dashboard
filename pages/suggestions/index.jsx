@@ -15,41 +15,31 @@ import {
 const SuggestionsPage = ({ session, filterData }) => {
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
+  const [filter, setFilter] = useState();
 
   const filterDataByCategory = (category) => {
-    let filtered;
-    switch (category) {
-      case "ui": {
-        filtered = filterData.filter((item) => item.category === "ui");
-        console.log(filtered);
-      }
-      case "ux": {
-        filtered = filterData.filter((item) => item.category === "ux");
-        console.log(filtered);
-      }
-      case "feature": {
-        filtered = filterData.filter((item) => item.category === "feature");
-        console.log(filtered);
-      }
-      case "enhancement": {
-        filtered = filterData.filter((item) => item.category === "enhancement");
-        console.log(filtered);
-      }
-      case "bug": {
-        filtered = filterData.filter((item) => item.category === "bug");
-        console.log(filtered);
-      }
-
-      case "all": {
-        return console.log("testing");
-      }
+    if (category === "all") {
+      let filteredFeedbacks = filterData;
+      setFilter(filteredFeedbacks);
+    } else {
+      let filteredFeedbacks = filterData.filter(
+        (item) => item.category === category
+      );
+      setFilter(filteredFeedbacks);
     }
   };
 
   const renderSortedFeedback = (sort) => {
+    let arr;
+    if (filter) {
+      arr = filter;
+    } else {
+      arr = filterData;
+    }
+
     switch (sort) {
       case "Most_Upvotes": {
-        let sortedArray = filterData.sort(
+        let sortedArray = arr.sort(
           (itemA, itemB) => itemB.upvotes - itemA.upvotes
         );
 
@@ -58,7 +48,7 @@ const SuggestionsPage = ({ session, filterData }) => {
         };
       }
       case "Least_Upvotes": {
-        let sortedArray = filterData.sort(
+        let sortedArray = arr.sort(
           (itemA, itemB) => itemA.upvotes - itemB.upvotes
         );
 
@@ -67,7 +57,7 @@ const SuggestionsPage = ({ session, filterData }) => {
         };
       }
       case "Most_Comments": {
-        let sortedArray = filterData.sort((a, b) => {
+        let sortedArray = arr.sort((a, b) => {
           const commentsA = a.comments ? a.comments.length : 0;
           const commentsB = b.comments ? b.comments.length : 0;
 
@@ -100,7 +90,7 @@ const SuggestionsPage = ({ session, filterData }) => {
       }
 
       case "Least_Comments": {
-        let sortedArray = filterData.sort((a, b) => {
+        let sortedArray = arr.sort((a, b) => {
           const commentsA = a.comments ? a.comments.length : 0;
           const commentsB = b.comments ? b.comments.length : 0;
 
@@ -133,40 +123,9 @@ const SuggestionsPage = ({ session, filterData }) => {
     }
   };
 
-  // const filterDataByCategory = (category) => {
-  //   switch (category) {
-  //     case "ui": {
-  //       filteredData = filteredData.filter((item) => item.category === "ui");
-  //       return filteredData;
-  //     }
-  //     case "ux": {
-  //       filteredData = filteredData.filter((item) => item.category === "ux");
-  //       return filteredData;
-  //     }
-  //     case "feature": {
-  //       filteredData = filteredData.filter(
-  //         (item) => item.category === "feature"
-  //       );
-  //       return filteredData;
-  //     }
-  //     case "enhancement": {
-  //       filteredData = filteredData.filter(
-  //         (item) => item.category === "enhancement"
-  //       );
-  //       return filteredData;
-  //     }
-  //     case "bug": {
-  //       filteredData = filteredData.filter((item) => item.category === "bug");
-  //       return filteredData;
-  //     }
-
-  //     case "all": {
-  //       return filteredData;
-  //     }
-  //   }
-
-  //   return filteredData;
-  // };
+  useEffect(() => {
+    renderSortedFeedback();
+  }, [sort, filter]);
 
   const updateSortedArray = (value) => {
     setSort(value);
@@ -187,7 +146,7 @@ const SuggestionsPage = ({ session, filterData }) => {
           data={filterData}
         />
 
-        <Suggestions data={filterData} />
+        <Suggestions data={filterData} sort={sort} filter={filter} />
       </>
     );
   }

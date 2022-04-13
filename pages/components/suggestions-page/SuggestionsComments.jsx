@@ -1,3 +1,4 @@
+import AddCommentForm from "./AddCommentForm";
 import Comment from "./Comment";
 
 const SuggestionsComments = ({ item, length }) => {
@@ -23,6 +24,7 @@ const SuggestionsComments = ({ item, length }) => {
             ))
           : null}
       </aside>
+      <AddCommentForm />
     </section>
   );
 };

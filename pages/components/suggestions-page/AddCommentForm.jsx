@@ -41,7 +41,9 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
       <textarea
         className="pb-8"
         id="comment"
-        placeholder={`Reply to @${username}...`}
+        placeholder={
+          username ? `Reply to @${username}` : "Type your comment here"
+        }
         type="text"
         ref={textAreaRef}
       />
