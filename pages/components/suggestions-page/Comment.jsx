@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import AddCommentForm from "./AddCommentForm";
+import PostedComment from "./PostedComment";
 import Replies from "./Replies";
 
 const Comment = ({ image, name, username, content, replyArray }) => {
@@ -11,8 +12,8 @@ const Comment = ({ image, name, username, content, replyArray }) => {
     setReply((current) => !current);
   };
 
-  const postComment = (value) => {
-    setRepliedComments(value);
+  const postComment = (data) => {
+    setRepliedComments((current) => [...current, data]);
   };
 
   return (
@@ -34,8 +35,18 @@ const Comment = ({ image, name, username, content, replyArray }) => {
         </h1>
       </div>
       <p className="p-4">{content}</p>
+
       {repliedComments &&
-        repliedComments.map((item) => <li>{item.message}</li>)}
+        repliedComments.map((item, i) => (
+          <PostedComment
+            key={i}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            message={item.message}
+            username={item.username}
+            replyingTo={item.replyingTo}
+          />
+        ))}
 
       {replyArray &&
         replyArray.map((reply, i) => (
@@ -47,6 +58,7 @@ const Comment = ({ image, name, username, content, replyArray }) => {
             replyingTo={reply.replyingTo}
           />
         ))}
+
       {reply && (
         <AddCommentForm
           username={username}
@@ -54,6 +66,7 @@ const Comment = ({ image, name, username, content, replyArray }) => {
           toggleReply={toggleReply}
         />
       )}
+
       <hr />
     </div>
   );

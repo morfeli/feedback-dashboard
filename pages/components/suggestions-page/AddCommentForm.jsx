@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 const isEmpty = (value) => value.trim() === "";
 
@@ -6,6 +7,15 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
   const [formValidity, setFormValidity] = useState({
     comment: true,
   });
+
+  const [userData, setUserData] = useState();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setUserData([session.user.email]);
+    }
+  }, [status, session]);
 
   const textAreaRef = useRef();
 
@@ -26,8 +36,18 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
       return;
     }
 
-    postComment({ message: enteredText });
-    toggleReply();
+    let postedComment = {
+      message: enteredText,
+      firstName: userData[0].firstName,
+      lastName: userData[0].lastName,
+      username: userData[0].userName,
+      replyingTo: username ? username : null,
+    };
+
+    postComment(postedComment);
+    toggleReply ? toggleReply() : null;
+
+    textAreaRef.current.value = "";
   };
 
   return (

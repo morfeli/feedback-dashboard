@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+
 import { useState, useEffect } from "react";
 
 // components
@@ -169,6 +170,8 @@ export const getServerSideProps = async (context) => {
     let data = await extractFeedback(filePath);
 
     let filterData = filteredData(data, "suggestion");
+
+    console.log(session.user);
 
     return {
       props: { session, filterData },

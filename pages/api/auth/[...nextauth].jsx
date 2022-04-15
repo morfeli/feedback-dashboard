@@ -16,7 +16,18 @@ export default NextAuth({
 
         const userCollection = client.db().collection("users");
 
-        const user = await userCollection.findOne({ email: credentials.email });
+        const user = await userCollection.findOne({
+          email: credentials.email,
+        });
+
+        const userInfo = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          userName: user.userName,
+        };
+
+        // console.log(userInfo);
 
         if (!user) {
           client.close();
@@ -36,10 +47,28 @@ export default NextAuth({
         }
 
         client.close();
-        return {
-          email: user.email,
-        };
+
+        if (user) {
+          return {
+            email: userInfo,
+          };
+        } else {
+          return null;
+        }
       },
     }),
   ],
+  // callbacks: {
+  //   jwt: async ({ token, user }) => {
+  //     if (user) {
+  //       token = user;
+  //     }
+  //     return token;
+  //   },
+  // },
+  // session: async ({ session, token }) => {
+  //   console.log(token);
+  //   session = token;
+  //   return session;
+  // },
 });

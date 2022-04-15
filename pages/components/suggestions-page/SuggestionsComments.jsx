@@ -1,7 +1,16 @@
 import AddCommentForm from "./AddCommentForm";
 import Comment from "./Comment";
 
+import { useEffect, useState } from "react";
+import PostedComment from "./PostedComment";
+
 const SuggestionsComments = ({ item, length }) => {
+  const [postedComment, setPostedComment] = useState([]);
+
+  const postComment = (data) => {
+    setPostedComment((current) => [...current, data]);
+  };
+
   const comments = item.map((item) => item.comments);
 
   return (
@@ -24,7 +33,21 @@ const SuggestionsComments = ({ item, length }) => {
             ))
           : null}
       </aside>
-      <AddCommentForm />
+
+      <div>
+        {postedComment
+          ? postedComment.map((item, i) => (
+              <PostedComment
+                key={i}
+                firstName={item.firstName}
+                lastName={item.lastName}
+                message={item.message}
+                username={item.username}
+              />
+            ))
+          : null}
+      </div>
+      <AddCommentForm postComment={postComment} />
     </section>
   );
 };
