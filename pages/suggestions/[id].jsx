@@ -6,6 +6,7 @@ import { IconArrowSvg } from "../components/dashboard-ui/UI/IconArrowSvg";
 import { CommentsSvg } from "../components/dashboard-ui/UI/CommentsSvg";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 import LeftArrowSVG from "../components/dashboard-ui/UI/LeftArrowSvg";
+import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
   const findLength = () => {
@@ -36,15 +37,7 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
   return (
     <>
-      <div className="pt-8 pl-8">
-        <button
-          onClick={goBackHandler}
-          className="flex items-center justify-between w-20"
-        >
-          <LeftArrowSVG />
-          Go Back
-        </button>
-      </div>
+      <GoBackBtn />
 
       <ul className="mt-8">
         {item.map((item, i) => {

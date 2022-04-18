@@ -59,7 +59,7 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
         Add Comment
       </label>
       <textarea
-        className="pb-8"
+        className="p-2"
         id="comment"
         placeholder={
           username ? `Reply to @${username}` : "Type your comment here"
@@ -68,7 +68,7 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
         ref={textAreaRef}
       />
       <button
-        className="self-end p-2 mt-4 text-white rounded-lg bg-button-pink"
+        className="self-end py-2 px-4 mt-4 text-white rounded-lg bg-button-pink"
         type="submit"
       >
         Post Comment
