@@ -171,8 +171,6 @@ export const getServerSideProps = async (context) => {
 
     let filterData = filteredData(data, "suggestion");
 
-    console.log(session.user);
-
     return {
       props: { session, filterData },
     };

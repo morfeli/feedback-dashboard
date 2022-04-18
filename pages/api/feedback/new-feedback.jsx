@@ -35,10 +35,10 @@ export default async function newFeedbackHandler(req, res) {
 
     const data = await extractFeedback(filePath);
 
-    data.push(newFeedback);
+    data.productRequests.push(newFeedback);
 
     console.log(data);
 
-    // console.log(test);
+    fs.writeFile(filePath, JSON.stringify(data));
   }
 }

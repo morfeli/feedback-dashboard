@@ -1,30 +1,33 @@
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
 
 const NewFeedback = () => {
+  const router = useRouter();
   const titleRef = useRef();
   const messageRef = useRef();
   const categoryRef = useRef();
 
-  const sendFeedback = async (value) => {
-    try {
-      const response = await fetch("/api/feedback/new-feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(value),
-      });
+  // const sendFeedback = async (value) => {
+  //   try {
+  //     const response = await fetch("/api/feedback/new-feedback", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(value),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Error, try again!");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Error, try again!");
+  //     }
 
-      const data = await response.json();
-    } catch (error) {
-      console.log(error.message || "There was an error!");
-    }
-  };
+  //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error.message || "There was an error!");
+  //   }
+  // };
 
   const onSubmitNewFeedback = async (e) => {
     e.preventDefault();
@@ -39,24 +42,29 @@ const NewFeedback = () => {
       category: enteredCategory,
     };
 
-    await sendFeedback(feedbackData);
+    fetch("/api/feedback/new-feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackData),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    router.replace("/suggestions");
   };
 
   return (
     <>
       <GoBackBtn />
-      <section
-        className="flex flex-col bg-white p-4 m-8"
-        onSubmit={onSubmitNewFeedback}
-      >
+      <section className="flex flex-col p-4 m-8 bg-white">
         <div className="absolute top-60px">
           <NewFeedbackSvg />
         </div>
-        <h1 className="pt-8 font-jost-bold text-third-blue text-lg">
+        <h1 className="pt-8 text-lg font-jost-bold text-third-blue">
           Create New Feedback
         </h1>
 
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={onSubmitNewFeedback}>
           <label htmlFor="title" className="py-8">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
@@ -67,7 +75,7 @@ const NewFeedback = () => {
             type="text"
             id="title"
             name="title"
-            className="self-center bg-light-gray px-8 w-64 h-11	"
+            className="self-center w-64 px-8 bg-light-gray h-11 "
             ref={titleRef}
           />
 
@@ -78,7 +86,7 @@ const NewFeedback = () => {
           <select
             name="category"
             id="category"
-            className="self-center bg-light-gray px-2 w-64 h-11"
+            className="self-center w-64 px-2 bg-light-gray h-11"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>
@@ -100,17 +108,17 @@ const NewFeedback = () => {
             name="message"
             rows="5"
             cols="33"
-            className="self-center bg-light-gray w-64 mb-4 px-2 py-2"
+            className="self-center w-64 px-2 py-2 mb-4 bg-light-gray"
             ref={messageRef}
           ></textarea>
 
           <button
             type="submit"
-            className="bg-button-pink text-white rounded-lg py-1 my-2"
+            className="py-1 my-2 text-white rounded-lg bg-button-pink"
           >
             Add Feedback
           </button>
-          <button className="bg-first-blue rounded-lg py-1 my-2 text-white">
+          <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
             Cancel
           </button>
         </form>

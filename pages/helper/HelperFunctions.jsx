@@ -25,6 +25,10 @@ export function buildFeedbackPath() {
   return path.join(process.cwd(), "public", "data", "data.json");
 }
 
+export function buildNewFeedbackPath() {
+  return path.join(process.cwd(), "public", "data", "data.json");
+}
+
 export const extractFeedback = async (filePath) => {
   const fileData = await fs.readFile(filePath);
   const data = JSON.parse(fileData);

@@ -1,11 +1,8 @@
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 import { IconArrowSvg } from "../components/dashboard-ui/UI/IconArrowSvg";
 import { CommentsSvg } from "../components/dashboard-ui/UI/CommentsSvg";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
-import LeftArrowSVG from "../components/dashboard-ui/UI/LeftArrowSvg";
+
 import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
@@ -28,12 +25,6 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
   };
 
   let length = findLength();
-
-  const router = useRouter();
-
-  const goBackHandler = () => {
-    router.back();
-  };
 
   return (
     <>
