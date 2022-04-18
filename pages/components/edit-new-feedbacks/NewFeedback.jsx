@@ -1,11 +1,54 @@
+import { useState, useRef, useEffect } from "react";
+
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
 
 const NewFeedback = () => {
+  const titleRef = useRef();
+  const messageRef = useRef();
+  const categoryRef = useRef();
+
+  const sendFeedback = async (value) => {
+    try {
+      const response = await fetch("/api/feedback/new-feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(value),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error, try again!");
+      }
+
+      const data = await response.json();
+    } catch (error) {
+      console.log(error.message || "There was an error!");
+    }
+  };
+
+  const onSubmitNewFeedback = async (e) => {
+    e.preventDefault();
+
+    const enteredTitle = titleRef.current.value;
+    const enteredMessage = messageRef.current.value;
+    const enteredCategory = categoryRef.current.value;
+
+    const feedbackData = {
+      title: enteredTitle,
+      message: enteredMessage,
+      category: enteredCategory,
+    };
+
+    await sendFeedback(feedbackData);
+  };
+
   return (
     <>
       <GoBackBtn />
-      <section className="flex flex-col bg-white p-4 m-8">
+      <section
+        className="flex flex-col bg-white p-4 m-8"
+        onSubmit={onSubmitNewFeedback}
+      >
         <div className="absolute top-60px">
           <NewFeedbackSvg />
         </div>
@@ -25,6 +68,7 @@ const NewFeedback = () => {
             id="title"
             name="title"
             className="self-center bg-light-gray px-8 w-64 h-11	"
+            ref={titleRef}
           />
 
           <label htmlFor="category" className="py-8">
@@ -35,12 +79,13 @@ const NewFeedback = () => {
             name="category"
             id="category"
             className="self-center bg-light-gray px-2 w-64 h-11"
+            ref={categoryRef}
           >
-            <option value="Feature">Feature</option>
-            <option value="UI">UI</option>
-            <option value="UX">UX</option>
-            <option value="Enhancement">Enhancement</option>
-            <option value="Bug">Bug</option>
+            <option value="feature">Feature</option>
+            <option value="ui">UI</option>
+            <option value="ux">UX</option>
+            <option value="enhancement">Enhancement</option>
+            <option value="bug">Bug</option>
           </select>
 
           <label htmlFor="message" className="py-8">
@@ -56,6 +101,7 @@ const NewFeedback = () => {
             rows="5"
             cols="33"
             className="self-center bg-light-gray w-64 mb-4 px-2 py-2"
+            ref={messageRef}
           ></textarea>
 
           <button
