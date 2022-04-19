@@ -4,6 +4,7 @@ import { CommentsSvg } from "../components/dashboard-ui/UI/CommentsSvg";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 
 import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
+import EditFeedbackBtn from "../components/dashboard-ui/UI/EditFeedbackBtn";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
   const findLength = () => {
@@ -28,7 +29,11 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
   return (
     <>
-      <GoBackBtn />
+      <div className="flex items-baseline justify-between">
+        <GoBackBtn />
+
+        <EditFeedbackBtn item={item} />
+      </div>
 
       <ul className="mt-8">
         {item.map((item, i) => {

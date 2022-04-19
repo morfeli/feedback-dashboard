@@ -22,7 +22,7 @@ export default async function newFeedbackHandler(req, res) {
     }
 
     const newFeedback = {
-      id: Math.random(),
+      id: 1,
       title: enteredTitle,
       category: enteredCategory,
       upvotes: 0,
@@ -35,9 +35,8 @@ export default async function newFeedbackHandler(req, res) {
 
     const data = await extractFeedback(filePath);
 
+    data.productRequests.forEach((item) => item.id++);
     data.productRequests.push(newFeedback);
-
-    console.log(data);
 
     fs.writeFile(filePath, JSON.stringify(data));
   }

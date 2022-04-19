@@ -2,50 +2,55 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
-import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
+import EditFeedbackSVG from "../dashboard-ui/UI/EditFeedbackSvg";
 
-const NewFeedback = () => {
+const EditFeedback = ({ item }) => {
+  let title = item[0].title;
+  let description = item[0].description;
+
   const router = useRouter();
+
   const titleRef = useRef();
   const messageRef = useRef();
   const categoryRef = useRef();
+  const statusRef = useRef();
 
-  const onSubmitNewFeedback = async (e) => {
-    e.preventDefault();
+  //   const onSubmitNewFeedback = async (e) => {
+  //     e.preventDefault();
 
-    const enteredTitle = titleRef.current.value;
-    const enteredMessage = messageRef.current.value;
-    const enteredCategory = categoryRef.current.value;
+  //     const enteredTitle = titleRef.current.value;
+  //     const enteredMessage = messageRef.current.value;
+  //     const enteredCategory = categoryRef.current.value;
 
-    const feedbackData = {
-      title: enteredTitle,
-      message: enteredMessage,
-      category: enteredCategory,
-    };
+  //     const feedbackData = {
+  //       title: enteredTitle,
+  //       message: enteredMessage,
+  //       category: enteredCategory,
+  //     };
 
-    fetch("/api/feedback/new-feedback", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(feedbackData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  //     fetch("/api/feedback/new-feedback", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(feedbackData),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => console.log(data));
 
-    router.push("/suggestions");
-  };
+  //     router.push("/suggestions");
+  //   };
 
   return (
     <>
       <GoBackBtn />
-      <section className="flex flex-col p-4 m-8 bg-white">
+      <section className="flex flex-col p-4 m-8 bg-white rounded-md">
         <div className="absolute top-60px">
-          <NewFeedbackSvg />
+          <EditFeedbackSVG />
         </div>
         <h1 className="pt-8 text-lg font-jost-bold text-third-blue">
-          Create New Feedback
+          Editing '{title}'
         </h1>
 
-        <form className="flex flex-col" onSubmit={onSubmitNewFeedback}>
+        <form className="flex flex-col">
           <label htmlFor="title" className="py-8">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
@@ -56,8 +61,9 @@ const NewFeedback = () => {
             type="text"
             id="title"
             name="title"
-            className="self-center w-64 px-8 bg-light-gray h-11 "
+            className="self-center w-64 pl-2 bg-light-gray h-11 "
             ref={titleRef}
+            placeholder={title}
           />
 
           <label htmlFor="category" className="py-8">
@@ -77,6 +83,23 @@ const NewFeedback = () => {
             <option value="bug">Bug</option>
           </select>
 
+          <label htmlFor="category" className="py-8">
+            <h2 className="pb-2 font-jost-bold text-third-blue">
+              Update Status
+            </h2>
+            Change feature state
+          </label>
+          <select
+            name="category"
+            id="category"
+            className="self-center w-64 px-2 bg-light-gray h-11"
+            ref={statusRef}
+          >
+            <option value="planned">Planned</option>
+            <option value="in-progress">In-progress</option>
+            <option value="live">Live</option>
+          </select>
+
           <label htmlFor="message" className="py-8">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Detail
@@ -91,16 +114,20 @@ const NewFeedback = () => {
             cols="33"
             className="self-center w-64 px-2 py-2 mb-4 bg-light-gray"
             ref={messageRef}
+            placeholder={description}
           ></textarea>
 
           <button
             type="submit"
             className="py-1 my-2 text-white rounded-lg bg-button-pink"
           >
-            Add Feedback
+            Save Changes
           </button>
           <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
             Cancel
+          </button>
+          <button className="py-1 my-2 text-white bg-red-600 rounded-lg">
+            Delete
           </button>
         </form>
       </section>
@@ -108,4 +135,4 @@ const NewFeedback = () => {
   );
 };
 
-export default NewFeedback;
+export default EditFeedback;
