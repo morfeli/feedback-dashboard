@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import EditFeedbackSVG from "../dashboard-ui/UI/EditFeedbackSvg";
 
 const EditFeedback = ({ item }) => {
   let title = item[0].title;
+  let id = item[0].id;
+  let enteredID = item[0].id;
   let description = item[0].description;
 
   const router = useRouter();
@@ -15,29 +18,32 @@ const EditFeedback = ({ item }) => {
   const categoryRef = useRef();
   const statusRef = useRef();
 
-  //   const onSubmitNewFeedback = async (e) => {
-  //     e.preventDefault();
+  const onSubmitEditFeedback = async (e) => {
+    e.preventDefault();
 
-  //     const enteredTitle = titleRef.current.value;
-  //     const enteredMessage = messageRef.current.value;
-  //     const enteredCategory = categoryRef.current.value;
+    const enteredTitle = titleRef.current.value;
+    const enteredMessage = messageRef.current.value;
+    const enteredCategory = categoryRef.current.value;
+    const enteredStatus = statusRef.current.value;
 
-  //     const feedbackData = {
-  //       title: enteredTitle,
-  //       message: enteredMessage,
-  //       category: enteredCategory,
-  //     };
+    const editFeedbackData = {
+      id: enteredID,
+      title: enteredTitle,
+      message: enteredMessage,
+      category: enteredCategory,
+      status: enteredStatus,
+    };
 
-  //     fetch("/api/feedback/new-feedback", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(feedbackData),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => console.log(data));
+    fetch("/api/feedback/edit-feedback", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editFeedbackData),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
 
-  //     router.push("/suggestions");
-  //   };
+    // router.push("/suggestions");
+  };
 
   return (
     <>
@@ -50,7 +56,7 @@ const EditFeedback = ({ item }) => {
           Editing '{title}'
         </h1>
 
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={onSubmitEditFeedback}>
           <label htmlFor="title" className="py-8">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
@@ -123,9 +129,13 @@ const EditFeedback = ({ item }) => {
           >
             Save Changes
           </button>
-          <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
-            Cancel
-          </button>
+
+          <Link href={`/suggestions/${id}`}>
+            <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
+              Cancel
+            </button>
+          </Link>
+
           <button className="py-1 my-2 text-white bg-red-600 rounded-lg">
             Delete
           </button>

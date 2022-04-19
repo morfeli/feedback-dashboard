@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-import path from "path";
 
 import {
   buildFeedbackPath,
@@ -38,6 +37,6 @@ export default async function newFeedbackHandler(req, res) {
     data.productRequests.forEach((item) => item.id++);
     data.productRequests.push(newFeedback);
 
-    fs.writeFile(filePath, JSON.stringify(data));
+    fs.writeFile(filePath, JSON.stringify(data, null, 2));
   }
 }
