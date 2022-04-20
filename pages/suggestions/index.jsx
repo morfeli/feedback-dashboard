@@ -1,5 +1,7 @@
 import { getSession } from "next-auth/react";
 
+import { useRouter } from "next/router";
+
 import { useState, useEffect } from "react";
 
 // components
@@ -17,6 +19,8 @@ const SuggestionsPage = ({ session, filterData }) => {
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState();
+
+  const router = useRouter();
 
   const filterDataByCategory = (category) => {
     if (category === "all") {

@@ -31,7 +31,7 @@ const NewFeedback = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
 
-    router.push("/suggestions");
+    router.replace("/suggestions");
   };
 
   return (

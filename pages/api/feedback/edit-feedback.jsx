@@ -23,15 +23,30 @@ export default async function editFeedbackHandler(req, res) {
       (item) => item.id == reqID
     );
 
-    // if (existingFeedback) {
-    //   let content = existingFeedback;
+    if (existingFeedback) {
+      let content = existingFeedback;
 
-    //   content.title = updatedTitle;
-    //   content.status = updatedStatus;
-    //   content.description = updatedMessage;
-    //   content.category = updatedCategory;
-    //   console.log(content);
-    //   fs.writeFile(filePath, JSON.stringify(content, null, 2));
-    // }
+      content.title = updatedTitle;
+      content.status = updatedStatus;
+      content.description = updatedMessage;
+      content.category = updatedCategory;
+
+      // let updatedItems = {
+      //   id: content.id,
+      //   title: content.title,
+      //   description: content.description,
+      //   category: content.category,
+      //   message: content.message,
+      //   comments: content.comments,
+      //   status: content.status,
+      //   upvotes: content.upvotes,
+      // };
+
+      // feedbackData.productRequests.push(updatedItems);
+      fs.writeFile(filePath, JSON.stringify(feedbackData, null, 2));
+      res
+        .status(201)
+        .json({ message: "Feedback was successfuly edited and saved." });
+    }
   }
 }

@@ -17,6 +17,7 @@ const EditFeedback = ({ item }) => {
   const messageRef = useRef();
   const categoryRef = useRef();
   const statusRef = useRef();
+  const deleteRef = useRef();
 
   const onSubmitEditFeedback = async (e) => {
     e.preventDefault();
@@ -42,7 +43,26 @@ const EditFeedback = ({ item }) => {
       .then((response) => response.json())
       .then((data) => console.log(data));
 
-    // router.push("/suggestions");
+    titleRef.current.value = "";
+    messageRef.current.value = "";
+
+    router.push("/suggestions");
+  };
+
+  const onDeleteFeedbackHandler = () => {
+    const removeItem = deleteRef.current.value;
+
+    // console.log(removeItem);
+
+    fetch("/api/feedback/delete-feedback", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(removeItem),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    router.push("/suggestions");
   };
 
   return (
@@ -104,6 +124,7 @@ const EditFeedback = ({ item }) => {
             <option value="planned">Planned</option>
             <option value="in-progress">In-progress</option>
             <option value="live">Live</option>
+            <option value="suggestion">Suggestion</option>
           </select>
 
           <label htmlFor="message" className="py-8">
@@ -130,16 +151,19 @@ const EditFeedback = ({ item }) => {
             Save Changes
           </button>
 
-          <Link href={`/suggestions/${id}`}>
-            <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
-              Cancel
-            </button>
-          </Link>
-
-          <button className="py-1 my-2 text-white bg-red-600 rounded-lg">
-            Delete
+          <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
+            Cancel
           </button>
         </form>
+
+        <button
+          onClick={onDeleteFeedbackHandler}
+          ref={deleteRef}
+          value={id}
+          className="py-1 my-2 text-white bg-red-600 rounded-lg"
+        >
+          Delete
+        </button>
       </section>
     </>
   );
