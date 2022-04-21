@@ -35,6 +35,10 @@ const EditFeedback = ({ item }) => {
       status: enteredStatus,
     };
 
+    if (enteredTitle.length < 0 && enteredMessage.length < 0) {
+      return;
+    }
+
     fetch("/api/feedback/edit-feedback", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -47,6 +51,10 @@ const EditFeedback = ({ item }) => {
     messageRef.current.value = "";
 
     router.push("/suggestions");
+  };
+
+  const goBack = () => {
+    router.back();
   };
 
   const onDeleteFeedbackHandler = () => {
@@ -62,7 +70,7 @@ const EditFeedback = ({ item }) => {
       .then((response) => response.json())
       .then((data) => console.log(data));
 
-    router.push("/suggestions");
+    router.replace("/suggestions");
   };
 
   return (
@@ -150,20 +158,22 @@ const EditFeedback = ({ item }) => {
           >
             Save Changes
           </button>
-
-          <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
-            Cancel
-          </button>
         </form>
-
         <button
+          onClick={goBack}
+          className="py-1 my-2 text-white rounded-lg bg-first-blue"
+        >
+          Cancel
+        </button>
+
+        {/* <button
           onClick={onDeleteFeedbackHandler}
           ref={deleteRef}
           value={id}
           className="py-1 my-2 text-white bg-red-600 rounded-lg"
         >
           Delete
-        </button>
+        </button> */}
       </section>
     </>
   );

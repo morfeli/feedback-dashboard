@@ -20,8 +20,6 @@ const SuggestionsPage = ({ session, filterData }) => {
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState();
 
-  const router = useRouter();
-
   const filterDataByCategory = (category) => {
     if (category === "all") {
       let filteredFeedbacks = filterData;
@@ -127,10 +125,6 @@ const SuggestionsPage = ({ session, filterData }) => {
       }
     }
   };
-
-  useEffect(() => {
-    renderSortedFeedback();
-  }, [sort, filter]);
 
   const updateSortedArray = (value) => {
     setSort(value);

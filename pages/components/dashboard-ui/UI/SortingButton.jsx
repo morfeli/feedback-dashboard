@@ -6,8 +6,15 @@ const SortingButton = (props) => {
 
   return (
     <>
-      <label htmlFor="sort">Sort by:</label>
-      <select name="sort" id="sort" onChange={captureSortOption}>
+      <label htmlFor="sort" className="text-white font-jost-semibold">
+        Sort by:
+      </label>
+      <select
+        name="sort"
+        id="sort"
+        className="text-white bg-transparent font-jost-semibold "
+        onChange={captureSortOption}
+      >
         <option value="Most_Upvotes">Most Upvotes</option>
         <option value="Least_Upvotes">Least Upvotes</option>
         <option value="Most_Comments">Most Comments</option>
