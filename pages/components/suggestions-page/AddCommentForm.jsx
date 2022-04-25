@@ -11,13 +11,13 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
   const [userData, setUserData] = useState();
   const { data: session, status } = useSession();
 
+  const textAreaRef = useRef();
+
   useEffect(() => {
     if (status === "authenticated") {
       setUserData([session.user.email]);
     }
   }, [status, session]);
-
-  const textAreaRef = useRef();
 
   const sendComment = (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
 
   return (
     <form
-      className="flex flex-col p-4 mx-4 bg-white rounded-2xl"
+      className="flex flex-col p-4 mx-4 mb-12 bg-white rounded-2xl"
       onSubmit={sendComment}
     >
       <label className="font-jost-bold text-third-blue" htmlFor="comment">
@@ -66,13 +66,16 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
         }
         type="text"
         ref={textAreaRef}
+        maxLength="250"
       />
-      <button
-        className="self-end py-2 px-4 mt-4 text-white rounded-lg bg-button-pink"
-        type="submit"
-      >
-        Post Comment
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          className="self-end px-4 py-2 mt-4 text-white rounded-lg bg-button-pink"
+          type="submit"
+        >
+          Post Comment
+        </button>
+      </div>
     </form>
   );
 };

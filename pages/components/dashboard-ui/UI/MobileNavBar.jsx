@@ -5,7 +5,7 @@ import classNames from "classnames";
 import DashboardCategories from "../DashboardCategories";
 import DashboardRoadmap from "../DashboardRoadmap";
 
-const MobileNavBar = ({ isOpen, category, toggleMenu, test }) => {
+const MobileNavBar = ({ isOpen, category, toggleMenu, test, roadmap }) => {
   let mobileMenuClass;
 
   if (isOpen) {
@@ -37,7 +37,7 @@ const MobileNavBar = ({ isOpen, category, toggleMenu, test }) => {
             toggleMenu={toggleMenu}
             test={test}
           />
-          <DashboardRoadmap />
+          <DashboardRoadmap roadmap={roadmap} />
         </motion.div>
       )}
     </AnimatePresence>

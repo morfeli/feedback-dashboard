@@ -1,4 +1,4 @@
-export function CommentsSvg() {
+const CommentsSvg = () => {
   return (
     <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -8,4 +8,6 @@ export function CommentsSvg() {
       />
     </svg>
   );
-}
+};
+
+export default CommentsSvg;

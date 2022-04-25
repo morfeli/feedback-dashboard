@@ -1,20 +1,20 @@
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 
 import RoadmapHeader from "../components/dashboard-ui/RoadmapHeader";
-import RoadmapTabs from "../components/dashboard-ui/RoadmapTabs";
+import RoadmapAnimatedTabs from "../components/dashboard-ui/RoadmapAnimatedTabs";
 
 const RoadmapPage = ({ data }) => {
   return (
     <>
       <RoadmapHeader />
-      <RoadmapTabs data={data} />
+      <RoadmapAnimatedTabs data={data} />
     </>
   );
 };
 
 export default RoadmapPage;
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async () => {
   const filePath = buildFeedbackPath();
 
   const data = await extractFeedback(filePath);
@@ -38,8 +38,6 @@ export const getServerSideProps = async (context) => {
     live: liveStatusData,
     planned: plannedStatusData,
   };
-
-  console.log(statusData);
 
   return {
     props: { data: statusData },

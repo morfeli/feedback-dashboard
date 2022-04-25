@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 import AddCommentForm from "./AddCommentForm";
 import PostedComment from "./PostedComment";
@@ -20,7 +21,7 @@ const Comment = ({ image, name, username, content, replyArray }) => {
     <div className="pt-2">
       <div className="flex items-center pl-8">
         <div className="flex items-center">
-          <img src={image} />
+          <Image src={image} width={50} height={50} className="rounded-3xl " />
           <div className="flex flex-col pl-4">
             <h1 className="font-jost-semibold">{name}</h1>
             <p>@{username}</p>
@@ -34,7 +35,9 @@ const Comment = ({ image, name, username, content, replyArray }) => {
           Reply
         </h1>
       </div>
-      <p className="p-4">{content}</p>
+      <p className="p-8 text-sm">{content}</p>
+
+      <hr />
 
       {repliedComments &&
         repliedComments.map((item, i) => (
@@ -67,7 +70,7 @@ const Comment = ({ image, name, username, content, replyArray }) => {
         />
       )}
 
-      <hr />
+      {/* <hr /> */}
     </div>
   );
 };

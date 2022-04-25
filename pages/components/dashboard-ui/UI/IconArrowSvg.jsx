@@ -1,4 +1,4 @@
-export function IconArrowSvg() {
+const IconArrowSvg = () => {
   return (
     <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -10,4 +10,6 @@ export function IconArrowSvg() {
       />
     </svg>
   );
-}
+};
+
+export default IconArrowSvg;

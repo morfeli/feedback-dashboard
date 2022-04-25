@@ -163,3 +163,7 @@ export const filteredData = (data, status, category) => {
 
   return filteredData;
 };
+
+export const increaseUpvotesByOne = (item) => {
+  return item.upvotes + 1;
+};

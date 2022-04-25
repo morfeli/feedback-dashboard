@@ -15,17 +15,25 @@ import {
   filteredData,
 } from "../helper/HelperFunctions";
 
-const SuggestionsPage = ({ session, filterData }) => {
+const SuggestionsPage = ({ session, feedbackData }) => {
+  const { suggestions } = feedbackData;
+  const { progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState();
 
+  let roadmapData = {
+    progress,
+    planned,
+    live,
+  };
+
   const filterDataByCategory = (category) => {
     if (category === "all") {
-      let filteredFeedbacks = filterData;
+      let filteredFeedbacks = suggestions;
       setFilter(filteredFeedbacks);
     } else {
-      let filteredFeedbacks = filterData.filter(
+      let filteredFeedbacks = suggestions.filter(
         (item) => item.category === category
       );
       setFilter(filteredFeedbacks);
@@ -37,7 +45,7 @@ const SuggestionsPage = ({ session, filterData }) => {
     if (filter) {
       arr = filter;
     } else {
-      arr = filterData;
+      arr = suggestions;
     }
 
     switch (sort) {
@@ -137,15 +145,19 @@ const SuggestionsPage = ({ session, filterData }) => {
   if (session) {
     return (
       <>
-        <Dashboard test={filterDataByCategory} category={updateCategory} />
+        <Dashboard
+          test={filterDataByCategory}
+          category={updateCategory}
+          roadmap={roadmapData}
+        />
 
         <SortingHeader
           sortArray={updateSortedArray}
           test={renderSortedFeedback}
-          data={filterData}
+          data={suggestions}
         />
 
-        <Suggestions data={filterData} sort={sort} filter={filter} />
+        <Suggestions data={suggestions} sort={sort} filter={filter} />
       </>
     );
   }
@@ -167,10 +179,29 @@ export const getServerSideProps = async (context) => {
     let filePath = buildFeedbackPath();
     let data = await extractFeedback(filePath);
 
+    const inProgressStatusData = data.productRequests.filter(
+      (item) => item.status == "in-progress"
+    );
+
+    const liveStatusData = data.productRequests.filter(
+      (item) => item.status == "live"
+    );
+
+    const plannedStatusData = data.productRequests.filter(
+      (item) => item.status == "planned"
+    );
+
     let filterData = filteredData(data, "suggestion");
 
+    let feedbackData = {
+      suggestions: filterData,
+      progress: inProgressStatusData,
+      planned: plannedStatusData,
+      live: liveStatusData,
+    };
+
     return {
-      props: { session, filterData },
+      props: { session, feedbackData },
     };
   }
 };

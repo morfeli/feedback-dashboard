@@ -60,8 +60,6 @@ const EditFeedback = ({ item }) => {
   const onDeleteFeedbackHandler = () => {
     const removeItem = deleteRef.current.value;
 
-    // console.log(removeItem);
-
     fetch("/api/feedback/delete-feedback", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
