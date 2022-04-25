@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 
-import RoadmapCards from "../roadmap/RoadmapCards";
+import RoadmapCards from "./RoadmapCards";
 
 const RoadmapAnimatedTabs = ({ data }) => {
   const [renderStatus, setRenderStatus] = useState();
@@ -54,14 +54,15 @@ const RoadmapAnimatedTabs = ({ data }) => {
 
   return (
     <section className="overflow-hidden">
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between px-4 pt-8 border-b-4">
         <button
           onClick={changeStatus}
           value="planned"
-          className={classNames("pb-4", "border-b-4", {
+          className={classNames("pb-4", "w-28", {
             "border-b-first-orange": renderStatus
               ? renderStatus == plannedData
               : null,
+            "border-b-4": renderStatus ? renderStatus == plannedData : null,
           })}
         >
           {planned}
@@ -69,10 +70,11 @@ const RoadmapAnimatedTabs = ({ data }) => {
         <button
           onClick={changeStatus}
           value="in-progress"
-          className={classNames("pb-4", "border-b-4", {
+          className={classNames("pb-4", "w-28", {
             "border-b-button-pink": renderStatus
               ? renderStatus == progressData
               : null,
+            "border-b-4": renderStatus ? renderStatus == progressData : null,
           })}
         >
           {inProgress}
@@ -80,10 +82,11 @@ const RoadmapAnimatedTabs = ({ data }) => {
         <button
           onClick={changeStatus}
           value="live"
-          className={classNames("pb-4", "border-b-4", {
+          className={classNames("pb-4", "w-28", {
             "border-b-light-blue": renderStatus
               ? renderStatus == liveData
               : null,
+            "border-b-4": renderStatus ? renderStatus == liveData : null,
           })}
         >
           {live}

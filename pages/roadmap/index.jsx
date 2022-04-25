@@ -1,7 +1,7 @@
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 
-import RoadmapHeader from "../components/dashboard-ui/RoadmapHeader";
-import RoadmapAnimatedTabs from "../components/dashboard-ui/RoadmapAnimatedTabs";
+import RoadmapHeader from "../components/roadmap/RoadmapHeader";
+import RoadmapAnimatedTabs from "../components/roadmap/RoadmapAnimatedTabs";
 
 const RoadmapPage = ({ data }) => {
   return (

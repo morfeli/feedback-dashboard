@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AddCommentForm from "./AddCommentForm";
 import Comment from "./Comment";
@@ -13,27 +13,37 @@ const SuggestionsComments = ({ item, length }) => {
 
   const comments = item.map((item) => item.comments);
 
+  let content;
+  if (item[0].comments) {
+    content = item[0].comments;
+  } else {
+    content = null;
+  }
+  console.log(content);
+
   return (
     <>
       <section className="py-4 mx-4 my-8 bg-white rounded-md">
         <div className="flex p-8">
           <h1 className="font-jost-bold text-third-blue">{length} Comments</h1>
         </div>
-        <aside>
-          {comments
-            ? comments[0].map((item) => (
-                <Comment
-                  key={item.id}
-                  replyArray={item.replies}
-                  item={item}
-                  image={item.user.image}
-                  name={item.user.name}
-                  username={item.user.username}
-                  content={item.content}
-                />
-              ))
-            : null}
-        </aside>
+        <>
+          {content ? (
+            content.map((item) => (
+              <Comment
+                key={item.id}
+                replyArray={item.replies}
+                item={item}
+                image={item.user.image}
+                name={item.user.name}
+                username={item.user.username}
+                content={item.content}
+              />
+            ))
+          ) : (
+            <div></div>
+          )}
+        </>
 
         <div>
           {postedComment

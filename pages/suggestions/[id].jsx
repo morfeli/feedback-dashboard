@@ -12,11 +12,17 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
       let commentsLength = comments ? comments.length : 0;
 
-      let replies = comments.filter((comment) => comment.replies);
+      let replies = comments
+        ? comments.filter((comment) => comment.replies)
+        : null;
 
-      let mappedReplies = replies.map((item) => item.replies);
+      let mappedReplies = comments ? replies.map((item) => item.replies) : null;
 
-      let replyLength = mappedReplies[0] ? mappedReplies[0].length : 0;
+      let replyLength = comments
+        ? mappedReplies[0]
+          ? mappedReplies[0].length
+          : 0
+        : null;
 
       let totalCommentsLength = commentsLength + replyLength;
 
@@ -40,11 +46,19 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
           let commentsLength = comments ? comments.length : 0;
 
-          let replies = comments.filter((comment) => comment.replies);
+          let replies = comments
+            ? comments.filter((comment) => comment.replies)
+            : null;
 
-          let mappedReplies = replies.map((item) => item.replies);
+          let mappedReplies = comments
+            ? replies.map((item) => item.replies)
+            : null;
 
-          let replyLength = mappedReplies[0] ? mappedReplies[0].length : 0;
+          let replyLength = comments
+            ? mappedReplies[0]
+              ? mappedReplies[0].length
+              : 0
+            : null;
 
           let totalCommentsLength = commentsLength + replyLength;
 

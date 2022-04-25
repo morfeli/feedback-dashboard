@@ -9,6 +9,8 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
   });
 
   const [userData, setUserData] = useState();
+  const [maxLength, setMaxLength] = useState(250);
+  const [charsLeft, setCharsLeft] = useState(250);
   const { data: session, status } = useSession();
 
   const textAreaRef = useRef();
@@ -47,7 +49,14 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
     postComment(postedComment);
     toggleReply ? toggleReply() : null;
 
+    setCharsLeft(250);
     textAreaRef.current.value = "";
+  };
+
+  const decrementMaxLength = (e) => {
+    let charCount = e.target.value.length;
+    const charLength = maxLength - charCount;
+    setCharsLeft(charLength);
   };
 
   return (
@@ -66,9 +75,11 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
         }
         type="text"
         ref={textAreaRef}
-        maxLength="250"
+        onChange={decrementMaxLength}
+        maxLength={charsLeft}
       />
       <div className="flex items-center justify-between">
+        <p>{charsLeft} Characters left</p>
         <button
           className="self-end px-4 py-2 mt-4 text-white rounded-lg bg-button-pink"
           type="submit"
