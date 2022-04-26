@@ -37,7 +37,7 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
       <div className="flex items-baseline justify-between">
         <GoBackBtn />
 
-        {/* <EditFeedbackBtn item={item} /> */}
+        <EditFeedbackBtn item={item} />
       </div>
 
       <ul className="mt-8">

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import AddCommentForm from "./AddCommentForm";
 import Comment from "./Comment";
-import PostedComment from "./PostedComment";
+// import PostedComment from "./PostedComment";
+import UserComment from "./UserComment";
 
 const SuggestionsComments = ({ item, length }) => {
   const [postedComment, setPostedComment] = useState([]);
@@ -11,15 +12,12 @@ const SuggestionsComments = ({ item, length }) => {
     setPostedComment((current) => [...current, data]);
   };
 
-  const comments = item.map((item) => item.comments);
-
   let content;
   if (item[0].comments) {
     content = item[0].comments;
   } else {
     content = null;
   }
-  console.log(content);
 
   return (
     <>
@@ -48,7 +46,7 @@ const SuggestionsComments = ({ item, length }) => {
         <div>
           {postedComment
             ? postedComment.map((item, i) => (
-                <PostedComment
+                <UserComment
                   key={i}
                   firstName={item.firstName}
                   lastName={item.lastName}

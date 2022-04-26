@@ -1,36 +1,46 @@
 import { useState } from "react";
 import AddCommentForm from "./AddCommentForm";
+import UserReplies from "./UserReplies";
 
 const Replies = ({ username, name, replyingTo, content }) => {
   const [reply, setReply] = useState(false);
+  const [replies, setReplies] = useState([]);
 
   const toggleReply = () => {
     setReply((current) => !current);
   };
 
+  const postReplies = (data) => {
+    setReplies((current) => [...current, data]);
+  };
+
+  console.log(replies);
+
   return (
     <div className="py-2 pl-4 mt-4 ml-3 border-l">
-      <div className="flex items-center justify-between px-6">
-        <div>
-          <h1 className="font-jost-semibold text-first-blue">{name}</h1>
-          <p className="text-second-blue">@{username}</p>
-        </div>
+      <UserReplies
+        username={username}
+        name={name}
+        replyingTo={replyingTo}
+        content={content}
+        toggleReply={toggleReply}
+      />
 
-        <h1 className="text-first-blue" onClick={toggleReply}>
-          Reply
-        </h1>
-      </div>
+      {replies &&
+        replies.map((item, i) => (
+          <UserReplies
+            key={i}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            replyingTo={item.replyingTo}
+            message={item.message}
+            loggedInUser={item.username}
+          />
+        ))}
 
-      <div className="flex px-4 py-2">
-        <p className="text-sm">
-          <span className="pr-2 text-button-pink font-jost-bold">
-            @{replyingTo}
-          </span>
-          {content}
-        </p>
-      </div>
-
-      {reply && <AddCommentForm username={username} />}
+      {reply && (
+        <AddCommentForm postReplies={postReplies} username={username} />
+      )}
     </div>
   );
 };

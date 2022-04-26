@@ -3,7 +3,12 @@ import { useSession } from "next-auth/react";
 
 const isEmpty = (value) => value.trim() === "";
 
-const AddCommentForm = ({ username, postComment, toggleReply }) => {
+const AddCommentForm = ({
+  username,
+  postComment,
+  postReplies,
+  toggleReply,
+}) => {
   const [formValidity, setFormValidity] = useState({
     comment: true,
   });
@@ -46,7 +51,8 @@ const AddCommentForm = ({ username, postComment, toggleReply }) => {
       replyingTo: username ? username : null,
     };
 
-    postComment(postedComment);
+    postComment ? postComment(postedComment) : null;
+    postReplies ? postReplies(postedComment) : null;
     toggleReply ? toggleReply() : null;
 
     setCharsLeft(250);

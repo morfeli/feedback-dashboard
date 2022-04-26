@@ -4,6 +4,7 @@ import Image from "next/image";
 import AddCommentForm from "./AddCommentForm";
 import PostedComment from "./PostedComment";
 import Replies from "./Replies";
+import UserComment from "./UserComment";
 
 const Comment = ({ image, name, username, content, replyArray }) => {
   const [reply, setReply] = useState(false);
@@ -19,25 +20,21 @@ const Comment = ({ image, name, username, content, replyArray }) => {
 
   return (
     <div className="pt-2">
-      <div className="flex items-center pl-8">
-        <div className="flex items-center">
-          <Image src={image} width={50} height={50} className="rounded-3xl " />
-          <div className="flex flex-col pl-4">
-            <h1 className="font-jost-semibold">{name}</h1>
-            <p>@{username}</p>
-          </div>
-        </div>
+      <UserComment
+        name={name}
+        image={image}
+        content={content}
+        toggleReply={toggleReply}
+        username={username}
+      />
 
-        <h1
-          onClick={toggleReply}
-          className="absolute right-35px text-first-blue"
-        >
-          Reply
-        </h1>
-      </div>
-      <p className="p-8 text-sm">{content}</p>
-
-      <hr />
+      {reply && (
+        <AddCommentForm
+          username={username}
+          postComment={postComment}
+          toggleReply={toggleReply}
+        />
+      )}
 
       {repliedComments &&
         repliedComments.map((item, i) => (
@@ -61,14 +58,6 @@ const Comment = ({ image, name, username, content, replyArray }) => {
             replyingTo={reply.replyingTo}
           />
         ))}
-
-      {reply && (
-        <AddCommentForm
-          username={username}
-          postComment={postComment}
-          toggleReply={toggleReply}
-        />
-      )}
 
       {/* <hr /> */}
     </div>

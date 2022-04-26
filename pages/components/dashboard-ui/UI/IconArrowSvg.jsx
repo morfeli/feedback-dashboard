@@ -1,6 +1,11 @@
 const IconArrowSvg = () => {
   return (
-    <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="10"
+      height="7"
+      xmlns="http://www.w3.org/2000/svg"
+      className="mr-2"
+    >
       <path
         d="M1 6l4-4 4 4"
         stroke="#4661E6"
