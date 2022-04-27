@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import AddCommentForm from "./AddCommentForm";
 import Comment from "./Comment";
-// import PostedComment from "./PostedComment";
 import UserComment from "./UserComment";
 
 const SuggestionsComments = ({ item, length }) => {
@@ -26,21 +25,19 @@ const SuggestionsComments = ({ item, length }) => {
           <h1 className="font-jost-bold text-third-blue">{length} Comments</h1>
         </div>
         <>
-          {content ? (
-            content.map((item) => (
-              <Comment
-                key={item.id}
-                replyArray={item.replies}
-                item={item}
-                image={item.user.image}
-                name={item.user.name}
-                username={item.user.username}
-                content={item.content}
-              />
-            ))
-          ) : (
-            <div></div>
-          )}
+          {content
+            ? content.map((item) => (
+                <Comment
+                  key={item.id}
+                  replyArray={item.replies}
+                  item={item}
+                  image={item.user.image}
+                  name={item.user.name}
+                  username={item.user.username}
+                  content={item.content}
+                />
+              ))
+            : null}
         </>
 
         <div>

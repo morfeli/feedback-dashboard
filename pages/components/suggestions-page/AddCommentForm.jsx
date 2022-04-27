@@ -82,7 +82,7 @@ const AddCommentForm = ({
         type="text"
         ref={textAreaRef}
         onChange={decrementMaxLength}
-        maxLength={charsLeft}
+        maxLength={250}
       />
       <div className="flex items-center justify-between">
         <p>{charsLeft} Characters left</p>

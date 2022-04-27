@@ -5,8 +5,8 @@ const SortingButton = (props) => {
   };
 
   return (
-    <>
-      <label htmlFor="sort" className="text-white font-jost-semibold">
+    <div>
+      <label htmlFor="sort" className="pr-2 text-white font-jost-semibold">
         Sort by:
       </label>
       <select
@@ -20,7 +20,7 @@ const SortingButton = (props) => {
         <option value="Most_Comments">Most Comments</option>
         <option value="Least_Comments">Least Comments</option>
       </select>
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@
       "title": "Add tags for solutions",
       "category": "feature",
       "upvotes": 115,
-      "status": "suggestion",
+      "status": "live",
       "description": "Easier to search for solutions based on a specific stack.",
       "comments": [
         {
@@ -37,7 +37,7 @@
       "id": 2,
       "title": "Add a dark theme option",
       "category": "feature",
-      "upvotes": 99,
+      "upvotes": 100,
       "status": "suggestion",
       "description": "It would help people with light sensitivities and who prefer dark mode.",
       "comments": [
