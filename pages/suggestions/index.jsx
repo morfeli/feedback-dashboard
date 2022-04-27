@@ -1,8 +1,6 @@
 import { getSession } from "next-auth/react";
 
-import { useRouter } from "next/router";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // components
 import Dashboard from "../components/dashboard-ui/Dashboard";
@@ -16,8 +14,7 @@ import {
 } from "../helper/HelperFunctions";
 
 const SuggestionsPage = ({ session, feedbackData }) => {
-  const { suggestions } = feedbackData;
-  const { progress, planned, live } = feedbackData;
+  const { suggestions, progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState();

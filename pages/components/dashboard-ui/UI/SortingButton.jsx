@@ -5,14 +5,14 @@ const SortingButton = (props) => {
   };
 
   return (
-    <div>
-      <label htmlFor="sort" className="pr-2 text-white font-jost-semibold">
+    <div className="pl-1 ">
+      <label htmlFor="sort" className="pr-1 text-white font-jost-semibold">
         Sort by:
       </label>
       <select
         name="sort"
         id="sort"
-        className="text-white bg-transparent font-jost-semibold "
+        className="pr-1 text-white bg-transparent font-jost-semibold"
         onChange={captureSortOption}
       >
         <option value="Most_Upvotes">Most Upvotes</option>
