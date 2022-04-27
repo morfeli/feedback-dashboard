@@ -1,9 +1,16 @@
 import NavLinks from "../dashboard-ui/UI/NavLinks";
+import classnames from "classnames";
+import { useEffect } from "react";
 
-const DashboardCategories = ({ category, toggleMenu, test }) => {
+const DashboardCategories = ({ category, toggleMenu, test, isMobile }) => {
   return (
-    <nav className="w-56 mx-auto">
-      <ul className="flex flex-wrap items-center justify-between h-52">
+    <nav
+      className={classnames("w-56", "mx-auto", {
+        "bg-white": !isMobile,
+        "rounded-lg": !isMobile,
+      })}
+    >
+      <ul className="flex flex-wrap items-center justify-between p-4 h-52">
         <NavLinks
           category={category}
           test={test}

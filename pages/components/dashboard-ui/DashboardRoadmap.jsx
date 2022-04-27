@@ -1,20 +1,28 @@
+import classnames from "classnames";
 import RoadmapStatus from "../dashboard-ui/UI/RoadmapStatus";
 import Link from "next/link";
 
-const DashboardRoadmap = ({ roadmap }) => {
+const DashboardRoadmap = ({ roadmap, isMobile }) => {
   let progressLength = roadmap.progress.length;
   let liveLength = roadmap.live.length;
   let plannedLength = roadmap.planned.length;
 
   return (
-    <section className="w-56 h-48 mx-auto mt-12">
-      <div className="flex justify-between w-11/12 ">
-        <h1>Roadmap</h1>
-        <Link href="/roadmap">
-          <button>View</button>
-        </Link>
-      </div>
-      <div className="flex flex-col justify-between h-32 mt-4">
+    <section
+      className={classnames("p-4", {
+        "bg-white": !isMobile,
+        "rounded-lg": !isMobile,
+      })}
+    >
+      <div className="flex flex-col justify-between p-4">
+        <div className="flex">
+          <h1 className="pr-8">Roadmap</h1>
+          <Link href="/roadmap">
+            <button className="border-b-2 text-first-blue border-b-first-blue">
+              View
+            </button>
+          </Link>
+        </div>
         <RoadmapStatus
           status={"Planned"}
           number={plannedLength}

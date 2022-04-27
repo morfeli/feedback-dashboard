@@ -5,15 +5,22 @@ import classNames from "classnames";
 import DashboardCategories from "../DashboardCategories";
 import DashboardRoadmap from "../DashboardRoadmap";
 
-const MobileNavBar = ({ isOpen, category, toggleMenu, test, roadmap }) => {
+const MobileNavBar = ({
+  isOpen,
+  category,
+  toggleMenu,
+  test,
+  roadmap,
+  isMobile,
+}) => {
   let mobileMenuClass;
 
   if (isOpen) {
     mobileMenuClass = classNames(
-      "block w-10/12 bg-light-gray absolute right-0px"
+      "block px-8 bg-light-gray absolute right-0px z-50 "
     );
   } else {
-    mobileMenuClass = classNames("hidden w-10/12 bg-light-gray absolute ");
+    mobileMenuClass = classNames("hidden px-8 bg-light-gray absolute ");
   }
 
   const navBarVariants = {
@@ -36,8 +43,9 @@ const MobileNavBar = ({ isOpen, category, toggleMenu, test, roadmap }) => {
             category={category}
             toggleMenu={toggleMenu}
             test={test}
+            isMobile={isMobile}
           />
-          <DashboardRoadmap roadmap={roadmap} />
+          <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
         </motion.div>
       )}
     </AnimatePresence>

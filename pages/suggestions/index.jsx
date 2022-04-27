@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // components
 import Dashboard from "../components/dashboard-ui/Dashboard";
@@ -18,6 +18,20 @@ const SuggestionsPage = ({ session, feedbackData }) => {
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState();
+  const [innerWidth, setInnerWidth] = useState(0);
+  const isMobile = innerWidth <= 768;
+
+  const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  useEffect(() => {
+    changeWidth();
+
+    window.addEventListener("resize", changeWidth);
+
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, [isMobile]);
 
   let roadmapData = {
     progress,
@@ -143,6 +157,8 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     return (
       <>
         <Dashboard
+          isMobile={isMobile}
+          innerWidth={innerWidth}
           test={filterDataByCategory}
           category={updateCategory}
           roadmap={roadmapData}
