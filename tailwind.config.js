@@ -32,6 +32,8 @@ module.exports = {
       "35px": "35px",
       "60px": "60px",
       "15px": "15px",
+      "30px": "30px",
+      "20px": "20px",
     },
     transitionProperty: {
       right: "right",

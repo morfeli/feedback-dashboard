@@ -33,10 +33,12 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
     return (
       <header className="flex items-center justify-between m-4">
         <div className="bg-[url('../public/assets/suggestions/tablet/background-header.png')] bg-no-repeat flex flex-col p-12 w-fit rounded-lg ">
-          <h1 className="tracking-wide text-white font-jost-semibold">
-            Frontend Mentor
-          </h1>
-          <p className="text-slate-200">Feedback Board</p>
+          <div className="relative top-30px right-20px">
+            <h1 className="tracking-wide text-white font-jost-semibold">
+              Frontend Mentor
+            </h1>
+            <p className="text-slate-200">Feedback Board</p>
+          </div>
         </div>
         <DashboardCategories
           isMobile={isMobile}
