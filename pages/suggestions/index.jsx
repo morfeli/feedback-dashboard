@@ -17,8 +17,10 @@ const SuggestionsPage = ({ session, feedbackData }) => {
   const { suggestions, progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most_Upvotes");
   const [category, setCategory] = useState("all");
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState(suggestions);
+  const [suggestionLength, setSuggestionLength] = useState(filter.length);
   const [innerWidth, setInnerWidth] = useState(0);
+
   const isMobile = innerWidth <= 768;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
@@ -43,11 +45,13 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     if (category === "all") {
       let filteredFeedbacks = suggestions;
       setFilter(filteredFeedbacks);
+      setSuggestionLength(filteredFeedbacks.length);
     } else {
       let filteredFeedbacks = suggestions.filter(
         (item) => item.category === category
       );
       setFilter(filteredFeedbacks);
+      setSuggestionLength(filteredFeedbacks.length);
     }
   };
 
@@ -168,9 +172,16 @@ const SuggestionsPage = ({ session, feedbackData }) => {
           sortArray={updateSortedArray}
           test={renderSortedFeedback}
           data={suggestions}
+          suggestionLength={suggestionLength}
         />
 
-        <Suggestions data={suggestions} sort={sort} filter={filter} />
+        <Suggestions
+          data={suggestions}
+          sort={sort}
+          filter={filter}
+          isMobile={isMobile}
+          innerWidth={innerWidth}
+        />
       </>
     );
   }

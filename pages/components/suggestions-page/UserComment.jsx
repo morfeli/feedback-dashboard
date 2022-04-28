@@ -37,13 +37,13 @@ const UserComment = ({
 
         <h1
           onClick={toggleReply}
-          className="absolute right-35px text-first-blue"
+          className="absolute right-35px text-first-blue md:right-60px"
         >
           Reply
         </h1>
       </div>
       {message && <p className="p-8 pl-12 text-sm">{message}</p>}
-      <p className="p-8 text-sm">{content}</p>
+      <p className="p-8 text-sm md:text-base md:pl-24">{content}</p>
     </>
   );
 };

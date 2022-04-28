@@ -70,11 +70,11 @@ const AddCommentForm = ({
       className="flex flex-col p-4 mx-4 mb-12 bg-white rounded-2xl"
       onSubmit={sendComment}
     >
-      <label className="font-jost-bold text-third-blue" htmlFor="comment">
+      <label className="pb-4 font-jost-bold text-third-blue" htmlFor="comment">
         Add Comment
       </label>
       <textarea
-        className="p-2"
+        className="p-4 bg-light-gray"
         id="comment"
         placeholder={
           username ? `Reply to @${username}` : "Type your comment here"

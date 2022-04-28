@@ -37,16 +37,16 @@ const NewFeedback = () => {
   return (
     <>
       <GoBackBtn />
-      <section className="flex flex-col p-4 m-8 bg-white">
-        <div className="absolute top-60px">
+      <section className="flex flex-col p-4 m-8 bg-white md:m-20">
+        <div className="absolute top-60px md:top-100px">
           <NewFeedbackSvg />
         </div>
-        <h1 className="pt-8 text-lg font-jost-bold text-third-blue">
+        <h1 className="pt-8 text-lg font-jost-bold text-third-blue md:text-2xl">
           Create New Feedback
         </h1>
 
         <form className="flex flex-col" onSubmit={onSubmitNewFeedback}>
-          <label htmlFor="title" className="py-8">
+          <label htmlFor="title" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
             </h2>
@@ -56,18 +56,18 @@ const NewFeedback = () => {
             type="text"
             id="title"
             name="title"
-            className="self-center w-64 px-8 bg-light-gray h-11 "
+            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
             ref={titleRef}
           />
 
-          <label htmlFor="category" className="py-8">
+          <label htmlFor="category" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">Category</h2>
             Choose a category for your feedback
           </label>
           <select
             name="category"
             id="category"
-            className="self-center w-64 px-2 bg-light-gray h-11"
+            className="self-center w-2/3 px-2 bg-light-gray h-11 md:w-3/4"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>
@@ -77,7 +77,7 @@ const NewFeedback = () => {
             <option value="bug">Bug</option>
           </select>
 
-          <label htmlFor="message" className="py-8">
+          <label htmlFor="message" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Detail
             </h2>
@@ -89,19 +89,21 @@ const NewFeedback = () => {
             name="message"
             rows="5"
             cols="33"
-            className="self-center w-64 px-2 py-2 mb-4 bg-light-gray"
+            className="self-center w-2/3 px-2 py-2 mb-4 bg-light-gray md:w-3/4"
             ref={messageRef}
           ></textarea>
 
-          <button
-            type="submit"
-            className="py-1 my-2 text-white rounded-lg bg-button-pink"
-          >
-            Add Feedback
-          </button>
-          <button className="py-1 my-2 text-white rounded-lg bg-first-blue">
-            Cancel
-          </button>
+          <div className="flex flex-col md:flex-row-reverse md:pr-20">
+            <button
+              type="submit"
+              className="self-center px-4 py-1 my-2 text-white rounded-lg bg-button-pink"
+            >
+              Add Feedback
+            </button>
+            <button className="self-center px-4 py-1 my-2 text-white rounded-lg bg-first-blue md:mr-4">
+              Cancel
+            </button>
+          </div>
         </form>
       </section>
     </>

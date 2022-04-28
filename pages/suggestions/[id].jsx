@@ -1,11 +1,29 @@
-import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
-import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
+import { useState, useEffect } from "react";
 
+import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
+
+import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
 import EditFeedbackBtn from "../components/dashboard-ui/UI/EditFeedbackBtn";
 import FeedbackCard from "../components/suggestions-page/FeedbackCard";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
+  const [innerWidth, setInnerWidth] = useState(0);
+
+  const isMobile = innerWidth <= 768;
+
+  const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  useEffect(() => {
+    changeWidth();
+
+    window.addEventListener("resize", changeWidth);
+
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, [isMobile]);
+
   const findLength = () => {
     return item.map((item, i) => {
       let comments = item.comments;
@@ -72,6 +90,8 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
               upvotes={item.upvotes}
               comments={comments}
               totalCommentsLength={totalCommentsLength}
+              innerWidth={innerWidth}
+              isMobile={isMobile}
             />
           );
         })}

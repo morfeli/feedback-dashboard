@@ -1,13 +1,18 @@
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
 
-const Suggestions = ({ data, filter }) => (
+const Suggestions = ({ data, filter, isMobile, innerWidth }) => (
   <ul className="mt-8 space-y-4">
-    <Feedback data={data} filter={filter} />
+    <Feedback
+      data={data}
+      filter={filter}
+      isMobile={isMobile}
+      innerWidth={innerWidth}
+    />
   </ul>
 );
 
-const Feedback = ({ data, filter }) => {
+const Feedback = ({ data, filter, isMobile, innerWidth }) => {
   if (filter) {
     return filter.length ? (
       filter.map((item) => {
@@ -22,6 +27,8 @@ const Feedback = ({ data, filter }) => {
             category={item.category}
             upvotes={item.upvotes}
             comments={comments}
+            isMobile={isMobile}
+            innerWidth={innerWidth}
           />
         );
       })
@@ -41,6 +48,8 @@ const Feedback = ({ data, filter }) => {
           upvotes={item.upvotes}
           comments={comments}
           id={item.id}
+          isMobile={isMobile}
+          innerWidth={innerWidth}
         />
       );
     });

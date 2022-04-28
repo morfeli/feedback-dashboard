@@ -52,6 +52,7 @@ const Comment = ({ image, name, username, content, replyArray }) => {
           <Replies
             key={i}
             name={reply.user.name}
+            image={reply.user.image}
             username={reply.user.username}
             content={reply.content}
             replyingTo={reply.replyingTo}
