@@ -17,7 +17,13 @@ const UserReplies = ({
       <div className="flex items-center justify-between pl-8">
         <div className="flex items-center">
           {image ? (
-            <Image src={image} width={50} height={50} className="rounded-3xl" />
+            <Image
+              src={image}
+              width={50}
+              height={50}
+              className="rounded-3xl"
+              alt="User Image"
+            />
           ) : null}
 
           <div className="flex flex-col pl-4">

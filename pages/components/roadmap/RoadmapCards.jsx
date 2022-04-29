@@ -17,7 +17,7 @@ const RoadmapCards = ({
   isMobile,
 }) => {
   return (
-    <Link href={`suggestions/${id}`}>
+    <Link href={`suggestions/${id}`} passHref>
       <li
         className={classNames(
           "cursor-pointer",

@@ -32,7 +32,7 @@ const FeedbackCard = ({
     return <></>;
   } else if (isMobile) {
     return (
-      <Link href={`suggestions/${id}`}>
+      <Link href={`suggestions/${id}`} passHref>
         <li className="p-4 mx-4 bg-white rounded-2xl">
           <h1 className="text-third-blue font-jost-bold ">{title}</h1>
           <p className="py-2 text-first-blue">{description}</p>
@@ -58,7 +58,7 @@ const FeedbackCard = ({
     );
   } else {
     return (
-      <Link href={`suggestions/${id}`}>
+      <Link href={`suggestions/${id}`} passHref>
         <li className="relative flex items-center p-4 mx-4 bg-white rounded-2xl">
           <button
             onClick={incrementUpvoteByOne}

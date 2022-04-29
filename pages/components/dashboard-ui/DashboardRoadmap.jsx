@@ -22,7 +22,7 @@ const DashboardRoadmap = ({ roadmap, isMobile }) => {
       <div className="flex flex-col justify-between p-4">
         <div className="flex">
           <h1 className="pr-8 font-jost-bold text-second-blue">Roadmap</h1>
-          <Link href="/roadmap">
+          <Link href="/roadmap" passHref>
             <button className="border-b-2 text-first-blue border-b-first-blue">
               View
             </button>
