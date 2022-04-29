@@ -9,10 +9,15 @@ const DashboardRoadmap = ({ roadmap, isMobile }) => {
 
   return (
     <section
-      className={classnames("p-4", {
-        "bg-white": !isMobile,
-        "rounded-lg": !isMobile,
-      })}
+      className={classnames(
+        "p-4",
+        {
+          "bg-white": !isMobile,
+          "rounded-lg": !isMobile,
+        },
+        "xl:my-8",
+        "xl:px-8"
+      )}
     >
       <div className="flex flex-col justify-between p-4">
         <div className="flex">

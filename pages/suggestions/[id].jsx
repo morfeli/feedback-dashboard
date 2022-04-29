@@ -10,7 +10,7 @@ import FeedbackCard from "../components/suggestions-page/FeedbackCard";
 const SuggestionFeedbackDetailPage = ({ item }) => {
   const [innerWidth, setInnerWidth] = useState(0);
 
-  const isMobile = innerWidth <= 768;
+  const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 

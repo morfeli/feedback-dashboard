@@ -75,7 +75,7 @@ const EditFeedback = ({ item }) => {
     <>
       <GoBackBtn />
       <section className="flex flex-col p-4 m-8 bg-white rounded-md md:m-20">
-        <div className="absolute top-60px md:top-100px">
+        <div className="absolute top-60px md:top-115px">
           <EditFeedbackSVG />
         </div>
         <h1 className="pt-8 text-lg font-jost-bold text-third-blue md:text-2xl">
@@ -105,7 +105,7 @@ const EditFeedback = ({ item }) => {
           <select
             name="category"
             id="category"
-            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
+            className="self-center w-2/3 pl-4 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>
@@ -124,7 +124,7 @@ const EditFeedback = ({ item }) => {
           <select
             name="category"
             id="category"
-            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
+            className="self-center w-2/3 pl-4 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
             ref={statusRef}
           >
             <option value="planned">Planned</option>

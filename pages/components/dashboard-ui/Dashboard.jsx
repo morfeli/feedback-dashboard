@@ -31,8 +31,8 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
     );
   } else {
     return (
-      <header className="flex items-center justify-between m-4">
-        <div className="bg-[url('../public/assets/suggestions/tablet/background-header.png')] bg-no-repeat flex flex-col p-12 w-fit rounded-lg ">
+      <header className="flex items-center justify-between m-4 xl:flex-col">
+        <div className="bg-[url('../public/assets/suggestions/tablet/background-header.png')] bg-no-repeat flex flex-col p-12 w-fit rounded-lg xl:my-8">
           <div className="relative top-30px right-20px">
             <h1 className="tracking-wide text-white font-jost-semibold">
               Frontend Mentor

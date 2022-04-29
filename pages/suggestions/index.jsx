@@ -21,7 +21,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
   const [suggestionLength, setSuggestionLength] = useState(filter.length);
   const [innerWidth, setInnerWidth] = useState(0);
 
-  const isMobile = innerWidth <= 768;
+  const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 
@@ -159,30 +159,33 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
   if (session) {
     return (
-      <>
-        <Dashboard
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-          test={filterDataByCategory}
-          category={updateCategory}
-          roadmap={roadmapData}
-        />
+      <main className="xl:flex xl:justify-around">
+        <div>
+          <Dashboard
+            isMobile={isMobile}
+            innerWidth={innerWidth}
+            test={filterDataByCategory}
+            category={updateCategory}
+            roadmap={roadmapData}
+          />
+        </div>
+        <div>
+          <SortingHeader
+            sortArray={updateSortedArray}
+            test={renderSortedFeedback}
+            data={suggestions}
+            suggestionLength={suggestionLength}
+          />
 
-        <SortingHeader
-          sortArray={updateSortedArray}
-          test={renderSortedFeedback}
-          data={suggestions}
-          suggestionLength={suggestionLength}
-        />
-
-        <Suggestions
-          data={suggestions}
-          sort={sort}
-          filter={filter}
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-        />
-      </>
+          <Suggestions
+            data={suggestions}
+            sort={sort}
+            filter={filter}
+            isMobile={isMobile}
+            innerWidth={innerWidth}
+          />
+        </div>
+      </main>
     );
   }
 };
