@@ -17,6 +17,9 @@ module.exports = {
         "first-orange": "#F49F85",
         "light-blue": "#62BCFA",
       },
+      width: {
+        "900px": "900px",
+      },
     },
 
     fontFamily: {

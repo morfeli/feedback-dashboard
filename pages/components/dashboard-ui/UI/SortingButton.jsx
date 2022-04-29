@@ -5,7 +5,7 @@ const SortingButton = (props) => {
   };
 
   return (
-    <div className="pl-1 ">
+    <div className="pl-1 xl:pr-72">
       <label htmlFor="sort" className="pr-1 text-white font-jost-semibold">
         Sort by:
       </label>
