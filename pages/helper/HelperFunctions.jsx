@@ -39,42 +39,13 @@ export const extractFeedback = async (filePath) => {
 //   }
 // }
 
-// export const filteredData = (data, status, category) => {
-//   let filteredData = data.productRequests.filter(
-//     (item) => item.status === status
-//   );
+export const filteredData = (data, status) => {
+  let filteredData = data.productRequests.filter(
+    (item) => item.status === status
+  );
 
-//   switch (category) {
-//     case "ui": {
-//       filteredData = filteredData.filter((item) => item.category === "ui");
-//       return filteredData;
-//     }
-//     case "ux": {
-//       filteredData = filteredData.filter((item) => item.category === "ux");
-//       return filteredData;
-//     }
-//     case "feature": {
-//       filteredData = filteredData.filter((item) => item.category === "feature");
-//       return filteredData;
-//     }
-//     case "enhancement": {
-//       filteredData = filteredData.filter(
-//         (item) => item.category === "enhancement"
-//       );
-//       return filteredData;
-//     }
-//     case "bug": {
-//       filteredData = filteredData.filter((item) => item.category === "bug");
-//       return filteredData;
-//     }
-
-//     case "all": {
-//       return filteredData;
-//     }
-//   }
-
-//   return filteredData;
-// };
+  return filteredData;
+};
 
 export const increaseUpvotesByOne = (item) => {
   return item.upvotes + 1;

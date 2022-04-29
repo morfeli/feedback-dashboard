@@ -16,7 +16,7 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
 
   useEffect(() => {
     setRenderStatus(progressData);
-  });
+  }, [progressData]);
 
   const changeStatus = (e) => {
     let value = e.target.value;
