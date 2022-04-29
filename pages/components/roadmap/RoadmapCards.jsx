@@ -13,6 +13,8 @@ const RoadmapCards = ({
   comments,
   color,
   id,
+  borderColor,
+  isMobile,
 }) => {
   return (
     <Link href={`suggestions/${id}`}>
@@ -24,13 +26,20 @@ const RoadmapCards = ({
           "list-none",
           "bg-white",
           "border-t-8",
-          "rounded-lg",
-          `border-t-${color}`
+          borderColor,
+          "rounded-md",
+          { "w-4/5": !isMobile }
         )}
       >
         <div className="flex items-center">
           <div
-            className={classNames("w-4", "h-4", "rounded-xl", `bg-${color}`)}
+            className={classNames(
+              "w-4",
+              "h-4",
+              "rounded-xl",
+              `bg-${color}`,
+              `border-t-${color}`
+            )}
           />
           <p className="pl-2 capitalize">{status}</p>
         </div>

@@ -74,16 +74,16 @@ const EditFeedback = ({ item }) => {
   return (
     <>
       <GoBackBtn />
-      <section className="flex flex-col p-4 m-8 bg-white rounded-md">
-        <div className="absolute top-60px">
+      <section className="flex flex-col p-4 m-8 bg-white rounded-md md:m-20">
+        <div className="absolute top-60px md:top-100px">
           <EditFeedbackSVG />
         </div>
-        <h1 className="pt-8 text-lg font-jost-bold text-third-blue">
+        <h1 className="pt-8 text-lg font-jost-bold text-third-blue md:text-2xl">
           Editing '{title}'
         </h1>
 
         <form className="flex flex-col" onSubmit={onSubmitEditFeedback}>
-          <label htmlFor="title" className="py-8">
+          <label htmlFor="title" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
             </h2>
@@ -93,19 +93,19 @@ const EditFeedback = ({ item }) => {
             type="text"
             id="title"
             name="title"
-            className="self-center w-64 pl-2 bg-light-gray h-11 "
+            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
             ref={titleRef}
             placeholder={title}
           />
 
-          <label htmlFor="category" className="py-8">
+          <label htmlFor="category" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">Category</h2>
             Choose a category for your feedback
           </label>
           <select
             name="category"
             id="category"
-            className="self-center w-64 px-2 bg-light-gray h-11"
+            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>
@@ -115,7 +115,7 @@ const EditFeedback = ({ item }) => {
             <option value="bug">Bug</option>
           </select>
 
-          <label htmlFor="category" className="py-8">
+          <label htmlFor="category" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Update Status
             </h2>
@@ -124,7 +124,7 @@ const EditFeedback = ({ item }) => {
           <select
             name="category"
             id="category"
-            className="self-center w-64 px-2 bg-light-gray h-11"
+            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
             ref={statusRef}
           >
             <option value="planned">Planned</option>
@@ -145,24 +145,27 @@ const EditFeedback = ({ item }) => {
             name="message"
             rows="5"
             cols="33"
-            className="self-center w-64 px-2 py-2 mb-4 bg-light-gray"
+            className="self-center w-2/3 px-2 py-2 mb-4 bg-light-gray md:w-3/4"
             ref={messageRef}
             placeholder={description}
           ></textarea>
 
-          <button
-            type="submit"
-            className="py-1 my-2 text-white rounded-lg bg-button-pink"
-          >
-            Save Changes
-          </button>
+          <div className="flex flex-col md:flex-row-reverse md:pr-20">
+            <button
+              type="submit"
+              className="self-center px-4 py-1 my-2 text-white rounded-lg bg-button-pink"
+            >
+              Save Changes
+            </button>
+            <button
+              onClick={goBack}
+              className="self-center px-4 py-1 my-2 mr-4 text-white rounded-lg bg-first-blue"
+              type="button"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
-        <button
-          onClick={goBack}
-          className="py-1 my-2 text-white rounded-lg bg-first-blue"
-        >
-          Cancel
-        </button>
 
         {/* <button
           onClick={onDeleteFeedbackHandler}

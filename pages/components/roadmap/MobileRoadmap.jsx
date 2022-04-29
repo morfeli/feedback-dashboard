@@ -1,57 +1,22 @@
-import { useState, useEffect } from "react";
 import classNames from "classnames";
 
 import RoadmapCards from "./RoadmapCards";
 
-const RoadmapAnimatedTabs = ({ data }) => {
-  const [renderStatus, setRenderStatus] = useState();
-
-  const progressData = data.progress;
-  const plannedData = data.planned;
-  const liveData = data.live;
-
-  const planned = `Planned (${data.planned.length})`;
-  const inProgress = `In-Progress (${data.progress.length})`;
-  const live = `Live (${data.live.length})`;
-
-  useEffect(() => {
-    setRenderStatus(progressData);
-  }, []);
-
-  const changeStatus = (e) => {
-    let value = e.target.value;
-    switch (value) {
-      case "planned":
-        setRenderStatus(plannedData);
-
-        break;
-      case "in-progress":
-        setRenderStatus(progressData);
-        break;
-      case "live":
-        setRenderStatus(liveData);
-        break;
-    }
-  };
-
-  let title;
-  let content;
-  let color;
-
-  if (renderStatus == plannedData) {
-    title = planned;
-    content = "Features currently being planned.";
-    color = "first-orange";
-  } else if (renderStatus == progressData) {
-    title = inProgress;
-    content = "Features currently being developed.";
-    color = "button-pink";
-  } else if (renderStatus == liveData) {
-    title = live;
-    content = "Features that are now live!";
-    color = "light-blue";
-  }
-
+const MobileRoadmap = ({
+  changeStatus,
+  renderStatus,
+  plannedData,
+  progressData,
+  liveData,
+  planned,
+  inProgress,
+  live,
+  title,
+  content,
+  color,
+  borderColor,
+  isMobile,
+}) => {
   return (
     <section className="overflow-hidden">
       <div className="flex items-center justify-between px-4 pt-8 border-b-4">
@@ -111,6 +76,8 @@ const RoadmapAnimatedTabs = ({ data }) => {
                 description={item.description}
                 id={item.id}
                 color={color}
+                borderColor={borderColor}
+                isMobile={isMobile}
               />
             );
           })
@@ -122,4 +89,4 @@ const RoadmapAnimatedTabs = ({ data }) => {
   );
 };
 
-export default RoadmapAnimatedTabs;
+export default MobileRoadmap;

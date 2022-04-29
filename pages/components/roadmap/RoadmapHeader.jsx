@@ -10,7 +10,7 @@ const RoadmapHeader = () => {
   };
 
   return (
-    <header className="flex justify-between p-4 text-white bg-third-blue">
+    <header className="flex justify-between p-4 text-white bg-third-blue md:m-4 md:rounded-xl md:p-8">
       <div>
         <button
           onClick={goBack}
@@ -19,7 +19,7 @@ const RoadmapHeader = () => {
           <LeftArrowSVG />
           Go Back
         </button>
-        <h1 className="font-jost-semibold">Roadmap</h1>
+        <h1 className="font-jost-semibold md:text-2xl">Roadmap</h1>
       </div>
       <AddFeedbackBtn />
     </header>

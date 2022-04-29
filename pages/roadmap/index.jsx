@@ -1,13 +1,31 @@
+import { useState, useEffect } from "react";
+
 import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 
 import RoadmapHeader from "../components/roadmap/RoadmapHeader";
-import RoadmapAnimatedTabs from "../components/roadmap/RoadmapAnimatedTabs";
+import Roadmap from "../components/roadmap/Roadmap";
 
 const RoadmapPage = ({ data }) => {
+  const [innerWidth, setInnerWidth] = useState(0);
+
+  const isMobile = innerWidth <= 768;
+
+  const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  useEffect(() => {
+    changeWidth();
+
+    window.addEventListener("resize", changeWidth);
+
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, [isMobile]);
+
   return (
     <>
       <RoadmapHeader />
-      <RoadmapAnimatedTabs data={data} />
+      <Roadmap data={data} innerWidth={innerWidth} isMobile={isMobile} />
     </>
   );
 };
