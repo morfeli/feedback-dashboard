@@ -12,7 +12,7 @@ const UserComment = ({
 }) => {
   return (
     <>
-      <div className="flex items-center pl-8">
+      <div className="flex items-center justify-between pl-8">
         <div className="flex items-center">
           {image ? (
             <Image
@@ -35,10 +35,7 @@ const UserComment = ({
           </div>
         </div>
 
-        <h1
-          onClick={toggleReply}
-          className="absolute right-35px text-first-blue md:right-60px"
-        >
+        <h1 onClick={toggleReply} className="pr-8 text-first-blue">
           Reply
         </h1>
       </div>
