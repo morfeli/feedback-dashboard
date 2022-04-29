@@ -8,7 +8,7 @@ const GoBackBtn = () => {
     router.back();
   };
   return (
-    <div className="pt-8 pl-8">
+    <div className="pt-8 pl-8 xl:ml-8">
       <button
         onClick={goBackHandler}
         className="flex items-center justify-between w-20"

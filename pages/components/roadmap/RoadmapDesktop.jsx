@@ -10,7 +10,7 @@ const RoadmapDesktop = ({
   isMobile,
 }) => {
   return (
-    <section className="flex items-baseline justify-between pt-8">
+    <section className="flex items-baseline justify-between pt-8 pl-4">
       <div className="flex flex-col">
         {
           <div className="pl-4">
@@ -28,6 +28,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={i}
+              id={item.id}
               status={item.status}
               title={item.title}
               description={item.description}
@@ -56,6 +57,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={i}
+              id={item.id}
               status={item.status}
               title={item.title}
               description={item.description}
@@ -84,6 +86,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={i}
+              id={item.id}
               status={item.status}
               title={item.title}
               description={item.description}

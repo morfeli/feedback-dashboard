@@ -35,7 +35,7 @@ const NewFeedback = () => {
   };
 
   return (
-    <>
+    <main className="xl:mx-64">
       <GoBackBtn />
       <section className="flex flex-col p-4 m-8 bg-white md:m-20">
         <div className="absolute top-60px md:top-100px">
@@ -67,7 +67,7 @@ const NewFeedback = () => {
           <select
             name="category"
             id="category"
-            className="self-center w-2/3 px-2 bg-light-gray h-11 md:w-3/4"
+            className="self-center w-2/3 px-2 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>
@@ -106,7 +106,7 @@ const NewFeedback = () => {
           </div>
         </form>
       </section>
-    </>
+    </main>
   );
 };
 

@@ -10,7 +10,7 @@ const RoadmapHeader = () => {
   };
 
   return (
-    <header className="flex justify-between p-4 text-white bg-third-blue md:m-4 md:rounded-xl md:p-8">
+    <header className="flex justify-between p-4 text-white bg-third-blue md:m-4 md:rounded-xl md:p-8 xl:mt-8">
       <div>
         <button
           onClick={goBack}

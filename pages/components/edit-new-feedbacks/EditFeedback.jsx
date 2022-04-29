@@ -79,7 +79,7 @@ const EditFeedback = ({ item }) => {
           <EditFeedbackSVG />
         </div>
         <h1 className="pt-8 text-lg font-jost-bold text-third-blue md:text-2xl">
-          Editing '{title}'
+          Editing {title}
         </h1>
 
         <form className="flex flex-col" onSubmit={onSubmitEditFeedback}>

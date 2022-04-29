@@ -20,6 +20,7 @@ const RoadmapCards = ({
     <Link href={`suggestions/${id}`}>
       <li
         className={classNames(
+          "cursor-pointer",
           "p-4",
           "mx-4",
           "my-4",
@@ -28,7 +29,7 @@ const RoadmapCards = ({
           "border-t-8",
           borderColor,
           "rounded-md",
-          { "w-4/5": !isMobile }
+          { "p-8": !isMobile }
         )}
       >
         <div className="flex items-center">
@@ -44,7 +45,7 @@ const RoadmapCards = ({
           <p className="pl-2 capitalize">{status}</p>
         </div>
         <h1 className="pt-4 text-third-blue font-jost-bold">{title}</h1>
-        <p className="py-2">{description}</p>
+        <p className="py-2 xl:pr-8">{description}</p>
         <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
           {category}
         </button>
