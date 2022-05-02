@@ -15,7 +15,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="pb-8 font-serif bg-light-gray">
+        <body className="pb-8 font-serif bg-light-gray h-screen">
           <Main />
           <NextScript />
         </body>

@@ -83,13 +83,16 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={submitLoginData}>
+    <form
+      onSubmit={submitLoginData}
+      className="flex flex-col items-center pt-4"
+    >
       <div>
         <label htmlFor="email">
           <input
             id="email"
             type="email"
-            placeholder="Enter your email address"
+            placeholder="Email address"
             onChange={(e) =>
               setForm((current) => ({
                 ...current,
@@ -101,15 +104,16 @@ const LoginForm = () => {
               }))
             }
             value={form.email}
+            className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
           />
         </label>
       </div>
-      <div>
+      <div className="pt-4">
         <label htmlFor="password">
           <input
             id="password"
             type="password"
-            placeholder="Create a password"
+            placeholder="Password"
             required
             onChange={(e) =>
               setForm((current) => ({
@@ -122,12 +126,15 @@ const LoginForm = () => {
               }))
             }
             value={form.password}
+            className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
           />
         </label>
       </div>
 
       {loginResult && <p>{loginResult}</p>}
-      <button className="w-32 p-2 rounded-3xl bg-faded-blue">Login</button>
+      <button className=" mt-4 w-60 py-1 bg-sky-500 text-white rounded-md">
+        Log In
+      </button>
     </form>
   );
 };

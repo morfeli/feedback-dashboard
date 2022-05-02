@@ -227,6 +227,8 @@ export const getServerSideProps = async (context) => {
       live: liveStatusData,
     };
 
+    console.log(session);
+
     return {
       props: { session, feedbackData },
     };

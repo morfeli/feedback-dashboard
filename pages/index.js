@@ -2,12 +2,26 @@ import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Dashboard from "./components/dashboard-ui/Dashboard";
-import SignUpPage from "./components/user-sign-up/SignUpPage";
+import LoginPage from "./components/user-sign-up/LoginPage";
 
 export default function UserSignUpPage() {
-  const router = useRouter();
+  const [innerWidth, setInnerWidth] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  const isMobile = innerWidth <= 767;
+
+  const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  useEffect(() => {
+    changeWidth();
+
+    window.addEventListener("resize", changeWidth);
+
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     getSession().then((session) => {
@@ -25,9 +39,7 @@ export default function UserSignUpPage() {
 
   return (
     <>
-      <Dashboard />
-
-      <SignUpPage />
+      <LoginPage />
     </>
   );
 }

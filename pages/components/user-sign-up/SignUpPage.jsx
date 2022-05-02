@@ -13,9 +13,11 @@ const SignUpPage = () => {
 
   return (
     <main className="flex flex-col items-center h-screen bg-light-gray">
-      <div className="flex flex-col items-center justify-center px-8 pt-4">
-        <h1 className="text-xl">Product Feedback App</h1>
-        <p className="text-lg">A communtity driven platform</p>
+      <div className="flex flex-col items-center justify-center px-8 pt-4 mt-4">
+        <h1 className="text-xl font-jost-semibold text-second-blue">
+          Product Feedback App
+        </h1>
+        <p className="text-lg text-third-blue">A communtity driven platform</p>
         {!isUser && (
           <p className="pt-4 text-xl text-center ">
             Sign up today and leave a feedback in how we can improve our

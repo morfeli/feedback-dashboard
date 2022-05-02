@@ -63,7 +63,7 @@ const FeedbackCard = ({
           <button
             onClick={incrementUpvoteByOne}
             value={id}
-            className="z-40 flex items-center self-start justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold "
+            className="z-40 flex items-center self-start justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold hover:bg-gray-300"
           >
             <IconArrowSvg />
             {totalUpvotes}

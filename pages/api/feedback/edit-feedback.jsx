@@ -26,21 +26,21 @@ export default async function editFeedbackHandler(req, res) {
     if (existingFeedback) {
       let content = existingFeedback;
 
-      // content.title = updatedTitle;
+      content.title = updatedTitle;
       content.status = updatedStatus;
-      // content.description = updatedMessage;
+      content.description = updatedMessage;
       content.category = updatedCategory;
 
-      let updatedItems = {
-        id: content.id,
-        title: content.title,
-        description: content.description,
-        category: content.category,
-        message: content.message,
-        comments: content.comments,
-        status: content.status,
-        upvotes: content.upvotes,
-      };
+      // let updatedItems = {
+      //   id: content.id,
+      //   title: content.title,
+      //   description: content.description,
+      //   category: content.category,
+      //   message: content.message,
+      //   comments: content.comments,
+      //   status: content.status,
+      //   upvotes: content.upvotes,
+      // };
 
       // feedbackData.productRequests.push(updatedItems);
       fs.writeFile(filePath, JSON.stringify(feedbackData, null, 2));

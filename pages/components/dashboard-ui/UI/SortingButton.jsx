@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const SortingButton = (props) => {
   const captureSortOption = (e) => {
     props.sortArray(e.target.value);
@@ -9,6 +11,7 @@ const SortingButton = (props) => {
       <label htmlFor="sort" className="pr-1 text-white font-jost-semibold">
         Sort by:
       </label>
+
       <select
         name="sort"
         id="sort"

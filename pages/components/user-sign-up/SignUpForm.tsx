@@ -123,9 +123,8 @@ const SignUpForm = (props: any) => {
       onSubmit={submitUserData}
       className="flex flex-col items-center justify-center pt-4"
     >
-      <section className="flex flex-col items-center h-96 justify-evenly w-80 bg-light-blue rounded-2xl">
-        <h1>Sign Up</h1>
-        <div>
+      <section className="flex flex-col items-center">
+        <div className="mb-2">
           <label htmlFor="firstName">
             <input
               id="firstName"
@@ -142,10 +141,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.firstName}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <div>
+        <div className="mb-2">
           <label htmlFor="lastName">
             <input
               id="lastName"
@@ -162,10 +162,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.lastName}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <div>
+        <div className="mb-2">
           <label htmlFor="userName">
             <input
               id="userName"
@@ -182,10 +183,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.userName}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <div>
+        <div className="mb-2">
           <label htmlFor="email">
             <input
               id="email"
@@ -202,10 +204,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.email}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <div>
+        <div className="mb-2">
           <label htmlFor="password">
             <input
               id="password"
@@ -223,10 +226,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.password}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <div>
+        <div className="mb-2">
           <label htmlFor="confirmPassword">
             <input
               id="confirmPassword"
@@ -244,10 +248,13 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.confirmPassword}
+              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
             />
           </label>
         </div>
-        <button className="w-32 p-2 rounded-3xl bg-faded-blue">Submit</button>
+        <button className=" mt-4 w-60 py-1 bg-sky-500 text-white rounded-md">
+          Submit
+        </button>
       </section>
     </form>
   );

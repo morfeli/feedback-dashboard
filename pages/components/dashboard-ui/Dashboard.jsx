@@ -4,6 +4,7 @@ import DashboardHeader from "./DashboardHeader";
 import MobileNavBar from "../dashboard-ui/UI/MobileNavBar";
 import DashboardCategories from "./DashboardCategories";
 import DashboardRoadmap from "./DashboardRoadmap";
+import LogOutBtn from "../dashboard-ui/UI/LogOutBtn";
 
 const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -32,13 +33,12 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
   } else {
     return (
       <header className="flex items-center justify-between m-4 xl:flex-col">
-        <div className="bg-[url('../public/assets/suggestions/tablet/background-header.png')] bg-no-repeat flex flex-col p-12 w-fit rounded-lg xl:my-8">
-          <div className="relative top-30px right-20px">
-            <h1 className="tracking-wide text-white font-jost-semibold">
-              Frontend Mentor
-            </h1>
-            <p className="text-slate-200">Feedback Board</p>
-          </div>
+        <div className="bg-[url('../public/assets/suggestions/tablet/background-header.png')] bg-no-repeat bg-cover flex flex-col justify-end	pl-4 pb-4 w-64 h-52 rounded-lg xl:my-8 xl:items-center xl:justify-center xl:pl-0 xl:pb-0">
+          <h1 className="tracking-wide text-white font-jost-semibold">
+            Frontend Mentor
+          </h1>
+          <p className="text-slate-200">Feedback Board</p>
+          <LogOutBtn />
         </div>
         <DashboardCategories
           isMobile={isMobile}

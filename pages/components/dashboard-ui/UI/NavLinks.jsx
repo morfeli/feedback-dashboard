@@ -23,7 +23,8 @@ const NavLinks = ({
     "rounded-xl",
     "text-first-blue",
     "font-jost-bold",
-    "bg-light-gray"
+    "bg-light-gray",
+    "hover:bg-gray-300"
   );
 
   if (activeLink == value) {

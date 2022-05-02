@@ -4,6 +4,7 @@ import classNames from "classnames";
 // components
 import DashboardCategories from "../DashboardCategories";
 import DashboardRoadmap from "../DashboardRoadmap";
+import LogOutBtn from "../../dashboard-ui/UI/LogOutBtn";
 
 const MobileNavBar = ({
   isOpen,
@@ -17,7 +18,7 @@ const MobileNavBar = ({
 
   if (isOpen) {
     mobileMenuClass = classNames(
-      "block px-8 bg-light-gray absolute right-0px z-50 "
+      "block px-8 py-8 bg-light-gray absolute right-0px z-50 "
     );
   } else {
     mobileMenuClass = classNames("hidden px-8 bg-light-gray absolute ");
@@ -46,6 +47,7 @@ const MobileNavBar = ({
             isMobile={isMobile}
           />
           <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
+          <LogOutBtn />
         </motion.div>
       )}
     </AnimatePresence>

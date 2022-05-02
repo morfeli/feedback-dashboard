@@ -51,7 +51,7 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
   let length = findLength();
 
   return (
-    <main className="xl:mx-64">
+    <main className="xl:mx-64 md:pb-8">
       <div className="flex items-baseline justify-between">
         <GoBackBtn />
 
