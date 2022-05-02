@@ -39,7 +39,7 @@ const LoginPage = () => {
 
           {isUser && (
             <div className="pt-6 flex justify-center">
-              <h1>Don't have an account?</h1>
+              <h1>Dont have an account?</h1>
               <button
                 onClick={isLoggedInHandler}
                 className="pl-2 font-jost-semibold text-sky-500"
