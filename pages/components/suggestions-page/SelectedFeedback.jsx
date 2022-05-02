@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { useState } from "react";
 
 import IconArrowSvg from "../dashboard-ui/UI/IconArrowSvg";
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 
-const FeedbackCard = ({
+const SelectedFeedback = ({
   title,
   description,
   category,
@@ -15,24 +14,11 @@ const FeedbackCard = ({
   innerWidth,
   isMobile,
 }) => {
-  const [totalUpvotes, setTotalUpvotes] = useState(upvotes);
-
-  const incrementUpvoteByOne = (e) => {
-    let item = e.target.value;
-    fetch("/api/feedback/increaseUpvotes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
-    })
-      .then((response) => response.json())
-      .then((data) => setTotalUpvotes(data));
-  };
-
   if (innerWidth == 0) {
     return <></>;
   } else if (isMobile) {
     return (
-      <Link href={`suggestions/${id}`} passHref>
+      <div>
         <li className="p-4 mx-4 bg-white rounded-2xl">
           <h1 className="text-third-blue font-jost-bold ">{title}</h1>
           <p className="py-2 text-first-blue">{description}</p>
@@ -40,13 +26,9 @@ const FeedbackCard = ({
             {category}
           </button>
           <div className="flex justify-between pt-4">
-            <button
-              onClick={incrementUpvoteByOne}
-              value={id}
-              className="z-40 flex items-center justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold"
-            >
+            <button className="z-40 flex items-center justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold">
               <IconArrowSvg />
-              {totalUpvotes}
+              {upvotes}
             </button>
             <button className="flex items-center justify-between w-8">
               <CommentsSvg />
@@ -54,19 +36,18 @@ const FeedbackCard = ({
             </button>
           </div>
         </li>
-      </Link>
+      </div>
     );
   } else {
     return (
-      <Link href={`suggestions/${id}`} passHref>
+      <div>
         <li className="relative flex items-center p-4 mx-4 bg-white rounded-2xl cursor-pointer">
           <button
-            onClick={incrementUpvoteByOne}
             value={id}
             className="z-40 flex items-center self-start justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold hover:bg-gray-300"
           >
             <IconArrowSvg />
-            {totalUpvotes}
+            {upvotes}
           </button>
           <div className="flex flex-col items-baseline pl-8">
             <h1 className="text-third-blue font-jost-bold ">{title}</h1>
@@ -82,9 +63,9 @@ const FeedbackCard = ({
             </button>
           </div>
         </li>
-      </Link>
+      </div>
     );
   }
 };
 
-export default FeedbackCard;
+export default SelectedFeedback;

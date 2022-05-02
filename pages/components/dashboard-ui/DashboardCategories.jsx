@@ -10,12 +10,7 @@ const DashboardCategories = ({ category, toggleMenu, test, isMobile }) => {
   };
 
   return (
-    <nav
-      className={classnames("w-56", "mx-auto", {
-        "bg-white": !isMobile,
-        "rounded-lg": !isMobile,
-      })}
-    >
+    <nav className={classnames("w-56", "mx-auto", "bg-white", "rounded-md")}>
       <ul className="flex flex-wrap items-center justify-between p-4 h-52">
         <NavLinks
           category={category}

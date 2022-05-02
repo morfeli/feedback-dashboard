@@ -3,8 +3,14 @@ import { useRouter } from "next/router";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
+import classNames from "classnames";
+
+const isEmpty = (value) => value.trim() === "";
 
 const NewFeedback = () => {
+  const [titleValid, setTitleIsValid] = useState(true);
+  const [messageValid, setMessageIsValid] = useState(true);
+
   const router = useRouter();
   const titleRef = useRef();
   const messageRef = useRef();
@@ -16,6 +22,17 @@ const NewFeedback = () => {
     const enteredTitle = titleRef.current.value;
     const enteredMessage = messageRef.current.value;
     const enteredCategory = categoryRef.current.value;
+
+    let enteredTitleIsValid = !isEmpty(enteredTitle);
+    let enteredMessageIsValid = !isEmpty(enteredMessage);
+
+    let formIsValid = enteredMessageIsValid && enteredTitleIsValid;
+
+    if (!formIsValid) {
+      setMessageIsValid(false);
+      setTitleIsValid(false);
+      return;
+    }
 
     const feedbackData = {
       title: enteredTitle,
@@ -35,9 +52,9 @@ const NewFeedback = () => {
   };
 
   return (
-    <main className="xl:mx-64">
+    <main className="pb-8 xl:mx-64">
       <GoBackBtn />
-      <section className="flex flex-col p-4 m-8 bg-white md:m-20">
+      <section className="flex flex-col p-4 m-8 bg-white rounded-md md:m-20">
         <div className="absolute top-60px md:top-100px">
           <NewFeedbackSvg />
         </div>
@@ -56,7 +73,20 @@ const NewFeedback = () => {
             type="text"
             id="title"
             name="title"
-            className="self-center w-2/3 pl-4 bg-light-gray h-11 md:w-3/4"
+            onChange={() => setTitleIsValid(true)}
+            className={classNames(
+              "self-center",
+              "w-2/3",
+              "pl-4",
+              "bg-light-gray",
+              "h-11",
+              "md:pl-4",
+              "outline-none",
+              {
+                "border-red-700": !titleValid,
+                "border-2": !titleValid,
+              }
+            )}
             ref={titleRef}
           />
 
@@ -89,7 +119,20 @@ const NewFeedback = () => {
             name="message"
             rows="5"
             cols="33"
-            className="self-center w-2/3 px-2 py-2 mb-4 bg-light-gray md:w-3/4"
+            onChange={() => setMessageIsValid(true)}
+            className={classNames(
+              "self-center",
+              "w-2/3",
+              "p-4",
+              "bg-light-gray",
+              "h-11",
+              "md:pl-4",
+              "outline-none",
+              {
+                "border-red-700": !messageValid,
+                "border-2": !messageValid,
+              }
+            )}
             ref={messageRef}
           ></textarea>
 

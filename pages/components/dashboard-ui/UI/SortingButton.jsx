@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import ArrowSVG from "./ArrowSVG";
 import CheckSVG from "./CheckSVG";
@@ -17,6 +18,11 @@ const SortingButton = (props) => {
     setActive((current) => !current);
   };
 
+  const activeDivVariants = {
+    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: -100 },
+  };
+
   return (
     <div className="pl-1 relative xl:pr-72 ">
       <button
@@ -28,51 +34,60 @@ const SortingButton = (props) => {
         <ArrowSVG rotate={active} />
       </button>
 
-      {active && (
-        <div className="absolute bg-white z-50 w-64 h-64 top-60px flex flex-col justify-around rounded-lg shadow-lg shadow-cyan-500/50">
-          <button
-            className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
-            onClick={captureSortOption}
-            value="Most Upvotes"
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={activeDivVariants}
+            transition={{ type: "spring", stiffness: 100 }}
+            exit={{ opacity: 0, y: -100 }}
+            className="absolute bg-white z-50 w-64 h-64 top-60px flex flex-col justify-around rounded-lg shadow-lg shadow-cyan-500/50"
           >
-            Most Upvotes
-            {sortOption == "Most Upvotes" ? <CheckSVG /> : null}
-          </button>
+            <button
+              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              onClick={captureSortOption}
+              value="Most Upvotes"
+            >
+              Most Upvotes
+              {sortOption == "Most Upvotes" ? <CheckSVG /> : null}
+            </button>
 
-          <hr />
+            <hr />
 
-          <button
-            className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
-            onClick={captureSortOption}
-            value="Least Upvotes"
-          >
-            Least Upvotes
-            {sortOption == "Least Upvotes" ? <CheckSVG /> : null}
-          </button>
+            <button
+              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              onClick={captureSortOption}
+              value="Least Upvotes"
+            >
+              Least Upvotes
+              {sortOption == "Least Upvotes" ? <CheckSVG /> : null}
+            </button>
 
-          <hr />
+            <hr />
 
-          <button
-            className="py-4 text-left pl-4  flex items-center justify-between  hover:text-button-pink hover:cursor-pointer"
-            onClick={captureSortOption}
-            value="Most Comments"
-          >
-            Most Comments
-            {sortOption == "Most Comments" ? <CheckSVG /> : null}
-          </button>
+            <button
+              className="py-4 text-left pl-4  flex items-center justify-between  hover:text-button-pink hover:cursor-pointer"
+              onClick={captureSortOption}
+              value="Most Comments"
+            >
+              Most Comments
+              {sortOption == "Most Comments" ? <CheckSVG /> : null}
+            </button>
 
-          <hr />
+            <hr />
 
-          <button
-            className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
-            onClick={captureSortOption}
-            value="Least Comments"
-          >
-            Least Comments
-            {sortOption == "Least Comments" ? <CheckSVG /> : null}
-          </button>
-        </div>
-      )}
+            <button
+              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              onClick={captureSortOption}
+              value="Least Comments"
+            >
+              Least Comments
+              {sortOption == "Least Comments" ? <CheckSVG /> : null}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* <select
         name="sort"

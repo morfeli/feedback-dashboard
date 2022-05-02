@@ -5,7 +5,7 @@ import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
 import EditFeedbackBtn from "../components/dashboard-ui/UI/EditFeedbackBtn";
-import FeedbackCard from "../components/suggestions-page/FeedbackCard";
+import SelectedFeedback from "../components/suggestions-page/SelectedFeedback";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
   const [innerWidth, setInnerWidth] = useState(0);
@@ -81,7 +81,7 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
           let totalCommentsLength = commentsLength + replyLength;
 
           return (
-            <FeedbackCard
+            <SelectedFeedback
               key={item.id}
               id={item.id}
               title={item.title}
