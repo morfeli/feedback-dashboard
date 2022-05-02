@@ -15,7 +15,7 @@ import {
 
 const SuggestionsPage = ({ session, feedbackData }) => {
   const { suggestions, progress, planned, live } = feedbackData;
-  const [sort, setSort] = useState("Most_Upvotes");
+  const [sort, setSort] = useState("Most Upvotes");
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState(suggestions);
   const [suggestionLength, setSuggestionLength] = useState(filter.length);
@@ -64,7 +64,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     }
 
     switch (sort) {
-      case "Most_Upvotes": {
+      case "Most Upvotes": {
         let sortedArray = arr.sort(
           (itemA, itemB) => itemB.upvotes - itemA.upvotes
         );
@@ -73,7 +73,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
           sortedArray,
         };
       }
-      case "Least_Upvotes": {
+      case "Least Upvotes": {
         let sortedArray = arr.sort(
           (itemA, itemB) => itemA.upvotes - itemB.upvotes
         );
@@ -82,7 +82,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
           sortedArray,
         };
       }
-      case "Most_Comments": {
+      case "Most Comments": {
         let sortedArray = arr.sort((a, b) => {
           const commentsA = a.comments ? a.comments.length : 0;
           const commentsB = b.comments ? b.comments.length : 0;
@@ -115,7 +115,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
         };
       }
 
-      case "Least_Comments": {
+      case "Least Comments": {
         let sortedArray = arr.sort((a, b) => {
           const commentsA = a.comments ? a.comments.length : 0;
           const commentsB = b.comments ? b.comments.length : 0;

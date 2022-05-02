@@ -74,7 +74,7 @@ const AddCommentForm = ({
         Add Comment
       </label>
       <textarea
-        className="p-4 bg-light-gray"
+        className="p-4 bg-light-gray cursor-pointer"
         id="comment"
         placeholder={
           username ? `Reply to @${username}` : "Type your comment here"

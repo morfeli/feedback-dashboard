@@ -36,7 +36,10 @@ const UserComment = ({
           </div>
         </div>
 
-        <h1 onClick={toggleReply} className="pr-8 text-first-blue">
+        <h1
+          onClick={toggleReply}
+          className="pr-8 text-first-blue cursor-pointer"
+        >
           Reply
         </h1>
       </div>
