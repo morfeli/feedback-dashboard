@@ -61,7 +61,9 @@ const LoginPage = () => {
           )}
         </div>
 
-        <MorfeliSVG />
+        <div>
+          <MorfeliSVG />
+        </div>
       </main>
     </>
   );
