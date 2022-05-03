@@ -102,6 +102,8 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
   );
 };
 
+export default SuggestionFeedbackDetailPage;
+
 export async function getServerSideProps(context) {
   const { params } = context;
 
@@ -127,5 +129,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-export default SuggestionFeedbackDetailPage;

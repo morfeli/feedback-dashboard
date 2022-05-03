@@ -5,9 +5,9 @@ import path from "path";
 import fs from "fs/promises";
 
 // components
-import Dashboard from "../components/dashboard-ui/Dashboard";
-import SortingHeader from "../components/dashboard-ui/SortingHeader";
-import Suggestions from "../components/suggestions-page/Suggestions";
+import Dashboard from "../../components/dashboard-ui/Dashboard";
+import SortingHeader from "../../components/dashboard-ui/SortingHeader";
+import Suggestions from "../../components/suggestions-page/Suggestions";
 
 import { filteredData } from "../helper/HelperFunctions";
 
