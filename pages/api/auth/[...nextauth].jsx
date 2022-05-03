@@ -10,9 +10,7 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        let client = await MongoClient.connect(
-          "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
-        );
+        let client = await MongoClient.connect(env.process.NEXTAUTH_URL);
 
         const userCollection = client.db().collection("users");
 
