@@ -2,17 +2,16 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Helper Functions
-import {
-  connectToDatabase,
-  comparePasswords,
-} from "../../helper/HelperFunctions";
+import { comparePasswords } from "../../helper/HelperFunctions";
 
 export default NextAuth({
   session: { jwt: true },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        const client = await connectToDatabase();
+        let client = await MongoClient.connect(
+          "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
+        );
 
         const userCollection = client.db().collection("users");
 

@@ -14,12 +14,12 @@ export async function comparePasswords(hashedPassword, password) {
   return isValid;
 }
 
-export async function connectToDatabase() {
-  const client = await MongoClient.connect(
-    "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
-  );
-  return client;
-}
+// export async function connectToDatabase() {
+//   const client = await MongoClient.connect(
+//     "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
+//   );
+//   return client;
+// }
 
 export function buildFeedbackPath() {
   return path.join(process.cwd(), "public", "data", "data.json");

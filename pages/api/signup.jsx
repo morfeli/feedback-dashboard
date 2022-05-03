@@ -1,4 +1,5 @@
-import { hashedPassword, connectToDatabase } from "../helper/HelperFunctions";
+import { hashedPassword } from "../helper/HelperFunctions";
+import { MongoClient } from "mongodb";
 
 const isEmpty = (value) => value.trim() === "";
 
@@ -37,7 +38,9 @@ export default async function handler(req, res) {
       return;
     }
 
-    const client = await connectToDatabase();
+    let client = await MongoClient.connect(
+      "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
+    );
 
     const db = client.db();
 
