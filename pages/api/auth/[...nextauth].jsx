@@ -2,7 +2,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Helper Functions
-import { comparePasswords } from "../../components/helper/HelperFunctions";
+import { comparePasswords } from "../../helper/HelperFunctions";
 import { MongoClient } from "mongodb";
 
 export default NextAuth({

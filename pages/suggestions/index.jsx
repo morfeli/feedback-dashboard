@@ -9,7 +9,7 @@ import Dashboard from "../components/dashboard-ui/Dashboard";
 import SortingHeader from "../components/dashboard-ui/SortingHeader";
 import Suggestions from "../components/suggestions-page/Suggestions";
 
-import { filteredData } from "../components/helper/HelperFunctions";
+import { filteredData } from "../helper/HelperFunctions";
 
 const SuggestionsPage = ({ session, feedbackData }) => {
   const { suggestions, progress, planned, live } = feedbackData;
