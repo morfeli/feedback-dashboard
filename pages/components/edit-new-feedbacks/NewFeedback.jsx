@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";

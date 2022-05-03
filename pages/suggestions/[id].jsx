@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
+import path from "path";
+import fs from "fs/promises";
 
 import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
 import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
@@ -106,8 +107,11 @@ export async function getServerSideProps(context) {
 
   const paramsId = params.id;
 
-  const filePath = buildFeedbackPath();
-  const feedbackData = await extractFeedback(filePath);
+  let filePath = path.join(process.cwd(), "public", "data", "data.json");
+
+  let jsonData = await fs.readFile(filePath);
+
+  const feedbackData = JSON.parse(jsonData);
 
   const data = [];
 

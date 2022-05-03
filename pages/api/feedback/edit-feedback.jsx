@@ -1,23 +1,18 @@
+import path from "path";
 import fs from "fs/promises";
-
-import {
-  buildFeedbackPath,
-  extractFeedback,
-} from "../../helper/HelperFunctions";
 
 export default async function editFeedbackHandler(req, res) {
   if (req.method === "PUT") {
-    let reqData = req.body;
-
     let reqID = req.body.id;
-    let updatedTitle = req.body.title;
     let updatedStatus = req.body.status;
     let updatedCategory = req.body.category;
     let updatedMessage = req.body.message;
 
-    const filePath = buildFeedbackPath();
+    let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-    const feedbackData = await extractFeedback(filePath);
+    let jsonData = await fs.readFile(filePath);
+
+    const feedbackData = JSON.parse(jsonData);
 
     const existingFeedback = feedbackData.productRequests.find(
       (item) => item.id == reqID

@@ -27,8 +27,6 @@ export default NextAuth({
           userName: user.userName,
         };
 
-        // console.log(userInfo);
-
         if (!user) {
           client.close();
 

@@ -1,15 +1,16 @@
-import {
-  buildFeedbackPath,
-  extractFeedback,
-  filteredData,
-  sortData,
-} from "pages/helper/HelperFunctions";
+import path from "path";
+import fs from "fs/promises";
+
+import { filteredData, sortData } from "pages/helper/HelperFunctions";
 
 export default async function feedbackHandler(req, res) {
   if (req.method === "GET") {
     try {
-      const filePath = buildFeedbackPath();
-      const feedbackData = await extractFeedback(filePath);
+      let filePath = path.join(process.cwd(), "public", "data", "data.json");
+
+      let jsonData = await fs.readFile(filePath);
+
+      const feedbackData = JSON.parse(jsonData);
 
       let data = [];
       data.push(feedbackData);

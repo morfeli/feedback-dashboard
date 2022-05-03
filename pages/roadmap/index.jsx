@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { buildFeedbackPath, extractFeedback } from "../helper/HelperFunctions";
+import path from "path";
+import fs from "fs/promises";
 
 import RoadmapHeader from "../components/roadmap/RoadmapHeader";
 import Roadmap from "../components/roadmap/Roadmap";
@@ -33,9 +34,11 @@ const RoadmapPage = ({ data }) => {
 export default RoadmapPage;
 
 export const getServerSideProps = async () => {
-  const filePath = buildFeedbackPath();
+  let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-  const data = await extractFeedback(filePath);
+  let jsonData = await fs.readFile(filePath);
+
+  const data = JSON.parse(jsonData);
 
   const filteredData = data.productRequests.filter(
     (item) => item.status != "suggestion"

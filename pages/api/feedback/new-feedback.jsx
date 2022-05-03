@@ -1,9 +1,5 @@
+import path from "path";
 import fs from "fs/promises";
-
-import {
-  buildFeedbackPath,
-  extractFeedback,
-} from "../../helper/HelperFunctions";
 
 const isEmpty = (value) => value.trim() === "";
 
@@ -30,9 +26,11 @@ export default async function newFeedbackHandler(req, res) {
       comments: [],
     };
 
-    const filePath = buildFeedbackPath();
+    let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-    const data = await extractFeedback(filePath);
+    let jsonData = await fs.readFile(filePath);
+
+    const data = JSON.parse(jsonData);
 
     data.productRequests.forEach((item) => item.id++);
     data.productRequests.push(newFeedback);
