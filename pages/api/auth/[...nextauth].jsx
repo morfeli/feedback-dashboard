@@ -6,9 +6,7 @@ import { comparePasswords } from "../../../components/helper/HelperFunctions";
 import { MongoClient } from "mongodb";
 
 export default NextAuth({
-  session: {
-    strategy: "jwt",
-  },
+  session: { jwt: true },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
