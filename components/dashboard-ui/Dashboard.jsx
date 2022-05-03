@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import DashboardHeader from "./DashboardHeader";
+import DashboardHeader from "../dashboard-ui/DashboardHeader";
 import MobileNavBar from "../dashboard-ui/UI/MobileNavBar";
-import DashboardCategories from "./DashboardCategories";
-import DashboardRoadmap from "./DashboardRoadmap";
+import DashboardCategories from "../dashboard-ui/DashboardCategories";
+import DashboardRoadmap from "../dashboard-ui/DashboardRoadmap";
 import LogOutBtn from "../dashboard-ui/UI/LogOutBtn";
 
 const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
