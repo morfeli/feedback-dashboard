@@ -1,18 +1,17 @@
-import {
-  buildFeedbackPath,
-  extractFeedback,
-  increaseUpvotesByOne,
-} from "../../helper/HelperFunctions";
+import { increaseUpvotesByOne } from "../../helper/HelperFunctions";
 
+import path from "path";
 import fs from "fs/promises";
 
 export default async function increaseUpvotes(req, res) {
   if (req.method === "POST") {
     let itemID = req.body;
 
-    let path = buildFeedbackPath();
+    let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-    let data = await extractFeedback(path);
+    let jsonData = await fs.readFile(filePath);
+
+    const data = JSON.parse(jsonData);
 
     let singleItem = data.productRequests.find((item) => item.id == itemID);
 

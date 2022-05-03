@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 
-import { filteredData, sortData } from "pages/helper/HelperFunctions";
+import { filteredData } from "pages/helper/HelperFunctions";
 
 export default async function feedbackHandler(req, res) {
   if (req.method === "GET") {
@@ -16,7 +16,6 @@ export default async function feedbackHandler(req, res) {
       data.push(feedbackData);
 
       let filterData = filteredData(data, "suggestion");
-      sortData(filterData, "Most_Upvotes");
 
       res.status(200).json({ filterData });
     } catch (error) {
