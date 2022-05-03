@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 // Helper Functions
 import { comparePasswords } from "../../helper/HelperFunctions";
+import { MongoClient } from "mongodb";
 
 export default NextAuth({
   session: { jwt: true },
