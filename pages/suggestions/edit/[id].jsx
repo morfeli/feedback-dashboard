@@ -1,8 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 
-import EditFeedback from "../../components/edit-new-feedbacks/EditFeedback";
-
+import EditFeedback from "../../../components/edit-new-feedbacks/EditFeedback";
 const EditFeedbackPage = ({ editFeedback }) => {
   return <EditFeedback item={editFeedback} />;
 };

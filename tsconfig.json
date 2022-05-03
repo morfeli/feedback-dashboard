@@ -25,7 +25,7 @@
     "**/*.tsx",
     "src/components/Header/Header.jsx",
     "pages/api/HelperFunctions.jsx",
-    "pages/components/suggestions-page/AddCommentForm.jsx"
+    "components/suggestions-page/AddCommentForm.jsxorm.jsx"
   ],
   "exclude": ["node_modules"]
 }

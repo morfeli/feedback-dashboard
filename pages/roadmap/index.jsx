@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import path from "path";
 import fs from "fs/promises";
 
-import RoadmapHeader from "../components/roadmap/RoadmapHeader";
-import Roadmap from "../components/roadmap/Roadmap";
+import RoadmapHeader from "../../components/roadmap/RoadmapHeader";
+import Roadmap from "../../components/roadmap/Roadmap";
 
 const RoadmapPage = ({ data }) => {
   const [innerWidth, setInnerWidth] = useState(0);

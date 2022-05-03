@@ -1,5 +1,5 @@
-import AddFeedbackBtn from "../dashboard-ui/UI/AddFeedbackBtn";
-import NoFeedbackSVG from "../dashboard-ui/UI/NoFeedbackSvg";
+import AddFeedbackBtn from "components/dashboard-ui/UI/AddFeedbackBtn";
+import NoFeedbackSVG from "components/dashboard-ui/UI/NoFeedbackSvg";
 
 const NoSuggestions = () => {
   return (

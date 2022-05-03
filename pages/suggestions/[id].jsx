@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import path from "path";
 import fs from "fs/promises";
 
-import SuggestionsComments from "../components/suggestions-page/SuggestionsComments";
-import GoBackBtn from "../components/dashboard-ui/UI/GoBackBtn";
-import EditFeedbackBtn from "../components/dashboard-ui/UI/EditFeedbackBtn";
-import SelectedFeedback from "../components/suggestions-page/SelectedFeedback";
+import SuggestionsComments from "../../components/suggestions-page/SuggestionsComments";
+import GoBackBtn from "../../components/dashboard-ui/UI/GoBackBtn";
+import EditFeedbackBtn from "../../components/dashboard-ui/UI/EditFeedbackBtn";
+import SelectedFeedback from "../../components/suggestions-page/SelectedFeedback";
 
 const SuggestionFeedbackDetailPage = ({ item }) => {
   const [innerWidth, setInnerWidth] = useState(0);

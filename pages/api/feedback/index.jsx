@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 
-import { filteredData } from "pages/helper/HelperFunctions";
+import { filterData } from "../../../components/helper/HelperFunctions";
 
 export default async function feedbackHandler(req, res) {
   if (req.method === "GET") {

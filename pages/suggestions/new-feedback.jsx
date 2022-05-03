@@ -1,4 +1,4 @@
-import NewFeedback from "../components/edit-new-feedbacks/NewFeedback";
+import NewFeedback from "../../components/edit-new-feedbacks/NewFeedback";
 
 const NewFeedbackPage = () => {
   return <NewFeedback />;
