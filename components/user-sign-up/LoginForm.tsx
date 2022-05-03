@@ -74,8 +74,10 @@ const LoginForm = () => {
     });
 
     if (!result.error) {
+      console.log(result);
       router.replace("/suggestions");
     } else {
+      console.log(result.error);
       setLoginResult(result.error);
     }
 
@@ -104,7 +106,7 @@ const LoginForm = () => {
               }))
             }
             value={form.email}
-            className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+            className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
           />
         </label>
       </div>
@@ -126,13 +128,13 @@ const LoginForm = () => {
               }))
             }
             value={form.password}
-            className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+            className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
           />
         </label>
       </div>
 
       {loginResult && <p>{loginResult}</p>}
-      <button className=" mt-4 w-60 py-1 bg-sky-500 text-white rounded-md">
+      <button className="py-1 mt-4 text-white rounded-md w-60 bg-sky-500">
         Log In
       </button>
     </form>

@@ -141,7 +141,7 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.firstName}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
@@ -162,7 +162,7 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.lastName}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
@@ -183,7 +183,7 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.userName}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
@@ -204,7 +204,7 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.email}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
@@ -226,7 +226,7 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.password}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
@@ -248,11 +248,11 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.confirmPassword}
-              className="w-60 p-2 bg-light-gray focus:outline-button-pink rounded-md"
+              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
             />
           </label>
         </div>
-        <button className=" mt-4 w-60 py-1 bg-sky-500 text-white rounded-md">
+        <button className="py-1 mt-4 text-white rounded-md  w-60 bg-sky-500">
           Submit
         </button>
       </section>

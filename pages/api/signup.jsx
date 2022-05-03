@@ -18,6 +18,7 @@ const emailValidation = (value) => {
 export default async function handler(req, res) {
   if (req.method == "POST") {
     let data = req.body;
+    console.log(data);
 
     const { firstName, lastName, email, password, userName } = data;
 

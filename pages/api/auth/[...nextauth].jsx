@@ -10,9 +10,7 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        let client = await MongoClient.connect(
-          "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
-        );
+        let client = await MongoClient.connect(env.process.NEXTAUTH_URL);
 
         const userCollection = client.db().collection("users");
 
@@ -28,6 +26,7 @@ export default NextAuth({
         };
 
         if (!user) {
+          console.log("test");
           client.close();
 
           throw new Error("No user found!");
@@ -56,4 +55,18 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        console.log(user);
+        token = user;
+      }
+      return token;
+    },
+  },
+  // session: async ({ session, token }) => {
+  //   console.log(token);
+  //   session = token;
+  //   return session;
+  // },
 });
