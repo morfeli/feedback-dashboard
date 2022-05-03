@@ -1,4 +1,4 @@
-import { hashedPassword } from "../helper/HelperFunctions";
+import { hashedPassword } from "../components/helper/HelperFunctions";
 import { MongoClient } from "mongodb";
 
 const isEmpty = (value) => value.trim() === "";

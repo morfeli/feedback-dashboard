@@ -1,4 +1,4 @@
-import { increaseUpvotesByOne } from "../../helper/HelperFunctions";
+import { increaseUpvotesByOne } from "../../components/helper/HelperFunctions";
 
 import path from "path";
 import fs from "fs/promises";
