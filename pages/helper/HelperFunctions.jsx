@@ -1,4 +1,3 @@
-import { MongoClient } from "mongodb";
 import { hash, compare } from "bcryptjs";
 
 import path from "path";
