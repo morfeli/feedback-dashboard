@@ -2,7 +2,6 @@ import {
   connectToDatabase,
   hashedPassword,
 } from "../../helper/HelperFunctions";
-import { MongoClient } from "mongodb";
 
 const isEmpty = (value) => value.trim() === "";
 

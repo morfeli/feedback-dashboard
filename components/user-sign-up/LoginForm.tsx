@@ -74,8 +74,8 @@ const LoginForm = () => {
     });
 
     if (!result.error) {
-      console.log(result);
-      router.replace("/suggestions");
+      console.log(true);
+      router.push("/suggestions");
     } else {
       console.log(result.error);
       setLoginResult(result.error);
