@@ -8,19 +8,16 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
-  session: { strategy: "jwt" },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
         const client = await connectToDatabase();
 
-        const usersCollection = client.db().collection("users");
+        const usersCollection = client.db().collection(`users`);
 
         const user = await usersCollection.findOne({
           email: credentials.email,
         });
-
-        console.log(user);
 
         if (!user) {
           client.close();

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import LoginPage from "../components/user-sign-up/LoginPage";
+import Logo from "../components/dashboard-ui/UI/Logo";
 
 export default function UserSignUpPage() {
   const [innerWidth, setInnerWidth] = useState(0);
@@ -34,7 +35,7 @@ export default function UserSignUpPage() {
   }, [router]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Logo />;
   }
 
   return (
