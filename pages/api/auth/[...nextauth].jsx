@@ -9,6 +9,7 @@ import {
 
 export default NextAuth({
   session: { strategy: "jwt" },
+
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -49,4 +50,5 @@ export default NextAuth({
       },
     }),
   ],
+  secret: "This has to work",
 });
