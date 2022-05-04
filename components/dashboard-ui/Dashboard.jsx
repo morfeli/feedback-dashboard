@@ -38,7 +38,7 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
             Frontend Mentor
           </h1>
           <p className="text-slate-200">Feedback Board</p>
-          <LogOutBtn />
+          {/* <LogOutBtn /> */}
         </div>
         <DashboardCategories
           isMobile={isMobile}

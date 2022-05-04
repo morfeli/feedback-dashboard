@@ -36,6 +36,8 @@ export default NextAuth({
           client.close();
 
           throw new Error("Invalid password");
+        } else {
+          console.log("Valid");
         }
 
         client.close();
@@ -50,5 +52,4 @@ export default NextAuth({
       },
     }),
   ],
-  secret: "This has to work",
 });

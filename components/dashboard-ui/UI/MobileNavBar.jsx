@@ -47,7 +47,7 @@ const MobileNavBar = ({
             isMobile={isMobile}
           />
           <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
-          <LogOutBtn />
+          {/* <LogOutBtn /> */}
         </motion.div>
       )}
     </AnimatePresence>
