@@ -11,7 +11,7 @@ import Suggestions from "../../components/suggestions-page/Suggestions";
 
 import { filteredData } from "../../helper/HelperFunctions";
 
-const SuggestionsPage = ({ session, feedbackData }) => {
+const SuggestionsPage = ({ feedbackData }) => {
   const { suggestions, progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most Upvotes");
   const [category, setCategory] = useState("all");
@@ -155,83 +155,80 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     setCategory(value);
   };
 
-  if (session) {
-    return (
-      <main className="xl:flex xl:justify-evenly xl:items-baseline">
-        <div>
-          <Dashboard
-            isMobile={isMobile}
-            innerWidth={innerWidth}
-            test={filterDataByCategory}
-            category={updateCategory}
-            roadmap={roadmapData}
-          />
-        </div>
-        <div className="xl:w-900px">
-          <SortingHeader
-            sortArray={updateSortedArray}
-            test={renderSortedFeedback}
-            data={suggestions}
-            suggestionLength={suggestionLength}
-          />
+  return (
+    <main className="xl:flex xl:justify-evenly xl:items-baseline">
+      <div>
+        <Dashboard
+          isMobile={isMobile}
+          innerWidth={innerWidth}
+          test={filterDataByCategory}
+          category={updateCategory}
+          roadmap={roadmapData}
+        />
+      </div>
+      <div className="xl:w-900px">
+        <SortingHeader
+          sortArray={updateSortedArray}
+          test={renderSortedFeedback}
+          data={suggestions}
+          suggestionLength={suggestionLength}
+        />
 
-          <Suggestions
-            data={suggestions}
-            sort={sort}
-            filter={filter}
-            isMobile={isMobile}
-            innerWidth={innerWidth}
-          />
-        </div>
-      </main>
-    );
-  }
+        <Suggestions
+          data={suggestions}
+          sort={sort}
+          filter={filter}
+          isMobile={isMobile}
+          innerWidth={innerWidth}
+        />
+      </div>
+    </main>
+  );
 };
 
 export default SuggestionsPage;
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession({ req: context.req });
+  // const session = await getSession({ req: context.req });
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  } else {
-    let filePath = path.join(process.cwd(), "public", "data", "data.json");
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // } else {
+  let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-    let jsonData = await fs.readFile(filePath);
+  let jsonData = await fs.readFile(filePath);
 
-    const data = JSON.parse(jsonData);
+  const data = JSON.parse(jsonData);
 
-    const inProgressStatusData = data.productRequests.filter(
-      (item) => item.status == "in-progress"
-    );
+  const inProgressStatusData = data.productRequests.filter(
+    (item) => item.status == "in-progress"
+  );
 
-    const liveStatusData = data.productRequests.filter(
-      (item) => item.status == "live"
-    );
+  const liveStatusData = data.productRequests.filter(
+    (item) => item.status == "live"
+  );
 
-    const plannedStatusData = data.productRequests.filter(
-      (item) => item.status == "planned"
-    );
+  const plannedStatusData = data.productRequests.filter(
+    (item) => item.status == "planned"
+  );
 
-    let filterData = filteredData(data, "suggestion");
+  let filterData = filteredData(data, "suggestion");
 
-    let feedbackData = {
-      suggestions: filterData,
-      progress: inProgressStatusData,
-      planned: plannedStatusData,
-      live: liveStatusData,
-    };
+  let feedbackData = {
+    suggestions: filterData,
+    progress: inProgressStatusData,
+    planned: plannedStatusData,
+    live: liveStatusData,
+  };
 
-    console.log(session);
+  console.log(session);
 
-    return {
-      props: { session, feedbackData },
-    };
-  }
+  return {
+    props: { session, feedbackData },
+  };
 };
