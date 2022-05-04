@@ -252,7 +252,7 @@ const SignUpForm = (props: any) => {
             />
           </label>
         </div>
-        <button className="py-1 mt-4 text-white rounded-md  w-60 bg-sky-500">
+        <button className="py-1 mt-4 text-white rounded-md w-60 bg-sky-500">
           Submit
         </button>
       </section>

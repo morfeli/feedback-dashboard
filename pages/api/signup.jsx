@@ -1,4 +1,7 @@
-import { hashedPassword } from "../../components/helper/HelperFunctions";
+import {
+  connectToDatabase,
+  hashedPassword,
+} from "../../helper/HelperFunctions";
 import { MongoClient } from "mongodb";
 
 const isEmpty = (value) => value.trim() === "";
@@ -18,7 +21,6 @@ const emailValidation = (value) => {
 export default async function handler(req, res) {
   if (req.method == "POST") {
     let data = req.body;
-    console.log(data);
 
     const { firstName, lastName, email, password, userName } = data;
 
@@ -39,9 +41,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    let client = await MongoClient.connect(
-      "mongodb+srv://morfelidev:MRDnEKLfPdlWEy7C@cluster0.2wru9.mongodb.net/users?retryWrites=true&w=majority"
-    );
+    const client = await connectToDatabase();
 
     const db = client.db();
 

@@ -1,72 +1,48 @@
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
+
+import {
+  comparePasswords,
+  connectToDatabase,
+} from "../../../helper/HelperFunctions";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Helper Functions
-import { comparePasswords } from "../../../components/helper/HelperFunctions";
-import { MongoClient } from "mongodb";
-
 export default NextAuth({
-  session: { jwt: true },
+  session: { strategy: "jwt" },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        let client = await MongoClient.connect(env.process.NEXTAUTH_URL);
+        const client = await connectToDatabase();
 
-        const userCollection = client.db().collection("users");
+        const usersCollection = client.db().collection("users");
 
-        const user = await userCollection.findOne({
+        const user = await usersCollection.findOne({
           email: credentials.email,
         });
 
-        const userInfo = {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          userName: user.userName,
-        };
+        console.log(user);
 
         if (!user) {
-          console.log("test");
           client.close();
-
           throw new Error("No user found!");
         }
 
-        const isValid = await comparePasswords(
+        let isValid = await comparePasswords(
           credentials.password,
           user.password
         );
 
         if (!isValid) {
           client.close();
-
-          throw new Error("Invalid password");
+          throw new Error("Could not log you in.");
         }
 
         client.close();
 
-        if (user) {
-          return {
-            email: userInfo,
-          };
-        } else {
-          return null;
-        }
+        return {
+          email: user.email,
+        };
       },
     }),
   ],
-  callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
-        console.log(user);
-        token = user;
-      }
-      return token;
-    },
-  },
-  // session: async ({ session, token }) => {
-  //   console.log(token);
-  //   session = token;
-  //   return session;
-  // },
 });
