@@ -155,35 +155,37 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     setCategory(value);
   };
 
-  return (
-    <main className="xl:flex xl:justify-evenly xl:items-baseline">
-      <div>
-        <Dashboard
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-          test={filterDataByCategory}
-          category={updateCategory}
-          roadmap={roadmapData}
-        />
-      </div>
-      <div className="xl:w-900px">
-        <SortingHeader
-          sortArray={updateSortedArray}
-          test={renderSortedFeedback}
-          data={suggestions}
-          suggestionLength={suggestionLength}
-        />
+  if (session) {
+    return (
+      <main className="xl:flex xl:justify-evenly xl:items-baseline">
+        <div>
+          <Dashboard
+            isMobile={isMobile}
+            innerWidth={innerWidth}
+            test={filterDataByCategory}
+            category={updateCategory}
+            roadmap={roadmapData}
+          />
+        </div>
+        <div className="xl:w-900px">
+          <SortingHeader
+            sortArray={updateSortedArray}
+            test={renderSortedFeedback}
+            data={suggestions}
+            suggestionLength={suggestionLength}
+          />
 
-        <Suggestions
-          data={suggestions}
-          sort={sort}
-          filter={filter}
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-        />
-      </div>
-    </main>
-  );
+          <Suggestions
+            data={suggestions}
+            sort={sort}
+            filter={filter}
+            isMobile={isMobile}
+            innerWidth={innerWidth}
+          />
+        </div>
+      </main>
+    );
+  }
 };
 
 export default SuggestionsPage;
