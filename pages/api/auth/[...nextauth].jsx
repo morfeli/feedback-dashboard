@@ -52,21 +52,21 @@ export default NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-      }
+  // callbacks: {
+  //   jwt: ({ token, user }) => {
+  //     if (user) {
+  //       token.id = user.id;
+  //     }
 
-      return token;
-    },
-    session: ({ session, token }) => {
-      if (token) {
-        session.id = token.id;
-      }
+  //     return token;
+  //   },
+  //   session: ({ session, token }) => {
+  //     if (token) {
+  //       session.id = token.id;
+  //     }
 
-      return session;
-    },
-  },
+  //     return session;
+  //   },
+  // },
   secret: "MunkNation",
 });
