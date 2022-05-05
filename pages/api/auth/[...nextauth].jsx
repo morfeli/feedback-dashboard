@@ -68,5 +68,5 @@ export default NextAuth({
   //     return session;
   //   },
   // },
-  secret: "MunkNation",
+  secret: "MUNKNATION",
 });
