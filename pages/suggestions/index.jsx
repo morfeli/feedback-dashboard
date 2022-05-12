@@ -190,6 +190,14 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
 export default SuggestionsPage;
 
+async function getData() {
+  const filePath = path.join(process.cwd(), "public", "data", "data.json");
+  const jsonData = await fs.readFile(filePath);
+  const data = JSON.parse(jsonData);
+
+  return data;
+}
+
 export const getServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
 
@@ -201,13 +209,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    let filePath = path.join(process.cwd(), "/public", "data", "data.json");
-
-    console.log(filePath);
-
-    let jsonData = await fs.readFile(filePath);
-
-    const data = JSON.parse(jsonData);
+    const data = await getData();
 
     const inProgressStatusData = data.productRequests.filter(
       (item) => item.status == "in-progress"
