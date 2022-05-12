@@ -201,7 +201,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    let filePath = path.join(process.cwd(), "public", "data.json");
+    let filePath = path.join(process.cwd(), "/public", "data", "data.json");
 
     console.log(filePath);
 
