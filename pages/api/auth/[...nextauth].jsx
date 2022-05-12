@@ -21,6 +21,13 @@ export default NextAuth({
           email: credentials.email,
         });
 
+        const userInfo = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          userName: user.userName,
+        };
+
         if (!user) {
           client.close();
 
@@ -44,7 +51,7 @@ export default NextAuth({
 
         if (user) {
           return {
-            email: user.email,
+            name: userInfo,
           };
         } else {
           return null;
@@ -55,14 +62,14 @@ export default NextAuth({
   // callbacks: {
   //   jwt: ({ token, user }) => {
   //     if (user) {
-  //       token.id = user.id;
+  //       token = user;
   //     }
 
   //     return token;
   //   },
   //   session: ({ session, token }) => {
   //     if (token) {
-  //       session.id = token.id;
+  //       session.id = token;
   //     }
 
   //     return session;

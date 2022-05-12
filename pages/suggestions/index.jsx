@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
 import path from "path";
-import fs from "fs";
+import fs from "fs/promises";
 
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
@@ -201,11 +201,11 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    const file = fs.readFileSync(
-      path.join(process.cwd(), "public", "data", "data.json"),
-      "utf8"
-    );
-    const data = JSON.parse(file);
+    let filePath = path.join(process.cwd(), "public", "data", "data.json");
+
+    let jsonData = await fs.readFile(filePath);
+
+    const data = JSON.parse(jsonData);
 
     const inProgressStatusData = data.productRequests.filter(
       (item) => item.status == "in-progress"

@@ -22,9 +22,13 @@ const AddCommentForm = ({
 
   useEffect(() => {
     if (status === "authenticated") {
-      setUserData([session.user.email]);
+      setUserData([session.user.name]);
     }
   }, [status, session]);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   const sendComment = (e) => {
     e.preventDefault();
