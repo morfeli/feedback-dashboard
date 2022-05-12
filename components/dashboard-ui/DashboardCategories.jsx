@@ -2,13 +2,14 @@ import NavLinks from "../dashboard-ui/UI/NavLinks";
 import classnames from "classnames";
 import { useState } from "react";
 
-const DashboardCategories = ({ category, toggleMenu, test, isMobile }) => {
-  const [activeLink, setActiveLink] = useState("all");
-
-  const toggleActiveLink = (value) => {
-    setActiveLink(value);
-  };
-
+const DashboardCategories = ({
+  category,
+  toggleMenu,
+  test,
+  isMobile,
+  activeLink,
+  toggleActiveLink,
+}) => {
   return (
     <nav className={classnames("w-56", "mx-auto", "bg-white", "rounded-md")}>
       <ul className="flex flex-wrap items-center justify-between p-4 h-52">

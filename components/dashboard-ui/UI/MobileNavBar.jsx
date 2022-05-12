@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import classNames from "classnames";
 
 // components
@@ -13,6 +14,8 @@ const MobileNavBar = ({
   test,
   roadmap,
   isMobile,
+  activeLink,
+  toggleActiveLink,
 }) => {
   let mobileMenuClass;
 
@@ -45,6 +48,8 @@ const MobileNavBar = ({
             toggleMenu={toggleMenu}
             test={test}
             isMobile={isMobile}
+            activeLink={activeLink}
+            toggleActiveLink={toggleActiveLink}
           />
           <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
           <LogOutBtn />

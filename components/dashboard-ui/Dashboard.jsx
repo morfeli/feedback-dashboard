@@ -9,6 +9,12 @@ import LogOutBtn from "../dashboard-ui/UI/LogOutBtn";
 const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  const [activeLink, setActiveLink] = useState("all");
+
+  const toggleActiveLink = (value) => {
+    setActiveLink(value);
+  };
+
   const toggleMenu = () => {
     setMenuIsOpen((current) => !current);
   };
@@ -27,6 +33,8 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
           isMobile={isMobile}
           category={category}
           toggleMenu={toggleMenu}
+          activeLink={activeLink}
+          toggleActiveLink={toggleActiveLink}
         />
       </>
     );
@@ -45,6 +53,8 @@ const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
           category={category}
           toggleMenu={toggleMenu}
           test={test}
+          activeLink={activeLink}
+          toggleActiveLink={toggleActiveLink}
         />
         <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
       </header>
