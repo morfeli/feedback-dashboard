@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
 import path from "path";
-import fs from "fs/promises";
+import { readFileSync } from "fs";
 
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
@@ -201,9 +201,9 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    let filePath = path.join(process.cwd(), "public", "data", "data.json");
-
-    let jsonData = await fs.readFile(filePath);
+    let jsonData = readFileSync(
+      path.join(process.cwd(), "public", "data", "data.json")
+    );
 
     const data = JSON.parse(jsonData);
 
