@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
+import path from "path";
+import fs from "fs/promises";
+
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
@@ -188,8 +191,6 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 export default SuggestionsPage;
 
 export const getServerSideProps = async (context) => {
-  const { readFileSync } = require("fs");
-  var path = require("path");
   const session = await getSession({ req: context.req });
 
   if (!session) {
@@ -200,9 +201,13 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    const fileBuild = path.resolve(process.cwd(), "public", "data");
-    const file = readFileSync(path.join(fileBuild, "data.json"), "utf8");
-    const data = JSON.parse(file);
+    let filePath = path.join(process.cwd(), "public", "data.json");
+
+    console.log(filePath);
+
+    let jsonData = await fs.readFile(filePath);
+
+    const data = JSON.parse(jsonData);
 
     const inProgressStatusData = data.productRequests.filter(
       (item) => item.status == "in-progress"
