@@ -209,13 +209,9 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    // const data = await getData();
-
-    const filePath = fs.readFileSync(
-      path.join(process.cwd(), "public", "data", "data.json"),
-      "utf8"
+    const data = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "public", "data", "data.json"))
     );
-    const data = JSON.parse(filePath);
 
     const inProgressStatusData = data.productRequests.filter(
       (item) => item.status == "in-progress"
