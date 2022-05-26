@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
+import path from "path";
+import fs from "fs";
+
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
@@ -187,18 +190,15 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
 export default SuggestionsPage;
 
-// async function getData() {
-//   const filePath = path.join(process.cwd(), "public", "data", "data.json");
-//   const jsonData = await fs.readFile(filePath);
-//   const data = JSON.parse(jsonData);
+async function getData() {
+  const filePath = path.join(process.cwd(), "public", "data", "data.json");
+  const jsonData = await fs.readFileSync(filePath);
+  const data = JSON.parse(jsonData);
 
-//   return data;
-// }
+  return data;
+}
 
 export const getServerSideProps = async (context) => {
-  const { readFileSync } = require("fs");
-  const { join } = require("path");
-
   const session = await getSession({ req: context.req });
 
   if (!session) {
@@ -209,8 +209,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    const jsonData = readFileSync(join("public", "data", "data.json"));
-    const data = JSON.parse(jsonData);
+    const data = await getData();
 
     const inProgressStatusData = data.productRequests.filter(
       (item) => item.status == "in-progress"
