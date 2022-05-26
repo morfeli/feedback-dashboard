@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "suggestions/index.jsx": {
+      "includeFiles": "/public/data/data.json"
+    }
+  }
+}
