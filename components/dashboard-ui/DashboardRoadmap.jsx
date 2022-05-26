@@ -16,7 +16,7 @@ const DashboardRoadmap = ({ roadmap, isMobile }) => {
           "rounded-lg": !isMobile,
         },
         "xl:my-8",
-        "xl:px-8"
+        "xl:px-12"
       )}
     >
       <div className="flex flex-col justify-between p-4">

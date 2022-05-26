@@ -157,7 +157,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
   if (session) {
     return (
-      <main className="xl:flex xl:justify-evenly xl:items-baseline">
+      <main className="xl:flex xl:justify-evenly">
         <div>
           <Dashboard
             isMobile={isMobile}
@@ -167,7 +167,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
             roadmap={roadmapData}
           />
         </div>
-        <div className="xl:w-900px">
+        <div className="xl:w-900px xl:mt-12">
           <SortingHeader
             sortArray={updateSortedArray}
             test={renderSortedFeedback}
