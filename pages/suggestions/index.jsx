@@ -1,56 +1,25 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
-import useSWR from "swr";
+
+import path from "path";
+import fs from "fs";
 
 // components
-
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { filteredData } from "../../helper/HelperFunctions";
 
-const SuggestionsPage = ({ session }) => {
-  const [loadedData, setLoadedData] = useState(null);
-  const [filter, setFilter] = useState(null);
+const SuggestionsPage = ({ session, feedbackData }) => {
+  const { suggestions, progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most Upvotes");
   const [category, setCategory] = useState("all");
-  // const [suggestionLength, setSuggestionLength] = useState(filter.length);
+  const [filter, setFilter] = useState(suggestions);
+  const [suggestionLength, setSuggestionLength] = useState(filter.length);
   const [innerWidth, setInnerWidth] = useState(0);
+
   const isMobile = innerWidth <= 767;
-
-  const { data, error } = useSWR("/api/staticdata", fetcher);
-
-  console.log(data);
-
-  useEffect(() => {
-    if (data) {
-      const inProgressStatusData = data.productRequests.filter(
-        (item) => item.status == "in-progress"
-      );
-
-      const liveStatusData = data.productRequests.filter(
-        (item) => item.status == "live"
-      );
-
-      const plannedStatusData = data.productRequests.filter(
-        (item) => item.status == "planned"
-      );
-
-      let filterData = data.productRequests.filter(
-        (item) => item.status == "suggestion"
-      );
-
-      let feedbackData = {
-        suggestions: filterData,
-        progress: inProgressStatusData,
-        planned: plannedStatusData,
-        live: liveStatusData,
-      };
-
-      setLoadedData(feedbackData);
-    }
-  }, []);
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 
@@ -64,19 +33,19 @@ const SuggestionsPage = ({ session }) => {
     };
   }, [isMobile]);
 
-  // let roadmapData = {
-  //   progress,
-  //   planned,
-  //   live,
-  // };
+  let roadmapData = {
+    progress,
+    planned,
+    live,
+  };
 
   const filterDataByCategory = (category) => {
     if (category === "all") {
-      let filteredFeedbacks = loadedData.suggestions;
+      let filteredFeedbacks = suggestions;
       setFilter(filteredFeedbacks);
       setSuggestionLength(filteredFeedbacks.length);
     } else {
-      let filteredFeedbacks = loadedData.suggestions.filter(
+      let filteredFeedbacks = suggestions.filter(
         (item) => item.category === category
       );
       setFilter(filteredFeedbacks);
@@ -89,7 +58,7 @@ const SuggestionsPage = ({ session }) => {
     if (filter) {
       arr = filter;
     } else {
-      arr = loadedData.suggestions;
+      arr = suggestions;
     }
 
     switch (sort) {
@@ -189,8 +158,7 @@ const SuggestionsPage = ({ session }) => {
   if (session) {
     return (
       <main className="xl:flex xl:justify-evenly">
-        <h1>hello world</h1>
-        {/* <div>
+        <div>
           <Dashboard
             isMobile={isMobile}
             innerWidth={innerWidth}
@@ -214,13 +182,21 @@ const SuggestionsPage = ({ session }) => {
             isMobile={isMobile}
             innerWidth={innerWidth}
           />
-        </div> */}
+        </div>
       </main>
     );
   }
 };
 
 export default SuggestionsPage;
+
+async function getData() {
+  const filePath = path.join(process.cwd(), "public", "data", "data.json");
+  const jsonData = await fs.readFileSync(filePath);
+  const data = JSON.parse(jsonData);
+
+  return data;
+}
 
 export const getServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
@@ -233,8 +209,31 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
+    const data = await getData();
+
+    const inProgressStatusData = data.productRequests.filter(
+      (item) => item.status == "in-progress"
+    );
+
+    const liveStatusData = data.productRequests.filter(
+      (item) => item.status == "live"
+    );
+
+    const plannedStatusData = data.productRequests.filter(
+      (item) => item.status == "planned"
+    );
+
+    let filterData = filteredData(data, "suggestion");
+
+    let feedbackData = {
+      suggestions: filterData,
+      progress: inProgressStatusData,
+      planned: plannedStatusData,
+      live: liveStatusData,
+    };
+
     return {
-      props: { session },
+      props: { session, feedbackData },
     };
   }
 };
