@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
-// import path from "path";
-// import fs from "fs";
-
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
-
-// import { filteredData } from "../../helper/HelperFunctions";
 
 const SuggestionsPage = ({ session, feedbackData }) => {
   const [innerWidth, setInnerWidth] = useState(0);
@@ -43,7 +38,7 @@ const SuggestionsPage = ({ session, feedbackData }) => {
   }, []);
 
   const updateSortOption = (value) => {
-    setSort(value);
+    setSort((current) => value);
   };
 
   const updateCategoryOption = (value) => {
@@ -78,14 +73,6 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
 export default SuggestionsPage;
 
-// async function getData() {
-//   const filePath = path.join(process.cwd(), "public", "data", "data.json");
-//   const jsonData = await fs.readFileSync(filePath);
-//   const data = JSON.parse(jsonData);
-
-//   return data;
-// }
-
 export const getServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
 
@@ -97,29 +84,6 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    // const data = await getData();
-
-    // const inProgressStatusData = data.productRequests.filter(
-    //   (item) => item.status == "in-progress"
-    // );
-
-    // const liveStatusData = data.productRequests.filter(
-    //   (item) => item.status == "live"
-    // );
-
-    // const plannedStatusData = data.productRequests.filter(
-    //   (item) => item.status == "planned"
-    // );
-
-    // let filterData = filteredData(data, "suggestion");
-
-    // let feedbackData = {
-    //   suggestions: filterData,
-    //   progress: inProgressStatusData,
-    //   planned: plannedStatusData,
-    //   live: liveStatusData,
-    // };
-
     return {
       props: { session },
     };
