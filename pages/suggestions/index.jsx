@@ -1,25 +1,27 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
-import path from "path";
-import fs from "fs";
+// import path from "path";
+// import fs from "fs";
 
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
 
-import { filteredData } from "../../helper/HelperFunctions";
+// import { filteredData } from "../../helper/HelperFunctions";
 
 const SuggestionsPage = ({ session, feedbackData }) => {
-  const { suggestions, progress, planned, live } = feedbackData;
+  const [innerWidth, setInnerWidth] = useState(0);
+  const isMobile = innerWidth <= 767;
+  const [isloading, setIsLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [suggestionData, setSuggestionData] = useState([]);
+  // const { suggestions, progress, planned, live } = feedbackData;
   const [sort, setSort] = useState("Most Upvotes");
   const [category, setCategory] = useState("all");
-  const [filter, setFilter] = useState(suggestions);
-  const [suggestionLength, setSuggestionLength] = useState(filter.length);
-  const [innerWidth, setInnerWidth] = useState(0);
-
-  const isMobile = innerWidth <= 767;
+  // const [filter, setFilter] = useState(suggestions);
+  // const [suggestionLength, setSuggestionLength] = useState(filter.length);
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 
@@ -33,125 +35,18 @@ const SuggestionsPage = ({ session, feedbackData }) => {
     };
   }, [isMobile]);
 
-  let roadmapData = {
-    progress,
-    planned,
-    live,
-  };
+  useEffect(() => {
+    fetch("/api/staticdata")
+      .then((res) => res.json())
+      .then((data) => setData(data.productRequests));
+    setIsLoading(false);
+  }, []);
 
-  const filterDataByCategory = (category) => {
-    if (category === "all") {
-      let filteredFeedbacks = suggestions;
-      setFilter(filteredFeedbacks);
-      setSuggestionLength(filteredFeedbacks.length);
-    } else {
-      let filteredFeedbacks = suggestions.filter(
-        (item) => item.category === category
-      );
-      setFilter(filteredFeedbacks);
-      setSuggestionLength(filteredFeedbacks.length);
-    }
-  };
-
-  const renderSortedFeedback = (sort) => {
-    let arr;
-    if (filter) {
-      arr = filter;
-    } else {
-      arr = suggestions;
-    }
-
-    switch (sort) {
-      case "Most Upvotes": {
-        let sortedArray = arr.sort(
-          (itemA, itemB) => itemB.upvotes - itemA.upvotes
-        );
-
-        return {
-          sortedArray,
-        };
-      }
-      case "Least Upvotes": {
-        let sortedArray = arr.sort(
-          (itemA, itemB) => itemA.upvotes - itemB.upvotes
-        );
-
-        return {
-          sortedArray,
-        };
-      }
-      case "Most Comments": {
-        let sortedArray = arr.sort((a, b) => {
-          const commentsA = a.comments ? a.comments.length : 0;
-          const commentsB = b.comments ? b.comments.length : 0;
-
-          const repliesA = a.comments ? a.comments : [];
-          const filteredRepliesA = repliesA.filter((comment) => {
-            return comment.replies ? comment.replies : null;
-          });
-
-          const repliesB = b.comments ? b.comments : [];
-          const filteredRepliesB = repliesB.filter((comment) => {
-            return comment.replies ? comment.replies : null;
-          });
-
-          const repliesLengthA = filteredRepliesA[0]
-            ? filteredRepliesA[0].replies.length
-            : 0;
-          const repliesLengthB = filteredRepliesB[0]
-            ? filteredRepliesB[0].replies.length
-            : 0;
-
-          const A = commentsA + repliesLengthA;
-          const B = commentsB + repliesLengthB;
-
-          return B - A;
-        });
-
-        return {
-          sortedArray,
-        };
-      }
-
-      case "Least Comments": {
-        let sortedArray = arr.sort((a, b) => {
-          const commentsA = a.comments ? a.comments.length : 0;
-          const commentsB = b.comments ? b.comments.length : 0;
-
-          const repliesA = a.comments ? a.comments : [];
-          const filteredRepliesA = repliesA.filter((comment) => {
-            return comment.replies ? comment.replies : null;
-          });
-
-          const repliesB = b.comments ? b.comments : [];
-          const filteredRepliesB = repliesB.filter((comment) => {
-            return comment.replies ? comment.replies : null;
-          });
-
-          const repliesLengthA = filteredRepliesA[0]
-            ? filteredRepliesA[0].replies.length
-            : 0;
-          const repliesLengthB = filteredRepliesB[0]
-            ? filteredRepliesB[0].replies.length
-            : 0;
-
-          const A = commentsA + repliesLengthA;
-          const B = commentsB + repliesLengthB;
-
-          return A - B;
-        });
-        return {
-          sortedArray,
-        };
-      }
-    }
-  };
-
-  const updateSortedArray = (value) => {
+  const updateSortOption = (value) => {
     setSort(value);
   };
 
-  const updateCategory = (value) => {
+  const updateCategoryOption = (value) => {
     setCategory(value);
   };
 
@@ -162,23 +57,16 @@ const SuggestionsPage = ({ session, feedbackData }) => {
           <Dashboard
             isMobile={isMobile}
             innerWidth={innerWidth}
-            test={filterDataByCategory}
-            category={updateCategory}
-            roadmap={roadmapData}
+            updateCategory={updateCategoryOption}
           />
         </div>
         <div className="xl:w-900px xl:mt-12">
-          <SortingHeader
-            sortArray={updateSortedArray}
-            test={renderSortedFeedback}
-            data={suggestions}
-            suggestionLength={suggestionLength}
-          />
+          <SortingHeader setSortOption={updateSortOption} />
 
           <Suggestions
-            data={suggestions}
-            sort={sort}
-            filter={filter}
+            data={data}
+            sortOption={sort}
+            categoryOption={category}
             isMobile={isMobile}
             innerWidth={innerWidth}
           />
@@ -190,13 +78,13 @@ const SuggestionsPage = ({ session, feedbackData }) => {
 
 export default SuggestionsPage;
 
-async function getData() {
-  const filePath = path.join(process.cwd(), "public", "data", "data.json");
-  const jsonData = await fs.readFileSync(filePath);
-  const data = JSON.parse(jsonData);
+// async function getData() {
+//   const filePath = path.join(process.cwd(), "public", "data", "data.json");
+//   const jsonData = await fs.readFileSync(filePath);
+//   const data = JSON.parse(jsonData);
 
-  return data;
-}
+//   return data;
+// }
 
 export const getServerSideProps = async (context) => {
   const session = await getSession({ req: context.req });
@@ -209,31 +97,31 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
-    const data = await getData();
+    // const data = await getData();
 
-    const inProgressStatusData = data.productRequests.filter(
-      (item) => item.status == "in-progress"
-    );
+    // const inProgressStatusData = data.productRequests.filter(
+    //   (item) => item.status == "in-progress"
+    // );
 
-    const liveStatusData = data.productRequests.filter(
-      (item) => item.status == "live"
-    );
+    // const liveStatusData = data.productRequests.filter(
+    //   (item) => item.status == "live"
+    // );
 
-    const plannedStatusData = data.productRequests.filter(
-      (item) => item.status == "planned"
-    );
+    // const plannedStatusData = data.productRequests.filter(
+    //   (item) => item.status == "planned"
+    // );
 
-    let filterData = filteredData(data, "suggestion");
+    // let filterData = filteredData(data, "suggestion");
 
-    let feedbackData = {
-      suggestions: filterData,
-      progress: inProgressStatusData,
-      planned: plannedStatusData,
-      live: liveStatusData,
-    };
+    // let feedbackData = {
+    //   suggestions: filterData,
+    //   progress: inProgressStatusData,
+    //   planned: plannedStatusData,
+    //   live: liveStatusData,
+    // };
 
     return {
-      props: { session, feedbackData },
+      props: { session },
     };
   }
 };

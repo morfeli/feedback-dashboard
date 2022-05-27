@@ -3,15 +3,13 @@ import classnames from "classnames";
 const NavLinks = ({
   children,
   value,
-  category,
+  updateCategory,
   toggle,
-  test,
   setActive,
   activeLink,
 }) => {
   const captureSortOption = (e) => {
-    category(e.target.value);
-    test(e.target.value);
+    updateCategory(e.target.value);
     setActive(e.target.value);
     toggle();
   };

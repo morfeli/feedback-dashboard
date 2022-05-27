@@ -2,10 +2,10 @@ import classnames from "classnames";
 import RoadmapStatus from "../dashboard-ui/UI/RoadmapStatus";
 import Link from "next/link";
 
-const DashboardRoadmap = ({ roadmap, isMobile }) => {
-  let progressLength = roadmap.progress.length;
-  let liveLength = roadmap.live.length;
-  let plannedLength = roadmap.planned.length;
+const DashboardRoadmap = ({ isMobile }) => {
+  // let progressLength = roadmap.progress.length;
+  // let liveLength = roadmap.live.length;
+  // let plannedLength = roadmap.planned.length;
 
   return (
     <section
@@ -30,17 +30,17 @@ const DashboardRoadmap = ({ roadmap, isMobile }) => {
         </div>
         <RoadmapStatus
           status={"Planned"}
-          number={plannedLength}
+          // number={plannedLength}
           color="bg-first-orange"
         />
         <RoadmapStatus
           status={"In-Progress"}
-          number={progressLength}
+          // number={progressLength}
           color="bg-button-pink"
         />
         <RoadmapStatus
           status={"Live"}
-          number={liveLength}
+          // number={liveLength}
           color="bg-light-blue"
         />
       </div>

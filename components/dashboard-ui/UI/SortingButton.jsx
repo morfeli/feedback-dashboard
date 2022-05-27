@@ -4,16 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import ArrowSVG from "./ArrowSVG";
 import CheckSVG from "./CheckSVG";
 
-const SortingButton = (props) => {
+const SortingButton = ({ setSortOption }) => {
   const [active, setActive] = useState(false);
-  const [sortOption, setSortOption] = useState("Most Upvotes");
+  const [sortValue, setSortValue] = useState("Most Upvotes");
 
   const captureSortOption = (e) => {
-    props.sortArray(e.target.value);
-    props.test(e.target.value);
     setSortOption(e.target.value);
+    setSortValue(e.target.value);
     setActive(false);
   };
+
   const toggleActive = () => {
     setActive((current) => !current);
   };
@@ -30,7 +30,7 @@ const SortingButton = (props) => {
         htmlFor="sort"
         className="pr-1 text-white font-jost-semibold flex items-center"
       >
-        Sort by: {sortOption}
+        Sort by: {sortValue}
         <ArrowSVG rotate={active} />
       </button>
 
@@ -50,7 +50,7 @@ const SortingButton = (props) => {
               value="Most Upvotes"
             >
               Most Upvotes
-              {sortOption == "Most Upvotes" ? <CheckSVG /> : null}
+              {sortValue == "Most Upvotes" ? <CheckSVG /> : null}
             </button>
 
             <hr />
@@ -61,7 +61,7 @@ const SortingButton = (props) => {
               value="Least Upvotes"
             >
               Least Upvotes
-              {sortOption == "Least Upvotes" ? <CheckSVG /> : null}
+              {sortValue == "Least Upvotes" ? <CheckSVG /> : null}
             </button>
 
             <hr />
@@ -72,7 +72,7 @@ const SortingButton = (props) => {
               value="Most Comments"
             >
               Most Comments
-              {sortOption == "Most Comments" ? <CheckSVG /> : null}
+              {sortValue == "Most Comments" ? <CheckSVG /> : null}
             </button>
 
             <hr />
@@ -83,23 +83,11 @@ const SortingButton = (props) => {
               value="Least Comments"
             >
               Least Comments
-              {sortOption == "Least Comments" ? <CheckSVG /> : null}
+              {sortValue == "Least Comments" ? <CheckSVG /> : null}
             </button>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* <select
-        name="sort"
-        id="sort"
-        className="pr-1 text-white bg-transparent font-jost-semibold"
-        onChange={captureSortOption}
-      >
-        <option value="Most_Upvotes">Most Upvotes</option>
-        <option value="Least_Upvotes">Least Upvotes</option>
-        <option value="Most_Comments">Most Comments</option>
-        <option value="Least_Comments">Least Comments</option>
-      </select> */}
     </div>
   );
 };
