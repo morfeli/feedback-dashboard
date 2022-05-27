@@ -138,6 +138,7 @@ const Feedback = ({
   isMobile,
   innerWidth,
 }) => {
+  console.log(sortOption);
   return renderFeedback(data, categoryOption, sortOption).map((item) => {
     let comments = item.comments;
 
