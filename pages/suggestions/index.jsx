@@ -13,7 +13,7 @@ const SuggestionsPage = ({ session }) => {
   const { data, error } = useSWR("/api/staticdata", fetcher);
   const [feedbackData, setFeedbackData] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [sort, setSort] = useState("Most Upvotes");
+  const [sortValue, setSortValue] = useState("Most Upvotes");
   // const [category, setCategory] = useState("all");
   // const [filter, setFilter] = useState(suggestions);
   // const [suggestionLength, setSuggestionLength] = useState(filter.length);
@@ -21,6 +21,10 @@ const SuggestionsPage = ({ session }) => {
   const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  const updateSortValue = (value) => {
+    setSortValue(value);
+  };
 
   useEffect(() => {
     changeWidth();
@@ -42,70 +46,15 @@ const SuggestionsPage = ({ session }) => {
     }
   }, [data]);
 
-  if (error) {
-    return <div>An error has occured</div>;
-  }
-
-  if (!data) {
-    // can return a loading spinner here...
-    return <div>Loading..</div>;
-  }
-
-  return (
-    <main className="xl:flex xl:justify-evenly xl:items-baseline">
-      <div>
-        <Dashboard
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-          // test={filterDataByCategory}
-          // category={updateCategory}
-          // roadmap={roadmapData}
-        />
-      </div>
-      <div className="xl:w-900px">
-        <SortingHeader
-        // sortArray={updateSortedArray}
-        // test={renderSortedFeedback}
-        // data={suggestions}
-        // suggestionLength={suggestionLength}
-        />
-
-        <Suggestions
-          data={feedbackData}
-          // sort={sort}
-          // filter={filter}
-          // isMobile={isMobile}
-          // innerWidth={innerWidth}
-        />
-      </div>
-    </main>
-  );
-
-  // const filterDataByCategory = (category) => {
-  //   if (category === "all") {
-  //     let filteredFeedbacks = suggestions;
-  //     setFilter(filteredFeedbacks);
-  //     setSuggestionLength(filteredFeedbacks.length);
-  //   } else {
-  //     let filteredFeedbacks = suggestions.filter(
-  //       (item) => item.category === category
-  //     );
-  //     setFilter(filteredFeedbacks);
-  //     setSuggestionLength(filteredFeedbacks.length);
-  //   }
-  // };
+  // useEffect(() => {
+  //   renderSortedFeedback(sortValue);
+  // }, [sortValue]);
 
   // const renderSortedFeedback = (sort) => {
-  //   let arr;
-  //   if (filter) {
-  //     arr = filter;
-  //   } else {
-  //     arr = suggestions;
-  //   }
 
   //   switch (sort) {
   //     case "Most Upvotes": {
-  //       let sortedArray = arr.sort(
+  //       let sortedArray = feedbackData.suggestions.sort(
   //         (itemA, itemB) => itemB.upvotes - itemA.upvotes
   //       );
 
@@ -189,8 +138,57 @@ const SuggestionsPage = ({ session }) => {
   //   }
   // };
 
-  // const updateSortedArray = (value) => {
-  //   setSort(value);
+  if (error) {
+    return <div>An error has occured</div>;
+  }
+
+  if (!data) {
+    // can return a loading spinner here...
+    return <div>Loading..</div>;
+  }
+
+  return (
+    <main className="xl:flex xl:justify-evenly xl:items-baseline">
+      <div>
+        <Dashboard
+          isMobile={isMobile}
+          innerWidth={innerWidth}
+          // test={filterDataByCategory}
+          // category={updateCategory}
+          // roadmap={roadmapData}
+        />
+      </div>
+      <div className="xl:w-900px">
+        <SortingHeader
+          sortFN={updateSortValue}
+          // test={renderSortedFeedback}
+          // data={suggestions}
+          // suggestionLength={suggestionLength}
+        />
+
+        <Suggestions
+          data={feedbackData}
+          sort={sortValue}
+          // filter={filter}
+          // isMobile={isMobile}
+          // innerWidth={innerWidth}
+        />
+      </div>
+    </main>
+  );
+
+  // const filterDataByCategory = (category) => {
+  //   if (category === "all") {
+  //     let filteredFeedbacks = suggestions;
+  //     setFilter(filteredFeedbacks);
+  //     setSuggestionLength(filteredFeedbacks.length);
+  //   } else {
+  //     let filteredFeedbacks = suggestions.filter(
+  //       (item) => item.category === category
+  //     );
+  //     setFilter(filteredFeedbacks);
+  //     setSuggestionLength(filteredFeedbacks.length);
+  //   }
   // };
 
   // const updateCategory = (value) => {

@@ -4,13 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import ArrowSVG from "./ArrowSVG";
 import CheckSVG from "./CheckSVG";
 
-const SortingButton = ({ sortArray, test }) => {
+const SortingButton = ({ sortFN, test }) => {
   const [active, setActive] = useState(false);
   const [sortValue, setSortValue] = useState("Most Upvotes");
 
   const captureSortOption = (e) => {
-    sortArray(e.target.value);
-    test(e.target.value);
+    sortFN(e.target.value);
+    // test(e.target.value);
     setSortValue(e.target.value);
     setActive(false);
   };
@@ -25,11 +25,11 @@ const SortingButton = ({ sortArray, test }) => {
   };
 
   return (
-    <div className="pl-1 relative xl:pr-72 ">
+    <div className="relative pl-1 xl:pr-72 ">
       <button
         onClick={toggleActive}
         htmlFor="sort"
-        className="pr-1 text-white font-jost-semibold flex items-center"
+        className="flex items-center pr-1 text-white font-jost-semibold"
       >
         Sort by: {sortValue}
         <ArrowSVG rotate={active} />
@@ -43,10 +43,10 @@ const SortingButton = ({ sortArray, test }) => {
             variants={activeDivVariants}
             transition={{ type: "spring", stiffness: 100 }}
             exit={{ opacity: 0, y: -100 }}
-            className="absolute bg-white z-50 w-64 h-64 top-60px flex flex-col justify-around rounded-lg shadow-lg shadow-cyan-500/50"
+            className="absolute z-50 flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
           >
             <button
-              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
               onClick={captureSortOption}
               value="Most Upvotes"
             >
@@ -57,7 +57,7 @@ const SortingButton = ({ sortArray, test }) => {
             <hr />
 
             <button
-              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
               onClick={captureSortOption}
               value="Least Upvotes"
             >
@@ -68,7 +68,7 @@ const SortingButton = ({ sortArray, test }) => {
             <hr />
 
             <button
-              className="py-4 text-left pl-4  flex items-center justify-between  hover:text-button-pink hover:cursor-pointer"
+              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
               onClick={captureSortOption}
               value="Most Comments"
             >
@@ -79,7 +79,7 @@ const SortingButton = ({ sortArray, test }) => {
             <hr />
 
             <button
-              className="py-4 text-left pl-4 flex items-center justify-between hover:text-button-pink hover:cursor-pointer"
+              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
               onClick={captureSortOption}
               value="Least Comments"
             >

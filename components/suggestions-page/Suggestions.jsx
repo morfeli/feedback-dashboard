@@ -1,11 +1,107 @@
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
 
-const Suggestions = ({ data, isMobile, innerWidth }) => {
+function renderFeeback(items, sortOption) {
+  return items.sort((a, b) => {
+    if (sortOption == "Most Upvotes") {
+      return b.upvotes - a.upvotes;
+    } else if (sortOption == "Least Upvotes") {
+      return a.upvotes - b.upvotes;
+    }
+
+    // switch (sortOption) {
+    //   case "Most Upvotes": {
+    //     let sortedArray = items.sort(
+    //       (itemA, itemB) => itemB.upvotes - itemA.upvotes
+    //     );
+
+    //     return {
+    //       sortedArray,
+    //     };
+    //   }
+    //   case "Least Upvotes": {
+    //     let sortedArray = items.sort(
+    //       (itemA, itemB) => itemA.upvotes - itemB.upvotes
+    //     );
+
+    //     return {
+    //       sortedArray,
+    //     };
+    //   }
+    //   case "Most Comments": {
+    //     let sortedArray = items.sort((a, b) => {
+    //       const commentsA = a.comments ? a.comments.length : 0;
+    //       const commentsB = b.comments ? b.comments.length : 0;
+
+    //       const repliesA = a.comments ? a.comments : [];
+    //       const filteredRepliesA = repliesA.filter((comment) => {
+    //         return comment.replies ? comment.replies : null;
+    //       });
+
+    //       const repliesB = b.comments ? b.comments : [];
+    //       const filteredRepliesB = repliesB.filter((comment) => {
+    //         return comment.replies ? comment.replies : null;
+    //       });
+
+    //       const repliesLengthA = filteredRepliesA[0]
+    //         ? filteredRepliesA[0].replies.length
+    //         : 0;
+    //       const repliesLengthB = filteredRepliesB[0]
+    //         ? filteredRepliesB[0].replies.length
+    //         : 0;
+
+    //       const A = commentsA + repliesLengthA;
+    //       const B = commentsB + repliesLengthB;
+
+    //       return B - A;
+    //     });
+
+    //     return {
+    //       sortedArray,
+    //     };
+    //   }
+
+    //   case "Least Comments": {
+    //     let sortedArray = items.sort((a, b) => {
+    //       const commentsA = a.comments ? a.comments.length : 0;
+    //       const commentsB = b.comments ? b.comments.length : 0;
+
+    //       const repliesA = a.comments ? a.comments : [];
+    //       const filteredRepliesA = repliesA.filter((comment) => {
+    //         return comment.replies ? comment.replies : null;
+    //       });
+
+    //       const repliesB = b.comments ? b.comments : [];
+    //       const filteredRepliesB = repliesB.filter((comment) => {
+    //         return comment.replies ? comment.replies : null;
+    //       });
+
+    //       const repliesLengthA = filteredRepliesA[0]
+    //         ? filteredRepliesA[0].replies.length
+    //         : 0;
+    //       const repliesLengthB = filteredRepliesB[0]
+    //         ? filteredRepliesB[0].replies.length
+    //         : 0;
+
+    //       const A = commentsA + repliesLengthA;
+    //       const B = commentsB + repliesLengthB;
+
+    //       return A - B;
+    //     });
+    //     return {
+    //       sortedArray,
+    //     };
+    //   }
+    // }
+  });
+}
+
+const Suggestions = ({ data, sort, isMobile, innerWidth }) => {
   return (
     <ul className="mt-8 space-y-4">
       <Feedback
         data={data.suggestions}
+        sort={sort}
         isMobile={isMobile}
         innerWidth={innerWidth}
       />
@@ -13,9 +109,9 @@ const Suggestions = ({ data, isMobile, innerWidth }) => {
   );
 };
 
-const Feedback = ({ data, isMobile, innerWidth }) => {
+const Feedback = ({ data, sort, isMobile, innerWidth }) => {
   if (data) {
-    return data.map((item) => {
+    return renderFeeback(data, sort).map((item) => {
       let comments = item.comments;
 
       return (
