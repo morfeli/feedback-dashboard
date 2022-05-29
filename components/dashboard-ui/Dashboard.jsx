@@ -6,7 +6,7 @@ import DashboardCategories from "../dashboard-ui/DashboardCategories";
 import DashboardRoadmap from "../dashboard-ui/DashboardRoadmap";
 import LogOutBtn from "../dashboard-ui/UI/LogOutBtn";
 
-const Dashboard = ({ updateCategory, isMobile, innerWidth }) => {
+const Dashboard = ({ category, test, roadmap, isMobile, innerWidth }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const [activeLink, setActiveLink] = useState("all");
@@ -27,9 +27,11 @@ const Dashboard = ({ updateCategory, isMobile, innerWidth }) => {
         <DashboardHeader isOpen={menuIsOpen} toggleMenu={toggleMenu} />
 
         <MobileNavBar
+          roadmap={roadmap}
+          test={test}
           isOpen={menuIsOpen}
           isMobile={isMobile}
-          updateCategory={updateCategory}
+          category={category}
           toggleMenu={toggleMenu}
           activeLink={activeLink}
           toggleActiveLink={toggleActiveLink}
@@ -48,12 +50,13 @@ const Dashboard = ({ updateCategory, isMobile, innerWidth }) => {
         </div>
         <DashboardCategories
           isMobile={isMobile}
-          updateCategory={updateCategory}
+          category={category}
           toggleMenu={toggleMenu}
+          test={test}
           activeLink={activeLink}
           toggleActiveLink={toggleActiveLink}
         />
-        <DashboardRoadmap isMobile={isMobile} />
+        <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
       </header>
     );
   }

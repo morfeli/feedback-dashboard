@@ -3,17 +3,19 @@ import classnames from "classnames";
 import { useState } from "react";
 
 const DashboardCategories = ({
-  updateCategory,
+  category,
   toggleMenu,
+  test,
   isMobile,
   activeLink,
   toggleActiveLink,
 }) => {
   return (
-    <nav className={classnames("w-64", "mx-auto", "bg-white", "rounded-md")}>
+    <nav className={classnames("w-56", "mx-auto", "bg-white", "rounded-md")}>
       <ul className="flex flex-wrap items-center justify-between p-4 h-52">
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="all"
           setActive={toggleActiveLink}
@@ -22,7 +24,8 @@ const DashboardCategories = ({
           All
         </NavLinks>
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="ui"
           setActive={toggleActiveLink}
@@ -31,7 +34,8 @@ const DashboardCategories = ({
           UI
         </NavLinks>
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="ux"
           setActive={toggleActiveLink}
@@ -40,7 +44,8 @@ const DashboardCategories = ({
           UX
         </NavLinks>
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="enhancement"
           setActive={toggleActiveLink}
@@ -49,7 +54,8 @@ const DashboardCategories = ({
           Enhancement
         </NavLinks>
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="bug"
           setActive={toggleActiveLink}
@@ -58,7 +64,8 @@ const DashboardCategories = ({
           Bug
         </NavLinks>
         <NavLinks
-          updateCategory={updateCategory}
+          category={category}
+          test={test}
           toggle={toggleMenu}
           value="feature"
           setActive={toggleActiveLink}

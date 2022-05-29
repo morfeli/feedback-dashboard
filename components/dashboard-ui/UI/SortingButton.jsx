@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import ArrowSVG from "./ArrowSVG";
 import CheckSVG from "./CheckSVG";
 
-const SortingButton = ({ setSortOption }) => {
+const SortingButton = ({ sortArray, test }) => {
   const [active, setActive] = useState(false);
   const [sortValue, setSortValue] = useState("Most Upvotes");
 
   const captureSortOption = (e) => {
-    setSortOption(e.target.value);
+    sortArray(e.target.value);
+    test(e.target.value);
     setSortValue(e.target.value);
     setActive(false);
   };

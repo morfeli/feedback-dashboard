@@ -9,8 +9,10 @@ import LogOutBtn from "../../dashboard-ui/UI/LogOutBtn";
 
 const MobileNavBar = ({
   isOpen,
-  updateCategory,
+  category,
   toggleMenu,
+  test,
+  roadmap,
   isMobile,
   activeLink,
   toggleActiveLink,
@@ -42,13 +44,14 @@ const MobileNavBar = ({
           exit={{ opacity: 0, x: "-100%" }}
         >
           <DashboardCategories
+            category={category}
             toggleMenu={toggleMenu}
-            updateCategory={updateCategory}
+            test={test}
             isMobile={isMobile}
             activeLink={activeLink}
             toggleActiveLink={toggleActiveLink}
           />
-          <DashboardRoadmap isMobile={isMobile} />
+          <DashboardRoadmap roadmap={roadmap} isMobile={isMobile} />
           <LogOutBtn />
         </motion.div>
       )}
