@@ -82,7 +82,7 @@ function renderFeeback(items, sortOption, categoryOption) {
     });
 }
 
-const Suggestions = ({ data, sort, category, isMobile, innerWidth }) => {
+const Suggestions = ({ data, sort, category, isMobile, innerWidth, test }) => {
   return (
     <div className="mt-8 space-y-4">
       <Feedback
@@ -91,14 +91,17 @@ const Suggestions = ({ data, sort, category, isMobile, innerWidth }) => {
         category={category}
         isMobile={isMobile}
         innerWidth={innerWidth}
+        test={test}
       />
     </div>
   );
 };
 
-const Feedback = ({ data, sort, category, isMobile, innerWidth }) => {
+const Feedback = ({ data, sort, category, isMobile, innerWidth, test }) => {
   if (data) {
     let array = renderFeeback(data, sort, category);
+
+    test(array.length);
 
     if (array.length) {
       return (

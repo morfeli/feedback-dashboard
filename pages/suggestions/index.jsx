@@ -12,6 +12,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const SuggestionsPage = ({ session }) => {
   const { data, error } = useSWR("/api/staticdata", fetcher);
   const [feedbackData, setFeedbackData] = useState([]);
+  const [length, setLength] = useState();
   const [loading, setLoading] = useState(true);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
@@ -27,6 +28,10 @@ const SuggestionsPage = ({ session }) => {
 
   const updateCategory = (value) => {
     setCategoryValue(value);
+  };
+
+  const captureArrayLength = (value) => {
+    setLength(value);
   };
 
   useEffect(() => {
@@ -64,26 +69,20 @@ const SuggestionsPage = ({ session }) => {
         <Dashboard
           isMobile={isMobile}
           innerWidth={innerWidth}
-          // test={filterDataByCategory}
           categoryFN={updateCategory}
-          // roadmap={roadmapData}
+          data={feedbackData}
         />
       </div>
       <div className="xl:w-900px">
-        <SortingHeader
-          sortFN={updateSortValue}
-          // test={renderSortedFeedback}
-          // data={suggestions}
-          // suggestionLength={suggestionLength}
-        />
+        <SortingHeader sortFN={updateSortValue} length={length} />
 
         <Suggestions
           data={feedbackData}
           sort={sortValue}
           category={categoryValue}
-          // filter={filter}
           isMobile={isMobile}
           innerWidth={innerWidth}
+          test={captureArrayLength}
         />
       </div>
     </main>

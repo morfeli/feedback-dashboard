@@ -6,7 +6,7 @@ import DashboardCategories from "../dashboard-ui/DashboardCategories";
 import DashboardRoadmap from "../dashboard-ui/DashboardRoadmap";
 import LogOutBtn from "../dashboard-ui/UI/LogOutBtn";
 
-const Dashboard = ({ categoryFN, isMobile, innerWidth }) => {
+const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const [activeLink, setActiveLink] = useState("all");
