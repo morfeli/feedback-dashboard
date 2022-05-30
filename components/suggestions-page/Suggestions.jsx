@@ -4,75 +4,80 @@ import FeedbackCard from "./FeedbackCard";
 function renderFeeback(items, sortOption, categoryOption) {
   return items
     .filter((item) => {
-      if (categoryOption == "all") {
-        return item;
-      } else if (categoryOption == "ui") {
-        return item.category == "ui";
-      } else if (categoryOption == "ux") {
-        return item.category == "ux";
-      } else if (categoryOption == "feature") {
-        return item.category == "feature";
-      } else if (categoryOption == "bug") {
-        return item.category == "bug";
-      } else if (categoryOption == "enhancement") {
-        return item.category == "enhancement";
+      switch (categoryOption) {
+        case "all":
+          return item;
+        case "ui":
+          return item.category == "ui";
+        case "ux":
+          return item.category == "ux";
+        case "ux":
+          return item.category == "ux";
+        case "feature":
+          return item.category == "feature";
+        case "bug":
+          return item.category == "bug";
+        case "enhancement":
+          return item.category == "enhancement";
       }
     })
     .sort((a, b) => {
-      if (sortOption == "Most Upvotes") {
-        return b.upvotes - a.upvotes;
-      } else if (sortOption == "Least Upvotes") {
-        return a.upvotes - b.upvotes;
-      } else if (sortOption == "Most Comments") {
-        const commentsA = a.comments ? a.comments.length : 0;
-        const commentsB = b.comments ? b.comments.length : 0;
+      switch (sortOption) {
+        case "Most Upvotes":
+          return b.upvotes - a.upvotes;
+        case "Least Upvotes":
+          return a.upvotes - b.upvotes;
+        case "Most Comments":
+          const commentsA = a.comments ? a.comments.length : 0;
+          const commentsB = b.comments ? b.comments.length : 0;
 
-        const repliesA = a.comments ? a.comments : [];
-        const filteredRepliesA = repliesA.filter((comment) => {
-          return comment.replies ? comment.replies : null;
-        });
+          const repliesA = a.comments ? a.comments : [];
+          const filteredRepliesA = repliesA.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
 
-        const repliesB = b.comments ? b.comments : [];
-        const filteredRepliesB = repliesB.filter((comment) => {
-          return comment.replies ? comment.replies : null;
-        });
+          const repliesB = b.comments ? b.comments : [];
+          const filteredRepliesB = repliesB.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
 
-        const repliesLengthA = filteredRepliesA[0]
-          ? filteredRepliesA[0].replies.length
-          : 0;
-        const repliesLengthB = filteredRepliesB[0]
-          ? filteredRepliesB[0].replies.length
-          : 0;
+          const repliesLengthA = filteredRepliesA[0]
+            ? filteredRepliesA[0].replies.length
+            : 0;
+          const repliesLengthB = filteredRepliesB[0]
+            ? filteredRepliesB[0].replies.length
+            : 0;
 
-        const A = commentsA + repliesLengthA;
-        const B = commentsB + repliesLengthB;
+          const A = commentsA + repliesLengthA;
+          const B = commentsB + repliesLengthB;
 
-        return B - A;
-      } else if (sortOption == "Least Comments") {
-        const commentsA = a.comments ? a.comments.length : 0;
-        const commentsB = b.comments ? b.comments.length : 0;
+          return B - A;
 
-        const repliesA = a.comments ? a.comments : [];
-        const filteredRepliesA = repliesA.filter((comment) => {
-          return comment.replies ? comment.replies : null;
-        });
+        case "Least Comments":
+          const commentsA1 = a.comments ? a.comments.length : 0;
+          const commentsB1 = b.comments ? b.comments.length : 0;
 
-        const repliesB = b.comments ? b.comments : [];
-        const filteredRepliesB = repliesB.filter((comment) => {
-          return comment.replies ? comment.replies : null;
-        });
+          const repliesA1 = a.comments ? a.comments : [];
+          const filteredRepliesA1 = repliesA1.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
 
-        const repliesLengthA = filteredRepliesA[0]
-          ? filteredRepliesA[0].replies.length
-          : 0;
-        const repliesLengthB = filteredRepliesB[0]
-          ? filteredRepliesB[0].replies.length
-          : 0;
+          const repliesB1 = b.comments ? b.comments : [];
+          const filteredRepliesB1 = repliesB1.filter((comment) => {
+            return comment.replies ? comment.replies : null;
+          });
 
-        const A = commentsA + repliesLengthA;
-        const B = commentsB + repliesLengthB;
+          const repliesLengthA1 = filteredRepliesA1[0]
+            ? filteredRepliesA1[0].replies.length
+            : 0;
+          const repliesLengthB1 = filteredRepliesB1[0]
+            ? filteredRepliesB1[0].replies.length
+            : 0;
 
-        return A - B;
+          const A1 = commentsA1 + repliesLengthA1;
+          const B1 = commentsB1 + repliesLengthB1;
+
+          return A1 - B1;
       }
     });
 }
@@ -94,6 +99,9 @@ const Suggestions = ({ data, sort, category, isMobile, innerWidth }) => {
 const Feedback = ({ data, sort, category, isMobile, innerWidth }) => {
   if (data) {
     return renderFeeback(data, sort, category).map((item) => {
+      if (data.length === 0) {
+        console.log(true);
+      }
       let comments = item.comments;
 
       return (
@@ -111,7 +119,7 @@ const Feedback = ({ data, sort, category, isMobile, innerWidth }) => {
       );
     });
   } else {
-    return <h1>Loading...</h1>;
+    return <div>Loading...</div>;
   }
 };
 

@@ -59,7 +59,7 @@ const FeedbackCard = ({
   } else {
     return (
       <Link href={`suggestions/${id}`} passHref>
-        <li className="relative flex items-center p-4 mx-4 bg-white rounded-2xl cursor-pointer">
+        <li className="relative flex items-center p-4 mx-4 bg-white cursor-pointer rounded-2xl">
           <button
             onClick={incrementUpvoteByOne}
             value={id}
