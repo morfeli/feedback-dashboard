@@ -3,9 +3,9 @@ import classnames from "classnames";
 import { useState } from "react";
 
 const DashboardCategories = ({
-  category,
+  categoryFN,
   toggleMenu,
-  test,
+
   isMobile,
   activeLink,
   toggleActiveLink,
@@ -14,8 +14,7 @@ const DashboardCategories = ({
     <nav className={classnames("w-56", "mx-auto", "bg-white", "rounded-md")}>
       <ul className="flex flex-wrap items-center justify-between p-4 h-52">
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="all"
           setActive={toggleActiveLink}
@@ -24,8 +23,7 @@ const DashboardCategories = ({
           All
         </NavLinks>
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="ui"
           setActive={toggleActiveLink}
@@ -34,8 +32,7 @@ const DashboardCategories = ({
           UI
         </NavLinks>
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="ux"
           setActive={toggleActiveLink}
@@ -44,8 +41,7 @@ const DashboardCategories = ({
           UX
         </NavLinks>
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="enhancement"
           setActive={toggleActiveLink}
@@ -54,8 +50,7 @@ const DashboardCategories = ({
           Enhancement
         </NavLinks>
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="bug"
           setActive={toggleActiveLink}
@@ -64,8 +59,7 @@ const DashboardCategories = ({
           Bug
         </NavLinks>
         <NavLinks
-          category={category}
-          test={test}
+          categoryFN={categoryFN}
           toggle={toggleMenu}
           value="feature"
           setActive={toggleActiveLink}

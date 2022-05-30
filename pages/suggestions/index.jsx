@@ -14,9 +14,8 @@ const SuggestionsPage = ({ session }) => {
   const [feedbackData, setFeedbackData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortValue, setSortValue] = useState("Most Upvotes");
-  // const [category, setCategory] = useState("all");
-  // const [filter, setFilter] = useState(suggestions);
-  // const [suggestionLength, setSuggestionLength] = useState(filter.length);
+  const [categoryValue, setCategoryValue] = useState("all");
+
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 767;
 
@@ -24,6 +23,10 @@ const SuggestionsPage = ({ session }) => {
 
   const updateSortValue = (value) => {
     setSortValue(value);
+  };
+
+  const updateCategory = (value) => {
+    setCategoryValue(value);
   };
 
   useEffect(() => {
@@ -46,98 +49,6 @@ const SuggestionsPage = ({ session }) => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   renderSortedFeedback(sortValue);
-  // }, [sortValue]);
-
-  // const renderSortedFeedback = (sort) => {
-
-  //   switch (sort) {
-  //     case "Most Upvotes": {
-  //       let sortedArray = feedbackData.suggestions.sort(
-  //         (itemA, itemB) => itemB.upvotes - itemA.upvotes
-  //       );
-
-  //       return {
-  //         sortedArray,
-  //       };
-  //     }
-  //     case "Least Upvotes": {
-  //       let sortedArray = arr.sort(
-  //         (itemA, itemB) => itemA.upvotes - itemB.upvotes
-  //       );
-
-  //       return {
-  //         sortedArray,
-  //       };
-  //     }
-  //     case "Most Comments": {
-  //       let sortedArray = arr.sort((a, b) => {
-  //         const commentsA = a.comments ? a.comments.length : 0;
-  //         const commentsB = b.comments ? b.comments.length : 0;
-
-  //         const repliesA = a.comments ? a.comments : [];
-  //         const filteredRepliesA = repliesA.filter((comment) => {
-  //           return comment.replies ? comment.replies : null;
-  //         });
-
-  //         const repliesB = b.comments ? b.comments : [];
-  //         const filteredRepliesB = repliesB.filter((comment) => {
-  //           return comment.replies ? comment.replies : null;
-  //         });
-
-  //         const repliesLengthA = filteredRepliesA[0]
-  //           ? filteredRepliesA[0].replies.length
-  //           : 0;
-  //         const repliesLengthB = filteredRepliesB[0]
-  //           ? filteredRepliesB[0].replies.length
-  //           : 0;
-
-  //         const A = commentsA + repliesLengthA;
-  //         const B = commentsB + repliesLengthB;
-
-  //         return B - A;
-  //       });
-
-  //       return {
-  //         sortedArray,
-  //       };
-  //     }
-
-  //     case "Least Comments": {
-  //       let sortedArray = arr.sort((a, b) => {
-  //         const commentsA = a.comments ? a.comments.length : 0;
-  //         const commentsB = b.comments ? b.comments.length : 0;
-
-  //         const repliesA = a.comments ? a.comments : [];
-  //         const filteredRepliesA = repliesA.filter((comment) => {
-  //           return comment.replies ? comment.replies : null;
-  //         });
-
-  //         const repliesB = b.comments ? b.comments : [];
-  //         const filteredRepliesB = repliesB.filter((comment) => {
-  //           return comment.replies ? comment.replies : null;
-  //         });
-
-  //         const repliesLengthA = filteredRepliesA[0]
-  //           ? filteredRepliesA[0].replies.length
-  //           : 0;
-  //         const repliesLengthB = filteredRepliesB[0]
-  //           ? filteredRepliesB[0].replies.length
-  //           : 0;
-
-  //         const A = commentsA + repliesLengthA;
-  //         const B = commentsB + repliesLengthB;
-
-  //         return A - B;
-  //       });
-  //       return {
-  //         sortedArray,
-  //       };
-  //     }
-  //   }
-  // };
-
   if (error) {
     return <div>An error has occured</div>;
   }
@@ -154,7 +65,7 @@ const SuggestionsPage = ({ session }) => {
           isMobile={isMobile}
           innerWidth={innerWidth}
           // test={filterDataByCategory}
-          // category={updateCategory}
+          categoryFN={updateCategory}
           // roadmap={roadmapData}
         />
       </div>
@@ -169,6 +80,7 @@ const SuggestionsPage = ({ session }) => {
         <Suggestions
           data={feedbackData}
           sort={sortValue}
+          category={categoryValue}
           // filter={filter}
           // isMobile={isMobile}
           // innerWidth={innerWidth}
@@ -176,24 +88,6 @@ const SuggestionsPage = ({ session }) => {
       </div>
     </main>
   );
-
-  // const filterDataByCategory = (category) => {
-  //   if (category === "all") {
-  //     let filteredFeedbacks = suggestions;
-  //     setFilter(filteredFeedbacks);
-  //     setSuggestionLength(filteredFeedbacks.length);
-  //   } else {
-  //     let filteredFeedbacks = suggestions.filter(
-  //       (item) => item.category === category
-  //     );
-  //     setFilter(filteredFeedbacks);
-  //     setSuggestionLength(filteredFeedbacks.length);
-  //   }
-  // };
-
-  // const updateCategory = (value) => {
-  //   setCategory(value);
-  // };
 };
 
 export default SuggestionsPage;
