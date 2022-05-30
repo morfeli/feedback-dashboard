@@ -7,92 +7,57 @@ function renderFeeback(items, sortOption) {
       return b.upvotes - a.upvotes;
     } else if (sortOption == "Least Upvotes") {
       return a.upvotes - b.upvotes;
+    } else if (sortOption == "Most Comments") {
+      const commentsA = a.comments ? a.comments.length : 0;
+      const commentsB = b.comments ? b.comments.length : 0;
+
+      const repliesA = a.comments ? a.comments : [];
+      const filteredRepliesA = repliesA.filter((comment) => {
+        return comment.replies ? comment.replies : null;
+      });
+
+      const repliesB = b.comments ? b.comments : [];
+      const filteredRepliesB = repliesB.filter((comment) => {
+        return comment.replies ? comment.replies : null;
+      });
+
+      const repliesLengthA = filteredRepliesA[0]
+        ? filteredRepliesA[0].replies.length
+        : 0;
+      const repliesLengthB = filteredRepliesB[0]
+        ? filteredRepliesB[0].replies.length
+        : 0;
+
+      const A = commentsA + repliesLengthA;
+      const B = commentsB + repliesLengthB;
+
+      return B - A;
+    } else if (sortOption == "Least Comments") {
+      const commentsA = a.comments ? a.comments.length : 0;
+      const commentsB = b.comments ? b.comments.length : 0;
+
+      const repliesA = a.comments ? a.comments : [];
+      const filteredRepliesA = repliesA.filter((comment) => {
+        return comment.replies ? comment.replies : null;
+      });
+
+      const repliesB = b.comments ? b.comments : [];
+      const filteredRepliesB = repliesB.filter((comment) => {
+        return comment.replies ? comment.replies : null;
+      });
+
+      const repliesLengthA = filteredRepliesA[0]
+        ? filteredRepliesA[0].replies.length
+        : 0;
+      const repliesLengthB = filteredRepliesB[0]
+        ? filteredRepliesB[0].replies.length
+        : 0;
+
+      const A = commentsA + repliesLengthA;
+      const B = commentsB + repliesLengthB;
+
+      return A - B;
     }
-
-    // switch (sortOption) {
-    //   case "Most Upvotes": {
-    //     let sortedArray = items.sort(
-    //       (itemA, itemB) => itemB.upvotes - itemA.upvotes
-    //     );
-
-    //     return {
-    //       sortedArray,
-    //     };
-    //   }
-    //   case "Least Upvotes": {
-    //     let sortedArray = items.sort(
-    //       (itemA, itemB) => itemA.upvotes - itemB.upvotes
-    //     );
-
-    //     return {
-    //       sortedArray,
-    //     };
-    //   }
-    //   case "Most Comments": {
-    //     let sortedArray = items.sort((a, b) => {
-    //       const commentsA = a.comments ? a.comments.length : 0;
-    //       const commentsB = b.comments ? b.comments.length : 0;
-
-    //       const repliesA = a.comments ? a.comments : [];
-    //       const filteredRepliesA = repliesA.filter((comment) => {
-    //         return comment.replies ? comment.replies : null;
-    //       });
-
-    //       const repliesB = b.comments ? b.comments : [];
-    //       const filteredRepliesB = repliesB.filter((comment) => {
-    //         return comment.replies ? comment.replies : null;
-    //       });
-
-    //       const repliesLengthA = filteredRepliesA[0]
-    //         ? filteredRepliesA[0].replies.length
-    //         : 0;
-    //       const repliesLengthB = filteredRepliesB[0]
-    //         ? filteredRepliesB[0].replies.length
-    //         : 0;
-
-    //       const A = commentsA + repliesLengthA;
-    //       const B = commentsB + repliesLengthB;
-
-    //       return B - A;
-    //     });
-
-    //     return {
-    //       sortedArray,
-    //     };
-    //   }
-
-    //   case "Least Comments": {
-    //     let sortedArray = items.sort((a, b) => {
-    //       const commentsA = a.comments ? a.comments.length : 0;
-    //       const commentsB = b.comments ? b.comments.length : 0;
-
-    //       const repliesA = a.comments ? a.comments : [];
-    //       const filteredRepliesA = repliesA.filter((comment) => {
-    //         return comment.replies ? comment.replies : null;
-    //       });
-
-    //       const repliesB = b.comments ? b.comments : [];
-    //       const filteredRepliesB = repliesB.filter((comment) => {
-    //         return comment.replies ? comment.replies : null;
-    //       });
-
-    //       const repliesLengthA = filteredRepliesA[0]
-    //         ? filteredRepliesA[0].replies.length
-    //         : 0;
-    //       const repliesLengthB = filteredRepliesB[0]
-    //         ? filteredRepliesB[0].replies.length
-    //         : 0;
-
-    //       const A = commentsA + repliesLengthA;
-    //       const B = commentsB + repliesLengthB;
-
-    //       return A - B;
-    //     });
-    //     return {
-    //       sortedArray,
-    //     };
-    //   }
-    // }
   });
 }
 
