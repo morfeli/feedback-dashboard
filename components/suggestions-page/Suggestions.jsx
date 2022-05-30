@@ -84,7 +84,7 @@ function renderFeeback(items, sortOption, categoryOption) {
 
 const Suggestions = ({ data, sort, category, isMobile, innerWidth }) => {
   return (
-    <ul className="mt-8 space-y-4">
+    <div className="mt-8 space-y-4">
       <Feedback
         data={data.suggestions}
         sort={sort}
@@ -92,39 +92,42 @@ const Suggestions = ({ data, sort, category, isMobile, innerWidth }) => {
         isMobile={isMobile}
         innerWidth={innerWidth}
       />
-    </ul>
+    </div>
   );
 };
 
 const Feedback = ({ data, sort, category, isMobile, innerWidth }) => {
   if (data) {
-    return renderFeeback(data, sort, category).map((item) => {
-      if (data.length === 0) {
-        console.log(true);
-      }
-      let comments = item.comments;
+    let array = renderFeeback(data, sort, category);
 
+    if (array.length) {
       return (
-        <FeedbackCard
-          key={item.id}
-          title={item.title}
-          description={item.description}
-          category={item.category}
-          upvotes={item.upvotes}
-          comments={comments}
-          id={item.id}
-          isMobile={isMobile}
-          innerWidth={innerWidth}
-        />
+        <ul>
+          {array.map((item, i) => {
+            let comments = item.comments;
+
+            return (
+              <FeedbackCard
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                category={item.category}
+                upvotes={item.upvotes}
+                comments={comments}
+                id={item.id}
+                isMobile={isMobile}
+                innerWidth={innerWidth}
+              />
+            );
+          })}
+        </ul>
       );
-    });
-  } else {
-    return <div>Loading...</div>;
+    } else {
+      return <NoSuggestions />;
+    }
   }
+
+  return <div>Loading...</div>;
 };
 
 export default Suggestions;
-
-{
-  /* <NoSuggestions /> */
-}

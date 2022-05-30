@@ -82,8 +82,8 @@ const SuggestionsPage = ({ session }) => {
           sort={sortValue}
           category={categoryValue}
           // filter={filter}
-          // isMobile={isMobile}
-          // innerWidth={innerWidth}
+          isMobile={isMobile}
+          innerWidth={innerWidth}
         />
       </div>
     </main>
