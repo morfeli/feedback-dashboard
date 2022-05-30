@@ -26,10 +26,6 @@ const AddCommentForm = ({
     }
   }, [status, session]);
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
   const sendComment = (e) => {
     e.preventDefault();
 
@@ -78,7 +74,7 @@ const AddCommentForm = ({
         Add Comment
       </label>
       <textarea
-        className="p-4 bg-light-gray cursor-pointer"
+        className="p-4 cursor-pointer bg-light-gray"
         id="comment"
         placeholder={
           username ? `Reply to @${username}` : "Type your comment here"

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import IconArrowSvg from "../dashboard-ui/UI/IconArrowSvg";
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 
@@ -41,7 +39,7 @@ const SelectedFeedback = ({
   } else {
     return (
       <div>
-        <li className="relative flex items-center p-4 mx-4 bg-white rounded-2xl cursor-pointer">
+        <li className="relative flex items-center p-4 mx-4 bg-white cursor-pointer rounded-2xl">
           <button
             value={id}
             className="z-40 flex items-center self-start justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold hover:bg-gray-300"
