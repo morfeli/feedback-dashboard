@@ -104,28 +104,39 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
 
 export default SuggestionFeedbackDetailPage;
 
-export async function getServerSideProps(context) {
+async function getData() {
+  const filePath = path.join(process.cwd(), "json", "data.json");
+  const jsonData = await fs.readFile(filePath);
+  const data = JSON.parse(jsonData);
+
+  return data;
+}
+
+export async function getStaticProps(context) {
   const { params } = context;
 
   const paramsId = params.id;
 
-  let filePath = path.join(process.cwd(), "public", "data", "data.json");
+  const data = await getData();
 
-  let jsonData = await fs.readFile(filePath);
-
-  const feedbackData = JSON.parse(jsonData);
-
-  const data = [];
-
-  data.push(feedbackData);
-
-  let singleItem = data[0].productRequests.filter(
-    (item) => item.id == paramsId
-  );
+  let singleItem = data.productRequests.filter((item) => item.id == paramsId);
 
   return {
     props: {
       item: singleItem,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const data = await getData();
+
+  const slugs = data.productRequests.map((item) => item.id);
+
+  const params = slugs.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    paths: params,
+    fallback: false,
   };
 }
