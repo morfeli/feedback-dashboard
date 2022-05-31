@@ -32,10 +32,10 @@ export default async function newFeedbackHandler(req, res) {
 
     const data = JSON.parse(jsonData);
 
-    // data.productRequests.forEach((item) => item.id++);
-    // data.productRequests.push(newFeedback);
+    data.productRequests.forEach((item) => item.id++);
+    data.productRequests.push(newFeedback);
 
-    // fs.writeFile(filePath, JSON.stringify(data, null, 2));
+    fs.writeFile(filePath, JSON.stringify(data, null, 2));
 
     res.status(201).send({ data });
   }
