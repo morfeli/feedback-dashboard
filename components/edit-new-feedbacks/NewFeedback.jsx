@@ -44,13 +44,9 @@ const NewFeedback = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true,
       },
       body: JSON.stringify(feedbackData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    });
 
     router.replace("/suggestions");
   };
