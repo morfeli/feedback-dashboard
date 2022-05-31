@@ -73,7 +73,7 @@ const SuggestionsPage = ({ session }) => {
   }
 
   return (
-    <main className="xl:flex xl:justify-evenly xl:items-baseline">
+    <main className="xl:flex xl:justify-evenly">
       <div>
         <Dashboard
           isMobile={isMobile}
@@ -82,7 +82,7 @@ const SuggestionsPage = ({ session }) => {
           roadmapData={roadmapData}
         />
       </div>
-      <div className="xl:w-900px">
+      <div className="xl:w-900px xl:mt-12">
         <SortingHeader sortFN={updateSortValue} length={length} />
 
         <Suggestions
