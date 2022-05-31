@@ -46,7 +46,10 @@ const NewFeedback = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(feedbackData),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
 
     router.replace("/suggestions");
   };

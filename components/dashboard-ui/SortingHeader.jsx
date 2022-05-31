@@ -9,9 +9,9 @@ const SortingHeader = ({ sortFN, length, test }) => {
         <SuggestionSVG />
         <h1 className="pl-2 text-white font-jost-bold">{length} Suggestions</h1>
       </div>
-      <SortingButton sortFN={sortFN} test={test} />
+      <SortingButton sortFN={sortFN} />
 
-      <AddFeedbackBtn />
+      <AddFeedbackBtn fetch={fetch} />
     </section>
   );
 };
