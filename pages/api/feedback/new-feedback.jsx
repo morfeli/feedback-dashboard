@@ -26,19 +26,17 @@ export default async function newFeedbackHandler(req, res) {
       comments: [],
     };
 
-    // let filePath = path.join(process.cwd(), "json", "data.json");
+    let filePath = path.join(process.cwd(), "json", "data.json");
 
-    // let jsonData = await fs.readFile(filePath);
+    let jsonData = await fs.readFile(filePath);
 
-    // const data = JSON.parse(jsonData);
+    const data = JSON.parse(jsonData);
 
     // data.productRequests.forEach((item) => item.id++);
     // data.productRequests.push(newFeedback);
 
     // fs.writeFile(filePath, JSON.stringify(data, null, 2));
 
-    res
-      .status(201)
-      .json({ message: "Feedback was successfuly edited and saved." });
+    res.status(201).send({ data });
   }
 }
