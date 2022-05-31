@@ -9,13 +9,13 @@ const DashboardRoadmap = ({ roadmapData, isMobile }) => {
     <section
       className={classnames(
         "p-4",
-        "w-64",
+        "w-54",
         {
           "bg-white": !isMobile,
           "rounded-lg": !isMobile,
         },
         "xl:my-8",
-        "xl:px-8"
+        "xl:px-6"
       )}
     >
       <div className="flex flex-col justify-between p-4">

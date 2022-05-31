@@ -13,6 +13,7 @@ const SuggestionsPage = ({ session }) => {
   const { data, error } = useSWR("/api/staticdata", fetcher);
   const [feedbackData, setFeedbackData] = useState([]);
   const [length, setLength] = useState();
+  const [loading, setLoading] = useState(true);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
   const [innerWidth, setInnerWidth] = useState(0);

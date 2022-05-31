@@ -11,7 +11,7 @@ const DashboardCategories = ({
   toggleActiveLink,
 }) => {
   return (
-    <nav className={classnames("w-64", "mx-auto", "bg-white", "rounded-md")}>
+    <nav className={classnames("w-52", "mx-auto", "bg-white", "rounded-md")}>
       <ul className="flex flex-wrap items-center justify-between p-4 h-52">
         <NavLinks
           categoryFN={categoryFN}
