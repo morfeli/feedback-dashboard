@@ -1,12 +1,10 @@
 import classnames from "classnames";
-import RoadmapStatus from "../dashboard-ui/UI/RoadmapStatus";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const DashboardRoadmap = ({ roadmap, isMobile }) => {
-  // let progressLength = roadmap.progress.length;
-  // let liveLength = roadmap.live.length;
-  // let plannedLength = roadmap.planned.length;
+import RoadmapStatus from "../dashboard-ui/UI/RoadmapStatus";
 
+const DashboardRoadmap = ({ roadmapData, isMobile }) => {
   return (
     <section
       className={classnames(
@@ -30,17 +28,17 @@ const DashboardRoadmap = ({ roadmap, isMobile }) => {
         </div>
         <RoadmapStatus
           status={"Planned"}
-          // number={plannedLength}
+          number={roadmapData.planned ? roadmapData.planned.length : 0}
           color="bg-first-orange"
         />
         <RoadmapStatus
           status={"In-Progress"}
-          // number={progressLength}
+          number={roadmapData.progress ? roadmapData.progress.length : 0}
           color="bg-button-pink"
         />
         <RoadmapStatus
           status={"Live"}
-          // number={liveLength}
+          number={roadmapData.live ? roadmapData.live.length : 0}
           color="bg-light-blue"
         />
       </div>

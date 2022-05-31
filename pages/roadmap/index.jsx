@@ -33,7 +33,7 @@ const RoadmapPage = ({ data }) => {
 
 export default RoadmapPage;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
   let jsonData = await fs.readFile(filePath);

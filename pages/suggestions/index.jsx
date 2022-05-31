@@ -16,11 +16,20 @@ const SuggestionsPage = ({ session }) => {
   const [loading, setLoading] = useState(true);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
-
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
+
+  const progress = feedbackData.progress;
+  const planned = feedbackData.planned;
+  const live = feedbackData.live;
+
+  const roadmapData = {
+    progress,
+    planned,
+    live,
+  };
 
   const updateSortValue = (value) => {
     setSortValue(value);
@@ -70,7 +79,7 @@ const SuggestionsPage = ({ session }) => {
           isMobile={isMobile}
           innerWidth={innerWidth}
           categoryFN={updateCategory}
-          data={feedbackData}
+          roadmapData={roadmapData}
         />
       </div>
       <div className="xl:w-900px">

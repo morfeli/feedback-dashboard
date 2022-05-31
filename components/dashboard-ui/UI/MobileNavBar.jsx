@@ -8,6 +8,7 @@ import DashboardRoadmap from "../DashboardRoadmap";
 import LogOutBtn from "../../dashboard-ui/UI/LogOutBtn";
 
 const MobileNavBar = ({
+  roadmapData,
   isOpen,
   categoryFN,
   toggleMenu,
@@ -48,7 +49,7 @@ const MobileNavBar = ({
             activeLink={activeLink}
             toggleActiveLink={toggleActiveLink}
           />
-          <DashboardRoadmap isMobile={isMobile} />
+          <DashboardRoadmap isMobile={isMobile} roadmapData={roadmapData} />
           <LogOutBtn />
         </motion.div>
       )}
