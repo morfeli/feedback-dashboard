@@ -136,7 +136,7 @@ const NewFeedback = () => {
             ref={messageRef}
           ></textarea>
 
-          <div className="flex flex-col md:flex-row-reverse md:pr-20">
+          <div className="flex flex-col mt-4 md:flex-row-reverse md:pr-20">
             <button
               type="submit"
               className="self-center px-4 py-1 my-2 text-white rounded-lg bg-button-pink"
