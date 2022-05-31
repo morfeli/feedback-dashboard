@@ -1,11 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
+// components
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import EditFeedbackSVG from "../dashboard-ui/UI/EditFeedbackSvg";
 import classNames from "classnames";
 
+// quick validation
 const isEmpty = (value) => value.trim() === "";
 
 const EditFeedback = ({ item }) => {
@@ -21,7 +22,6 @@ const EditFeedback = ({ item }) => {
   const messageRef = useRef();
   const categoryRef = useRef();
   const statusRef = useRef();
-  const deleteRef = useRef();
 
   const onSubmitEditFeedback = async (e) => {
     e.preventDefault();

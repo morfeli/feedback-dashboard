@@ -8,7 +8,7 @@ export default async function editFeedbackHandler(req, res) {
     let updatedCategory = req.body.category;
     let updatedMessage = req.body.message;
 
-    let filePath = path.join(process.cwd(), "public", "data", "data.json");
+    let filePath = path.join(process.cwd(), "json", "data.json");
 
     let jsonData = await fs.readFile(filePath);
 

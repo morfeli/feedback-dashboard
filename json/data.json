@@ -8,10 +8,10 @@
     {
       "id": 2,
       "title": "Add tags for solutions",
-      "category": "enhancement",
+      "category": "feature",
       "upvotes": 112,
-      "status": "suggestion",
-      "description": "Easier to search for solutions based on a specific stack.",
+      "status": "planned",
+      "description": "Testing....",
       "comments": [
         {
           "id": 1,
@@ -39,7 +39,7 @@
       "category": "feature",
       "upvotes": 99,
       "status": "suggestion",
-      "description": "It would help people with light sensitivities and who prefer dark mode.",
+      "description": "Testing...",
       "comments": [
         {
           "id": 3,
