@@ -10,7 +10,6 @@ const FeedbackCard = ({
   category,
   upvotes,
   comments,
-  totalCommentsLength,
   id,
   innerWidth,
   isMobile,
@@ -50,7 +49,7 @@ const FeedbackCard = ({
             </button>
             <button className="flex items-center justify-between w-8">
               <CommentsSvg />
-              {comments ? comments.length || totalCommentsLength : 0}
+              {comments ? comments.length : 0}
             </button>
           </div>
         </li>
@@ -78,7 +77,7 @@ const FeedbackCard = ({
           <div className="flex justify-between pt-4">
             <button className="absolute flex items-center justify-between w-8 right-15px bottom-60px">
               <CommentsSvg />
-              {comments ? comments.length || totalCommentsLength : 0}
+              {comments ? comments.length : 0}
             </button>
           </div>
         </li>

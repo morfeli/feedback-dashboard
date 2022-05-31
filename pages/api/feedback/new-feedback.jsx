@@ -26,7 +26,7 @@ export default async function newFeedbackHandler(req, res) {
       comments: [],
     };
 
-    let filePath = path.join(process.cwd(), "public", "data", "data.json");
+    let filePath = path.join(process.cwd(), "json", "data.json");
 
     let jsonData = await fs.readFile(filePath);
 

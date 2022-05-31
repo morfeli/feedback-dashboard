@@ -7,7 +7,7 @@ export default async function increaseUpvotes(req, res) {
   if (req.method === "POST") {
     let itemID = req.body;
 
-    let filePath = path.join(process.cwd(), "public", "data", "data.json");
+    let filePath = path.join(process.cwd(), "json", "data.json");
 
     let jsonData = await fs.readFile(filePath);
 
