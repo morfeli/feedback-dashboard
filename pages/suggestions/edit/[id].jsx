@@ -8,15 +8,20 @@ const EditFeedbackPage = ({ editFeedback }) => {
 
 export default EditFeedbackPage;
 
-export async function getServerSideProps(context) {
+async function getData() {
+  const filePath = path.join(process.cwd(), "json", "data.json");
+  const jsonData = await fs.readFile(filePath);
+  const data = JSON.parse(jsonData);
+
+  return data;
+}
+
+export async function getStaticProps(context) {
   const { params } = context;
 
   const paramsId = params.id;
-  let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-  let jsonData = await fs.readFile(filePath);
-
-  const data = JSON.parse(jsonData);
+  const data = await getData();
 
   const item = data.productRequests.find((item) => item.id == paramsId);
 
@@ -26,5 +31,18 @@ export async function getServerSideProps(context) {
 
   return {
     props: { editFeedback },
+  };
+}
+
+export async function getStaticPaths() {
+  const data = await getData();
+
+  const slugs = data.productRequests.map((item) => item.id);
+
+  const params = slugs.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    paths: params,
+    fallback: false,
   };
 }
