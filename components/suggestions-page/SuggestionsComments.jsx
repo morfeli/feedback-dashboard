@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import AddCommentForm from "./AddCommentForm";
-import Comment from "./Comment";
+import FeedbackComments from "./FeedbackComments";
 import UserComment from "./UserComment";
 
 const SuggestionsComments = ({ item, length }) => {
@@ -11,11 +11,11 @@ const SuggestionsComments = ({ item, length }) => {
     setPostedComment((current) => [...current, data]);
   };
 
-  let content;
+  let isThereAnyComments;
   if (item[0].comments) {
-    content = item[0].comments;
+    isThereAnyComments = item[0].comments;
   } else {
-    content = null;
+    isThereAnyComments = null;
   }
 
   return (
@@ -24,35 +24,28 @@ const SuggestionsComments = ({ item, length }) => {
         <div className="flex p-8">
           <h1 className="font-jost-bold text-third-blue">{length} Comments</h1>
         </div>
-        <>
-          {content
-            ? content.map((item) => (
-                <Comment
-                  key={item.id}
-                  replyArray={item.replies}
-                  item={item}
-                  image={item.user.image}
-                  name={item.user.name}
-                  username={item.user.username}
-                  content={item.content}
-                />
-              ))
-            : null}
-        </>
 
-        <div>
-          {postedComment
-            ? postedComment.map((item, i) => (
-                <UserComment
-                  key={i}
-                  firstName={item.firstName}
-                  lastName={item.lastName}
-                  message={item.message}
-                  username={item.username}
-                />
-              ))
-            : null}
-        </div>
+        {isThereAnyComments &&
+          isThereAnyComments.map((item) => (
+            <FeedbackComments
+              key={item.feedbackID}
+              content={item.content}
+              name={item.user.name}
+              replyArray={item.replies}
+              username={item.user.userName}
+            />
+          ))}
+
+        {postedComment &&
+          postedComment.map((item, i) => (
+            <UserComment
+              key={i}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              message={item.message}
+              username={item.username}
+            />
+          ))}
       </section>
       <AddCommentForm postComment={postComment} />
     </>

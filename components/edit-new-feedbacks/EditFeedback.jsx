@@ -13,9 +13,8 @@ const EditFeedback = ({ item }) => {
   const [formValidation, setFormValidation] = useState(true);
 
   let title = item[0].title;
-  let id = item[0].id;
-  let enteredID = item[0].id;
   let description = item[0].description;
+  let id = item[0].feedbackID;
 
   const router = useRouter();
 
@@ -40,19 +39,17 @@ const EditFeedback = ({ item }) => {
     }
 
     const editFeedbackData = {
-      id: enteredID,
+      id: id,
       message: enteredMessage,
       category: enteredCategory,
       status: enteredStatus,
     };
 
     fetch("/api/feedback/edit-feedback", {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editFeedbackData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    });
 
     messageRef.current.value = "";
 
@@ -63,20 +60,6 @@ const EditFeedback = ({ item }) => {
     router.back();
   };
 
-  // const onDeleteFeedbackHandler = () => {
-  //   const removeItem = deleteRef.current.value;
-
-  //   fetch("/api/feedback/delete-feedback", {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(removeItem),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data));
-
-  //   router.replace("/suggestions");
-  // };
-
   return (
     <main className="pb-8 xl:mx-64">
       <GoBackBtn />
@@ -85,7 +68,7 @@ const EditFeedback = ({ item }) => {
           <EditFeedbackSVG />
         </div>
         <h1 className="pt-8 text-lg font-jost-bold text-third-blue md:text-2xl">
-          Editing {title}
+          Editing: {title}
         </h1>
 
         <form className="flex flex-col" onSubmit={onSubmitEditFeedback}>

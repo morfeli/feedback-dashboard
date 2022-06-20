@@ -5,7 +5,7 @@ import PostedComment from "./PostedComment";
 import Replies from "./Replies";
 import UserComment from "./UserComment";
 
-const Comment = ({ image, name, username, content, replyArray }) => {
+const FeedbackComments = ({ image, name, username, content, replyArray }) => {
   const [reply, setReply] = useState(false);
   const [repliedComments, setRepliedComments] = useState([]);
 
@@ -64,4 +64,4 @@ const Comment = ({ image, name, username, content, replyArray }) => {
   );
 };
 
-export default Comment;
+export default FeedbackComments;

@@ -27,8 +27,8 @@ const RoadmapDesktop = ({
 
           return (
             <RoadmapCards
-              key={i}
-              id={item.id}
+              key={item.feedbackID}
+              id={item.feedbackID}
               status={item.status}
               title={item.title}
               description={item.description}

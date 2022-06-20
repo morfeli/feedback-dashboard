@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-
-import path from "path";
-import fs from "fs/promises";
+import { connectToDatabase } from "../../helper/HelperFunctions";
 
 import SuggestionsComments from "../../components/suggestions-page/SuggestionsComments";
 import GoBackBtn from "../../components/dashboard-ui/UI/GoBackBtn";
 import EditFeedbackBtn from "../../components/dashboard-ui/UI/EditFeedbackBtn";
 import SelectedFeedback from "../../components/suggestions-page/SelectedFeedback";
 
-const SuggestionFeedbackDetailPage = ({ item }) => {
+const SuggestionFeedbackDetailPage = ({ data }) => {
   const [innerWidth, setInnerWidth] = useState(0);
 
   const isMobile = innerWidth <= 767;
@@ -25,55 +23,58 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
     };
   }, [isMobile]);
 
-  const findLength = () => {
-    return item.map((item, i) => {
-      let comments = item.comments;
+  // const findLength = () => {
+  //   return data.map((item, i) => {
+  //     const comments = item.comments;
 
-      let commentsLength = comments ? comments.length : 0;
+  //     const commentsLength = comments ? comments.length : 0;
 
-      let replies = comments
-        ? comments.filter((comment) => comment.replies)
-        : null;
+  //     const replies = comments
+  //       ? comments.filter((comment) => comment.replies)
+  //       : null;
 
-      let mappedReplies = comments ? replies.map((item) => item.replies) : null;
+  //     const mappedReplies = comments
+  //       ? replies.map((item) => item.replies)
+  //       : null;
 
-      let replyLength = comments
-        ? mappedReplies[0]
-          ? mappedReplies[0].length
-          : 0
-        : null;
+  //     let replyLength = comments
+  //       ? mappedReplies[0]
+  //         ? mappedReplies[0].length
+  //         : 0
+  //       : null;
 
-      let totalCommentsLength = commentsLength + replyLength;
+  //     const totalCommentsLength = commentsLength + replyLength;
 
-      return totalCommentsLength;
-    });
-  };
+  //     return totalCommentsLength;
+  //   });
+  // };
 
-  let length = findLength();
+  // const length = findLength();
+
+  // console.log(length);
 
   return (
     <main className="xl:mx-64 md:pb-8">
       <div className="flex items-baseline justify-between">
         <GoBackBtn />
 
-        <EditFeedbackBtn item={item} />
+        <EditFeedbackBtn item={data} />
       </div>
-
       <ul className="mt-8">
-        {item.map((item, i) => {
-          let comments = item.comments;
+        {data.map((item, i) => {
+          const comments = item.comments;
 
-          let commentsLength = comments ? comments.length : 0;
+          const commentsLength = comments ? comments.length : 0;
 
-          let replies = comments
+          const replies = comments
             ? comments.filter((comment) => comment.replies)
             : null;
 
-          let mappedReplies = comments
+          const mappedReplies = comments
             ? replies.map((item) => item.replies)
             : null;
 
-          let replyLength = comments
+          const replyLength = comments
             ? mappedReplies[0]
               ? mappedReplies[0].length
               : 0
@@ -97,46 +98,34 @@ const SuggestionFeedbackDetailPage = ({ item }) => {
           );
         })}
       </ul>
-      <SuggestionsComments item={item} length={length} />
+      <SuggestionsComments item={data} />
     </main>
   );
 };
 
 export default SuggestionFeedbackDetailPage;
 
-async function getData() {
-  const filePath = path.join(process.cwd(), "json", "data.json");
-  const jsonData = await fs.readFile(filePath);
-  const data = JSON.parse(jsonData);
-
-  return data;
-}
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context;
 
   const paramsId = params.id;
 
-  const data = await getData();
+  const parseID = parseInt(paramsId);
 
-  let singleItem = data.productRequests.filter((item) => item.id == paramsId);
+  const client = await connectToDatabase();
+
+  let item = [];
+
+  const singleFeedback = await client
+    .db()
+    .collection("posts")
+    .findOne({ feedbackID: parseID });
+
+  item.push(singleFeedback);
 
   return {
     props: {
-      item: singleItem,
+      data: JSON.parse(JSON.stringify(item)),
     },
-  };
-}
-
-export async function getStaticPaths() {
-  const data = await getData();
-
-  const slugs = data.productRequests.map((item) => item.id);
-
-  const params = slugs.map((id) => ({ params: { id: id.toString() } }));
-
-  return {
-    paths: params,
-    fallback: false,
   };
 }

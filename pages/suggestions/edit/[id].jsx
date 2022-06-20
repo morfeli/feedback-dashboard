@@ -1,48 +1,34 @@
-import path from "path";
-import fs from "fs/promises";
-
+import { connectToDatabase } from "../../../helper/HelperFunctions";
 import EditFeedback from "../../../components/edit-new-feedbacks/EditFeedback";
-const EditFeedbackPage = ({ editFeedback }) => {
-  return <EditFeedback item={editFeedback} />;
+
+const EditFeedbackPage = ({ data }) => {
+  console.log(data);
+  return <EditFeedback item={data} />;
 };
 
 export default EditFeedbackPage;
 
-async function getData() {
-  const filePath = path.join(process.cwd(), "json", "data.json");
-  const jsonData = await fs.readFile(filePath);
-  const data = JSON.parse(jsonData);
-
-  return data;
-}
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context;
 
   const paramsId = params.id;
 
-  const data = await getData();
+  const parseID = parseInt(paramsId);
 
-  const item = data.productRequests.find((item) => item.id == paramsId);
+  const client = await connectToDatabase();
 
-  const editFeedback = [];
+  let item = [];
 
-  editFeedback.push(item);
+  const singleFeedback = await client
+    .db()
+    .collection("posts")
+    .findOne({ feedbackID: parseID });
 
-  return {
-    props: { editFeedback },
-  };
-}
-
-export async function getStaticPaths() {
-  const data = await getData();
-
-  const slugs = data.productRequests.map((item) => item.id);
-
-  const params = slugs.map((id) => ({ params: { id: id.toString() } }));
+  item.push(singleFeedback);
 
   return {
-    paths: params,
-    fallback: false,
+    props: {
+      data: JSON.parse(JSON.stringify(item)),
+    },
   };
 }

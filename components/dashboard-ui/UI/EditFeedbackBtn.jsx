@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const EditFeedbackBtn = ({ item }) => {
-  const id = item[0].id;
+  const id = item[0].feedbackID;
 
   return (
     <Link href={`/suggestions/edit/${id}`} passHref>

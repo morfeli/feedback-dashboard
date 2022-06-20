@@ -1,8 +1,9 @@
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
 
-function renderFeeback(items, sortOption, categoryOption) {
+function renderFeeback(items, sortOption, categoryOption, statusType) {
   return items
+    .filter((item) => item.status === statusType)
     .filter((item) => {
       switch (categoryOption) {
         case "all":
@@ -82,26 +83,32 @@ function renderFeeback(items, sortOption, categoryOption) {
     });
 }
 
-const Suggestions = ({ data, sort, category, isMobile, innerWidth, test }) => {
+const Suggestions = ({
+  isLoading,
+  data,
+  sort,
+  category,
+  status,
+  isMobile,
+  innerWidth,
+}) => {
   return (
     <div className="mt-8 space-y-4">
       <Feedback
-        data={data.suggestions}
+        data={data}
         sort={sort}
+        status={status}
         category={category}
         isMobile={isMobile}
         innerWidth={innerWidth}
-        test={test}
       />
     </div>
   );
 };
 
-const Feedback = ({ data, sort, category, isMobile, innerWidth, test }) => {
+const Feedback = ({ data, sort, category, status, isMobile, innerWidth }) => {
   if (data) {
-    let array = renderFeeback(data, sort, category);
-
-    test(array.length);
+    const array = renderFeeback(data, sort, category, status);
 
     if (array.length) {
       return (
@@ -111,13 +118,13 @@ const Feedback = ({ data, sort, category, isMobile, innerWidth, test }) => {
 
             return (
               <FeedbackCard
-                key={item.id}
+                key={item.feedbackID}
                 title={item.title}
                 description={item.description}
                 category={item.category}
                 upvotes={item.upvotes}
                 comments={comments}
-                id={item.id}
+                id={item.feedbackID}
                 isMobile={isMobile}
                 innerWidth={innerWidth}
               />

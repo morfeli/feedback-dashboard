@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
-
-import path from "path";
-import fs from "fs/promises";
+import { connectToDatabase } from "../../helper/HelperFunctions";
 
 import RoadmapHeader from "../../components/roadmap/RoadmapHeader";
 import Roadmap from "../../components/roadmap/Roadmap";
 
 const RoadmapPage = ({ data }) => {
   const [innerWidth, setInnerWidth] = useState(0);
-
   const isMobile = innerWidth <= 768;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
@@ -33,34 +30,32 @@ const RoadmapPage = ({ data }) => {
 
 export default RoadmapPage;
 
-export const getStaticProps = async () => {
-  let filePath = path.join(process.cwd(), "json", "data.json");
+export const getServerSideProps = async () => {
+  const storeData = [];
 
-  let jsonData = await fs.readFile(filePath);
+  const client = await connectToDatabase();
 
-  const data = JSON.parse(jsonData);
+  await client
+    .db()
+    .collection("posts")
+    .find()
+    .forEach((post) => storeData.push(post));
 
-  const filteredData = data.productRequests.filter(
-    (item) => item.status != "suggestion"
+  const plannedData = storeData.filter((item) => item.status === "planned");
+
+  const progressData = storeData.filter(
+    (item) => item.status === "in-progress"
   );
 
-  const inProgressStatusData = filteredData.filter(
-    (item) => item.status == "in-progress"
-  );
+  const liveData = storeData.filter((item) => item.status === "live");
 
-  const liveStatusData = filteredData.filter((item) => item.status == "live");
-
-  const plannedStatusData = filteredData.filter(
-    (item) => item.status == "planned"
-  );
-
-  const statusData = {
-    progress: inProgressStatusData,
-    live: liveStatusData,
-    planned: plannedStatusData,
+  const roadmapData = {
+    plannedData,
+    progressData,
+    liveData,
   };
 
   return {
-    props: { data: statusData },
+    props: { data: JSON.parse(JSON.stringify(roadmapData)) },
   };
 };

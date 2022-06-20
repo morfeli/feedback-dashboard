@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
@@ -10,6 +11,14 @@ const isEmpty = (value) => value.trim() === "";
 const NewFeedback = () => {
   const [titleValid, setTitleIsValid] = useState(true);
   const [messageValid, setMessageIsValid] = useState(true);
+  const [userData, setUserData] = useState(null);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setUserData([session.user.name]);
+    }
+  }, [status, session]);
 
   const router = useRouter();
   const titleRef = useRef();
@@ -38,6 +47,9 @@ const NewFeedback = () => {
       title: enteredTitle,
       message: enteredMessage,
       category: enteredCategory,
+      firstName: userData[0].firstName,
+      lastName: userData[0].lastName,
+      userName: userData[0].userName,
     };
 
     fetch("/api/feedback/new-feedback", {
@@ -100,7 +112,7 @@ const NewFeedback = () => {
           <select
             name="category"
             id="category"
-            className="self-center w-2/3 px-2 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
+            className="self-center w-2/3 px-2 border-r-8 border-transparent bg-light-gray h-11"
             ref={categoryRef}
           >
             <option value="feature">Feature</option>

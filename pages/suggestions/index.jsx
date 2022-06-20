@@ -1,47 +1,28 @@
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
-import useSWR from "swr";
+import { connectToDatabase } from "../../helper/HelperFunctions";
+
+// import useSWR from "swr";
 
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+// const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const SuggestionsPage = ({ session }) => {
-  const { data, error } = useSWR("/api/staticdata", fetcher);
-  const [feedbackData, setFeedbackData] = useState([]);
-  const [length, setLength] = useState();
-  const [loading, setLoading] = useState(true);
+const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
+  // const { data, error } = useSWR("/api/feedback/fetchFeedbackData", fetcher);
+  // const [loading, setLoading] = useState(true);
+  const [roadmapData, setRoadmapData] = useState([]);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
+  const [statusType, __] = useState("suggestion");
+  const [length, setLength] = useState(null);
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
-
-  const progress = feedbackData.progress;
-  const planned = feedbackData.planned;
-  const live = feedbackData.live;
-
-  const roadmapData = {
-    progress,
-    planned,
-    live,
-  };
-
-  const updateSortValue = (value) => {
-    setSortValue(value);
-  };
-
-  const updateCategory = (value) => {
-    setCategoryValue(value);
-  };
-
-  const captureArrayLength = (value) => {
-    setLength(value);
-  };
 
   useEffect(() => {
     changeWidth();
@@ -53,24 +34,46 @@ const SuggestionsPage = ({ session }) => {
     };
   }, [isMobile]);
 
+  const filterDataForRoadmapPage = () => {
+    const plannedData = data.filter((item) => item.status === "planned");
+    const liveData = data.filter((item) => item.status === "live");
+    const inProgressData = data.filter((item) => item.status === "in-progress");
+
+    const roadmap = {
+      plannedData,
+      liveData,
+      inProgressData,
+    };
+
+    setRoadmapData(roadmap);
+  };
   useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
+    filterDataForRoadmapPage();
+  }, []);
 
-    if (data) {
-      setFeedbackData(data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (error) {
+  //     console.log(error);
+  //   }
 
-  if (error) {
-    return <div>An error has occured</div>;
-  }
+  //   if (data) {
+  //     setLoading(false);
+  //     setFeedbackData(data);
+  //   }
+  // }, [data]);
 
-  if (!data) {
-    // can return a loading spinner here...
-    return <div>Loading..</div>;
-  }
+  const updateSortValue = (value) => {
+    setSortValue(value);
+  };
+
+  const updateCategory = (value) => {
+    setCategoryValue(value);
+  };
+
+  // if (!data) {
+  //   // can return a loading spinner here...
+  //   return <div>Loading..</div>;
+  // }
 
   return (
     <main className="xl:flex xl:justify-evenly">
@@ -79,19 +82,22 @@ const SuggestionsPage = ({ session }) => {
           isMobile={isMobile}
           innerWidth={innerWidth}
           categoryFN={updateCategory}
-          roadmapData={roadmapData}
+          data={roadmapData}
         />
       </div>
       <div className="xl:w-900px xl:mt-12">
-        <SortingHeader sortFN={updateSortValue} length={length} />
+        <SortingHeader
+          sortFN={updateSortValue}
+          suggestionsLength={suggestionArrayLength}
+        />
 
         <Suggestions
-          data={feedbackData}
+          data={data}
           sort={sortValue}
+          status={statusType}
           category={categoryValue}
           isMobile={isMobile}
           innerWidth={innerWidth}
-          test={captureArrayLength}
         />
       </div>
     </main>
@@ -111,8 +117,26 @@ export const getServerSideProps = async (context) => {
       },
     };
   } else {
+    const client = await connectToDatabase();
+
+    const storeData = [];
+
+    await client
+      .db()
+      .collection("posts")
+      .find()
+      .forEach((post) => storeData.push(post));
+
+    const suggestionArray = storeData.filter(
+      (item) => item.status === "suggestion"
+    );
+
+    const suggestionArrayLength = suggestionArray.length;
+
+    const data = JSON.parse(JSON.stringify(storeData));
+
     return {
-      props: { session },
+      props: { session, data, suggestionArrayLength },
     };
   }
 };

@@ -1,20 +1,20 @@
 import Image from "next/image";
 
 const UserComment = ({
-  image,
+  // image,
   username,
   name,
   toggleReply,
   content,
-  firstName,
-  lastName,
+  // firstName,
+  // lastName,
   message,
 }) => {
   return (
     <>
       <div className="flex items-center justify-between pl-8">
         <div className="flex items-center">
-          {image ? (
+          {/* {image && (
             <Image
               src={image}
               width={50}
@@ -22,16 +22,16 @@ const UserComment = ({
               className="rounded-3xl"
               alt="User Image"
             />
-          ) : null}
+          )} */}
 
           <div className="flex flex-col pl-4">
             <h1 className="font-jost-semibold">{name}</h1>
-            {firstName && lastName ? (
+            {/* {firstName && lastName ? (
               <div className="flex">
                 <h1 className="font-jost-semibold">{firstName}</h1>
                 <h1 className="pl-2 font-jost-semibold">{lastName}</h1>
               </div>
-            ) : null}
+            ) : null} */}
             <p>@{username}</p>
           </div>
         </div>

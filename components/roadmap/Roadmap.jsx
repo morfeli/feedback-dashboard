@@ -4,19 +4,16 @@ import MobileRoadmap from "./MobileRoadmap";
 import RoadmapDesktop from "./RoadmapDesktop";
 
 const Roadmap = ({ data, innerWidth, isMobile }) => {
+  const { plannedData, progressData, liveData } = data;
   const [renderStatus, setRenderStatus] = useState();
 
-  const progressData = data.progress;
-  const plannedData = data.planned;
-  const liveData = data.live;
-
-  const planned = `Planned (${data.planned.length})`;
-  const inProgress = `In-Progress (${data.progress.length})`;
-  const live = `Live (${data.live.length})`;
+  const plannedLength = `Planned (${plannedData.length})`;
+  const inProgressLength = `In-Progress (${progressData.length})`;
+  const liveLength = `Live (${liveData.length})`;
 
   useEffect(() => {
-    setRenderStatus(progressData);
-  }, [progressData]);
+    setRenderStatus(data.progressData);
+  }, [data.progressData]);
 
   const changeStatus = (e) => {
     let value = e.target.value;
@@ -40,17 +37,17 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
   let borderColor;
 
   if (renderStatus == plannedData) {
-    title = planned;
+    title = plannedLength;
     content = "Features currently being planned.";
     color = "first-orange";
     borderColor = "border-t-first-orange";
   } else if (renderStatus == progressData) {
-    title = inProgress;
+    title = inProgressLength;
     content = "Features currently being developed.";
     color = "button-pink";
     borderColor = "border-t-button-pink";
   } else if (renderStatus == liveData) {
-    title = live;
+    title = liveLength;
     content = "Features that are now live!";
     color = "light-blue";
     borderColor = "border-t-light-blue";
@@ -65,9 +62,9 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
         progressData={progressData}
         liveData={liveData}
         plannedData={plannedData}
-        planned={planned}
-        live={live}
-        inProgress={inProgress}
+        planned={plannedLength}
+        live={liveLength}
+        inProgress={inProgressLength}
         title={title}
         content={content}
         color={color}
@@ -82,9 +79,9 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
         progressData={progressData}
         liveData={liveData}
         plannedData={plannedData}
-        planned={planned}
-        live={live}
-        inProgress={inProgress}
+        planned={plannedLength}
+        live={liveLength}
+        inProgress={inProgressLength}
         isMobile={isMobile}
       />
     );
