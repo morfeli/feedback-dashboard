@@ -1,12 +1,16 @@
 import IconArrowSvg from "../dashboard-ui/UI/IconArrowSvg";
 
-const UpvotesButton = ({ upvotes, id }) => {
+const UpvotesButton = ({ upvotes, id, stateUpvote }) => {
   const onClick = () => {
-    fetch("/api/feedback/inc-upvotes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(id),
-    });
+    stateUpvote();
+
+    setTimeout(() => {
+      fetch("/api/feedback/inc-upvotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(id),
+      });
+    }, 5);
   };
   return (
     <button

@@ -15,6 +15,15 @@ const FeedbackCard = ({
   isMobile,
 }) => {
   const [totalUpvotes, setTotalUpvotes] = useState(upvotes);
+  const [disable, setDisable] = useState(false);
+
+  const setTotalUpvotesHandler = () => {
+    if (disable) {
+      return;
+    }
+    setTotalUpvotes((current) => current + 1);
+    setDisable(true);
+  };
 
   if (innerWidth == 0) {
     return <></>;
@@ -28,7 +37,11 @@ const FeedbackCard = ({
             {category}
           </button>
           <div className="flex justify-between pt-4">
-            <UpvotesButton id={id} upvotes={upvotes} />
+            <UpvotesButton
+              id={id}
+              upvotes={totalUpvotes}
+              stateUpvote={setTotalUpvotesHandler}
+            />
             <button className="flex items-center justify-between w-8">
               <CommentsSvg />
               {comments ? comments.length : 0}
@@ -40,7 +53,11 @@ const FeedbackCard = ({
   } else {
     return (
       <div className="z-0 relative flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl">
-        <UpvotesButton id={id} upvotes={upvotes} />
+        <UpvotesButton
+          id={id}
+          upvotes={totalUpvotes}
+          stateUpvote={setTotalUpvotesHandler}
+        />
         <Link href={`suggestions/${id}`} passHref>
           <li className="w-full">
             <div className="flex flex-col items-baseline pl-8">
