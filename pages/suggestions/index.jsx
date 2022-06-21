@@ -2,27 +2,22 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 import { connectToDatabase } from "../../helper/HelperFunctions";
 
-// import useSWR from "swr";
-
 // components
 import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
 
-// const fetcher = (url) => fetch(url).then((res) => res.json());
-
 const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
-  // const { data, error } = useSWR("/api/feedback/fetchFeedbackData", fetcher);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [roadmapData, setRoadmapData] = useState([]);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
   const [statusType, __] = useState("suggestion");
-  const [length, setLength] = useState(null);
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 767;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
+  const loadingHandler = () => setLoading(false);
 
   useEffect(() => {
     changeWidth();
@@ -33,6 +28,12 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
       window.removeEventListener("resize", changeWidth);
     };
   }, [isMobile]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadingHandler();
+    }, 5000);
+  }, [loadingHandler]);
 
   const filterDataForRoadmapPage = () => {
     const plannedData = data.filter((item) => item.status === "planned");
@@ -51,17 +52,6 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
     filterDataForRoadmapPage();
   }, []);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     console.log(error);
-  //   }
-
-  //   if (data) {
-  //     setLoading(false);
-  //     setFeedbackData(data);
-  //   }
-  // }, [data]);
-
   const updateSortValue = (value) => {
     setSortValue(value);
   };
@@ -69,11 +59,6 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
   const updateCategory = (value) => {
     setCategoryValue(value);
   };
-
-  // if (!data) {
-  //   // can return a loading spinner here...
-  //   return <div>Loading..</div>;
-  // }
 
   return (
     <main className="xl:flex xl:justify-evenly">
@@ -92,6 +77,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
         />
 
         <Suggestions
+          isLoading={loading}
           data={data}
           sort={sortValue}
           status={statusType}

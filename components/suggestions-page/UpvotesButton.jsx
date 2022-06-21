@@ -10,7 +10,7 @@ const UpvotesButton = ({ upvotes, id, stateUpvote }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(id),
       });
-    }, 5);
+    }, 3);
   };
   return (
     <button

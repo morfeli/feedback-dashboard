@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 import UpvotesButton from "./UpvotesButton";
 
 const FeedbackCard = ({
+  animateKey,
   title,
   description,
   category,
@@ -30,7 +32,16 @@ const FeedbackCard = ({
   } else if (isMobile) {
     return (
       <Link href={`suggestions/${id}`} passHref>
-        <li className="p-4 mx-4 mb-8 bg-white rounded-2xl">
+        <motion.li
+          className="p-4 mx-4 mb-8 bg-white rounded-2xl"
+          initial={{
+            opacity: 0,
+            translateY: -50,
+            translateX: animateKey % 2 === 0 ? -50 : 50,
+          }}
+          animate={{ opacity: 1, translateY: 0, translateX: 0 }}
+          transition={{ duration: 0.8, delay: animateKey * 0.2 }}
+        >
           <h1 className="text-third-blue font-jost-bold ">{title}</h1>
           <p className="py-2 text-first-blue">{description}</p>
           <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
@@ -47,12 +58,21 @@ const FeedbackCard = ({
               {comments ? comments.length : 0}
             </button>
           </div>
-        </li>
+        </motion.li>
       </Link>
     );
   } else {
     return (
-      <div className="z-0 relative flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl">
+      <motion.div
+        initial={{
+          opacity: 0,
+          translateY: -50,
+          translateX: animateKey % 2 === 0 ? -50 : 50,
+        }}
+        animate={{ opacity: 1, translateY: 0, translateX: 0 }}
+        transition={{ duration: 0.8, delay: animateKey * 0.2 }}
+        className="relative z-0 flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+      >
         <UpvotesButton
           id={id}
           upvotes={totalUpvotes}
@@ -75,7 +95,7 @@ const FeedbackCard = ({
             </div>
           </li>
         </Link>
-      </div>
+      </motion.div>
     );
   }
 };
@@ -84,7 +104,7 @@ export default FeedbackCard;
 
 {
   /* <Link href={`suggestions/${id}`} passHref>
-<li className="z-0 relative flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl">
+<li className="relative z-0 flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl">
   <UpvotesButton id={id} upvotes={upvotes} />
   <div className="flex flex-col items-baseline pl-8">
     <h1 className="text-third-blue font-jost-bold ">{title}</h1>

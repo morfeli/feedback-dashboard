@@ -1,5 +1,6 @@
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
+import LoadingSpinner from "../dashboard-ui/UI/LoadingSpinner";
 
 function renderFeeback(items, sortOption, categoryOption, statusType) {
   return items
@@ -92,9 +93,17 @@ const Suggestions = ({
   isMobile,
   innerWidth,
 }) => {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center mt-12">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div className="mt-8 space-y-4">
       <Feedback
+        isLoading={isLoading}
         data={data}
         sort={sort}
         status={status}
@@ -118,6 +127,7 @@ const Feedback = ({ data, sort, category, status, isMobile, innerWidth }) => {
 
             return (
               <FeedbackCard
+                animateKey={i}
                 key={item.feedbackID}
                 title={item.title}
                 description={item.description}
