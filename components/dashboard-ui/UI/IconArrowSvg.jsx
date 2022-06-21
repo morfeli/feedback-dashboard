@@ -1,4 +1,4 @@
-const IconArrowSvg = ({ userHasUpVoted }) => {
+const IconArrowSvg = ({ userHasUpVoted, stateColor }) => {
   return (
     <svg
       width="10"
@@ -8,7 +8,7 @@ const IconArrowSvg = ({ userHasUpVoted }) => {
     >
       <path
         d="M1 6l4-4 4 4"
-        stroke={userHasUpVoted ? "#FFF" : "#4661E6"}
+        stroke={userHasUpVoted || stateColor ? "#FFF" : "#4661E6"}
         strokeWidth="2"
         fill="none"
         fillRule="evenodd"

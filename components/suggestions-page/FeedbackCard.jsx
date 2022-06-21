@@ -21,6 +21,7 @@ const FeedbackCard = ({
 }) => {
   const [totalUpvotes, setTotalUpvotes] = useState(upvotes);
   const [userHasUpVoted, setUserHasUpVoted] = useState(false);
+  const [stateColor, setStateColor] = useState(null);
   const [disable, setDisable] = useState(false);
 
   useEffect(() => {
@@ -33,10 +34,10 @@ const FeedbackCard = ({
   }, []);
 
   const setTotalUpvotesHandler = () => {
-    if (disable) {
-      return;
+    if (!disable) {
+      setTotalUpvotes((current) => current + 1);
+      setStateColor(true);
     }
-    setTotalUpvotes((current) => current + 1);
     setDisable(true);
   };
 
@@ -66,6 +67,7 @@ const FeedbackCard = ({
               id={id}
               upvotes={totalUpvotes}
               stateUpvote={setTotalUpvotesHandler}
+              stateColor={stateColor}
               userHasUpVoted={userHasUpVoted}
             />
             <button className="flex items-center justify-between w-8">
@@ -92,6 +94,7 @@ const FeedbackCard = ({
           id={id}
           upvotes={totalUpvotes}
           stateUpvote={setTotalUpvotesHandler}
+          stateColor={stateColor}
           userHasUpVoted={userHasUpVoted}
         />
         <Link href={`suggestions/${id}`} passHref>

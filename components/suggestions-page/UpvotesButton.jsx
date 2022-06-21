@@ -3,7 +3,13 @@ import classNames from "classnames";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const UpvotesButton = ({ upvotes, id, stateUpvote, userHasUpVoted }) => {
+const UpvotesButton = ({
+  upvotes,
+  id,
+  stateUpvote,
+  stateColor,
+  userHasUpVoted,
+}) => {
   const { data: session, status } = useSession();
   const [userData, setUserData] = useState();
 
@@ -16,12 +22,17 @@ const UpvotesButton = ({ upvotes, id, stateUpvote, userHasUpVoted }) => {
   const buttonStyles = classNames(
     "flex items-center justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold",
     {
-      "bg-first-blue": userHasUpVoted,
-      "text-slate-50": userHasUpVoted,
+      "bg-first-blue": userHasUpVoted || stateColor,
+      "text-slate-50": userHasUpVoted || stateColor,
     }
   );
 
   const onClick = () => {
+    if (userHasUpVoted) {
+      console.log("you already voted");
+      return;
+    }
+
     stateUpvote();
 
     const userObject = {
@@ -41,7 +52,7 @@ const UpvotesButton = ({ upvotes, id, stateUpvote, userHasUpVoted }) => {
   };
   return (
     <button onClick={onClick} value={id} className={buttonStyles}>
-      <IconArrowSvg userHasUpVoted={userHasUpVoted} />
+      <IconArrowSvg userHasUpVoted={userHasUpVoted} stateColor={stateColor} />
       {upvotes}
     </button>
   );
