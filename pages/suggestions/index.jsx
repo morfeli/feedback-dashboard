@@ -33,7 +33,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
     setTimeout(() => {
       loadingHandler();
     }, 5000);
-  }, [loadingHandler]);
+  }, []);
 
   const filterDataForRoadmapPage = () => {
     const plannedData = data.filter((item) => item.status === "planned");
@@ -77,6 +77,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
         />
 
         <Suggestions
+          session={session}
           isLoading={loading}
           data={data}
           sort={sortValue}

@@ -25,5 +25,6 @@ export default async function editFeedbackHandler(req, res) {
     res
       .status(201)
       .json({ message: "Feedback was successfuly edited and saved." });
+    client.close();
   }
 }

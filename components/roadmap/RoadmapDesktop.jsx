@@ -27,6 +27,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={item.feedbackID}
+              animateKey={i}
               id={item.feedbackID}
               status={item.status}
               title={item.title}
@@ -55,6 +56,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={i}
+              animateKey={i}
               id={item.id}
               status={item.status}
               title={item.title}
@@ -83,6 +85,7 @@ const RoadmapDesktop = ({
           return (
             <RoadmapCards
               key={i}
+              animateKey={i}
               id={item.id}
               status={item.status}
               title={item.title}

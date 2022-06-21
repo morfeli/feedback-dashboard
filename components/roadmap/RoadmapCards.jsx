@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Link from "next/link";
 import classNames from "classnames";
 
@@ -5,6 +6,7 @@ import IconArrowSvg from "../dashboard-ui/UI/IconArrowSvg";
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 
 const RoadmapCards = ({
+  animateKey,
   status,
   title,
   description,
@@ -18,7 +20,7 @@ const RoadmapCards = ({
 }) => {
   return (
     <Link href={`suggestions/${id}`} passHref>
-      <li
+      <motion.li
         className={classNames(
           "cursor-pointer",
           "p-4",
@@ -31,6 +33,14 @@ const RoadmapCards = ({
           "rounded-md",
           { "w-full": !isMobile }
         )}
+        initial={{
+          opacity: 0,
+          translateY: -50,
+          translateX: animateKey % 2 === 0 ? -50 : 50,
+        }}
+        animate={{ opacity: 1, translateY: 0, translateX: 0 }}
+        transition={{ duration: 0.8, delay: animateKey * 0.2 }}
+        exit={{ opacity: 0 }}
       >
         <div className="flex items-center">
           <div
@@ -59,7 +69,7 @@ const RoadmapCards = ({
             {comments ? comments.length : 0}
           </button>
         </div>
-      </li>
+      </motion.li>
     </Link>
   );
 };

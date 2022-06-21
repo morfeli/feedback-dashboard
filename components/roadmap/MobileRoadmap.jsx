@@ -1,5 +1,4 @@
 import classNames from "classnames";
-
 import RoadmapCards from "./RoadmapCards";
 
 const MobileRoadmap = ({
@@ -57,16 +56,17 @@ const MobileRoadmap = ({
           {live}
         </button>
       </div>
-      <article>
+      <div>
         <div className="p-4">
           <h1 className="font-jost-bold">{title}</h1>
           <p>{content}</p>
         </div>
-        {renderStatus ? (
-          renderStatus.map((item) => {
+        {renderStatus &&
+          renderStatus.map((item, i) => {
             let comments = item.comments;
             return (
               <RoadmapCards
+                animateKey={i}
                 key={item.id}
                 title={item.title}
                 category={item.category}
@@ -80,11 +80,8 @@ const MobileRoadmap = ({
                 isMobile={isMobile}
               />
             );
-          })
-        ) : (
-          <p>loading...</p>
-        )}
-      </article>
+          })}
+      </div>
     </section>
   );
 };

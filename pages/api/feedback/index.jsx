@@ -1,25 +1,25 @@
-import path from "path";
-import fs from "fs/promises";
+// import path from "path";
+// import fs from "fs/promises";
 
-import { filteredData } from "../../../helper/HelperFunctions";
+// import { filteredData } from "../../../helper/HelperFunctions";
 
-export default async function feedbackHandler(req, res) {
-  if (req.method === "GET") {
-    try {
-      let filePath = path.join(process.cwd(), "public", "data", "data.json");
+// export default async function feedbackHandler(req, res) {
+//   if (req.method === "GET") {
+//     try {
+//       let filePath = path.join(process.cwd(), "public", "data", "data.json");
 
-      let jsonData = await fs.readFile(filePath);
+//       let jsonData = await fs.readFile(filePath);
 
-      const feedbackData = JSON.parse(jsonData);
+//       const feedbackData = JSON.parse(jsonData);
 
-      let data = [];
-      data.push(feedbackData);
+//       let data = [];
+//       data.push(feedbackData);
 
-      let filterData = filteredData(data, "suggestion");
+//       let filterData = filteredData(data, "suggestion");
 
-      res.status(200).json({ filterData });
-    } catch (error) {
-      res.status(500).json({ error: "failed to load data" });
-    }
-  }
-}
+//       res.status(200).json({ filterData });
+//     } catch (error) {
+//       res.status(500).json({ error: "failed to load data" });
+//     }
+//   }
+// }

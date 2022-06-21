@@ -1,4 +1,4 @@
-const IconArrowSvg = () => {
+const IconArrowSvg = ({ userHasUpVoted }) => {
   return (
     <svg
       width="10"
@@ -8,7 +8,7 @@ const IconArrowSvg = () => {
     >
       <path
         d="M1 6l4-4 4 4"
-        stroke="#4661E6"
+        stroke={userHasUpVoted ? "#FFF" : "#4661E6"}
         strokeWidth="2"
         fill="none"
         fillRule="evenodd"

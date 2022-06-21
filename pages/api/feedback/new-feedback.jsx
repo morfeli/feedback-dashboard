@@ -42,6 +42,9 @@ export default async function newFeedbackHandler(req, res) {
         comments: [],
       });
 
-    res.status(201);
+    res
+      .status(201)
+      .json({ message: "Feedback has successfully been added! :)" });
+    client.close();
   }
 }

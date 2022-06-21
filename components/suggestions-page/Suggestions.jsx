@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
 import LoadingSpinner from "../dashboard-ui/UI/LoadingSpinner";
@@ -85,6 +86,7 @@ function renderFeeback(items, sortOption, categoryOption, statusType) {
 }
 
 const Suggestions = ({
+  session,
   isLoading,
   data,
   sort,
@@ -103,6 +105,7 @@ const Suggestions = ({
   return (
     <div className="mt-8 space-y-4">
       <Feedback
+        session={session}
         isLoading={isLoading}
         data={data}
         sort={sort}
@@ -115,7 +118,15 @@ const Suggestions = ({
   );
 };
 
-const Feedback = ({ data, sort, category, status, isMobile, innerWidth }) => {
+const Feedback = ({
+  data,
+  sort,
+  category,
+  status,
+  isMobile,
+  innerWidth,
+  session,
+}) => {
   if (data) {
     const array = renderFeeback(data, sort, category, status);
 
@@ -123,18 +134,21 @@ const Feedback = ({ data, sort, category, status, isMobile, innerWidth }) => {
       return (
         <ul className="flex flex-col">
           {array.map((item, i) => {
-            let comments = item.comments;
+            const comments = item.comments;
+            const usersThatHaveUpvoted = item.upVotedUsers;
 
             return (
               <FeedbackCard
+                session={session}
                 animateKey={i}
                 key={item.feedbackID}
+                id={item.feedbackID}
                 title={item.title}
                 description={item.description}
                 category={item.category}
                 upvotes={item.upvotes}
                 comments={comments}
-                id={item.feedbackID}
+                userUpvoted={usersThatHaveUpvoted}
                 isMobile={isMobile}
                 innerWidth={innerWidth}
               />
