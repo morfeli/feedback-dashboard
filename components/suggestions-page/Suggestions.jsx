@@ -95,7 +95,7 @@ const Suggestions = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center pb-4 mt-12">
         <LoadingSpinner />
       </div>
     );
@@ -121,7 +121,7 @@ const Feedback = ({ data, sort, category, status, isMobile, innerWidth }) => {
 
     if (array.length) {
       return (
-        <ul>
+        <ul className="flex flex-col">
           {array.map((item, i) => {
             let comments = item.comments;
 
