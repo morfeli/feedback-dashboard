@@ -29,7 +29,7 @@ const RoadmapCards = ({
           "border-t-8",
           borderColor,
           "rounded-md",
-          { "p-8": !isMobile }
+          { "w-full": !isMobile }
         )}
       >
         <div className="flex items-center">
@@ -54,7 +54,7 @@ const RoadmapCards = ({
             <IconArrowSvg />
             {upvotes}
           </button>
-          <button className="flex items-center">
+          <button className="flex items-center justify-around w-10">
             <CommentsSvg />
             {comments ? comments.length : 0}
           </button>

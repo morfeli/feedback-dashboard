@@ -10,14 +10,13 @@ const RoadmapDesktop = ({
   isMobile,
 }) => {
   return (
-    <section className="flex items-baseline justify-between pt-8 pl-4">
-      <div className="flex flex-col">
-        {
-          <div className="pl-4">
-            <h1 className="font-jost-bold">{planned}</h1>
-            <p>Features currently being planned.</p>
-          </div>
-        }
+    <section className="grid grid-cols-3 gap-2 pt-8 mx-2 gap-y-16 lg:mx-8 lg:gap-4">
+      <div className="flex flex-col items-center">
+        <div className="self-start">
+          <h1 className="font-jost-bold">{planned}</h1>
+          <p>Features currently being planned.</p>
+        </div>
+
         {plannedData.map((item, i) => {
           let comments = item.comments;
 
@@ -42,13 +41,12 @@ const RoadmapDesktop = ({
           );
         })}
       </div>
-      <div className="flex flex-col">
-        {
-          <div className="pl-4">
-            <h1 className="font-jost-bold">{inProgress}</h1>
-            <p>Features currently being developed.</p>
-          </div>
-        }
+      <div className="flex flex-col items-center">
+        <div className="self-start">
+          <h1 className="font-jost-bold">{inProgress}</h1>
+          <p>Features currently being developed.</p>
+        </div>
+
         {progressData.map((item, i) => {
           let comments = item.comments;
           let borderColor = "border-t-button-pink";
@@ -71,13 +69,12 @@ const RoadmapDesktop = ({
           );
         })}
       </div>
-      <div className="flex flex-col">
-        {
-          <div className="pl-4">
-            <h1 className="font-jost-bold">{live}</h1>
-            <p>Features that are now live!</p>
-          </div>
-        }
+      <div className="flex flex-col items-center">
+        <div className="self-start">
+          <h1 className="font-jost-bold">{live}</h1>
+          <p>Features that are now live!</p>
+        </div>
+
         {liveData.map((item, i) => {
           let comments = item.comments;
           let color = "light-blue";
