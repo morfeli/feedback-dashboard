@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import ArrowSVG from "./ArrowSVG";
-import CheckSVG from "./CheckSVG";
+import ButtonTest from "./ButtonTest";
+import classNames from "classnames";
 
-const SortingButton = ({ sortFN, test }) => {
+const SortingButton = ({
+  sortFN,
+  buttonValues,
+  categoryValues,
+  statusValues,
+  captureCategoryValue,
+  captureStatusValue,
+}) => {
   const [active, setActive] = useState(false);
-  const [sortValue, setSortValue] = useState("Most Upvotes");
+  const [sortValue, setSortValue] = useState();
+
+  useEffect(() => {
+    if (buttonValues) {
+      setSortValue(buttonValues[0].value);
+    }
+    if (categoryValues) {
+      setSortValue(categoryValues[0].value);
+    }
+    if (statusValues) {
+      setSortValue(statusValues[0].value);
+    }
+  }, [buttonValues, categoryValues]);
 
   const captureSortOption = (e) => {
-    sortFN(e.target.value);
-    // test(e.target.value);
     setSortValue(e.target.value);
     setActive(false);
+    sortFN && sortFN(e.target.value);
+    captureCategoryValue && captureCategoryValue(e.target.value);
+    captureStatusValue && captureStatusValue(e.target.value);
   };
 
   const toggleActive = () => {
@@ -24,14 +45,35 @@ const SortingButton = ({ sortFN, test }) => {
     hidden: { opacity: 0, y: -100 },
   };
 
+  let content;
+  let styles;
+
+  if (buttonValues) {
+    content = "Sort by";
+    styles = classNames(
+      "flex items-center pr-1 text-white font-jost-semibold z-40"
+    );
+  } else if (categoryValues) {
+    content = "Category";
+    styles = classNames(
+      "flex items-center justify-between px-4 self-center w-72 bg-light-gray h-11 outline-none z-40"
+    );
+  } else if (statusValues) {
+    content = "Status";
+    styles = classNames(
+      "flex items-center justify-between px-4 self-center w-72 bg-light-gray h-11 outline-none z-40"
+    );
+  }
+
   return (
-    <div className="relative pl-1 xl:pr-72 ">
+    <div className="relative self-center pl-1 ">
       <button
+        type="button"
         onClick={toggleActive}
         htmlFor="sort"
-        className="flex items-center pr-1 text-white font-jost-semibold"
+        className={styles}
       >
-        Sort by: {sortValue}
+        {content}: {sortValue}
         <ArrowSVG rotate={active} />
       </button>
 
@@ -41,51 +83,43 @@ const SortingButton = ({ sortFN, test }) => {
             initial="hidden"
             animate="visible"
             variants={activeDivVariants}
-            transition={{ type: "spring", stiffness: 100 }}
+            transition={{ type: "spring", stiffness: 100, duration: 1 }}
             exit={{ opacity: 0, y: -100 }}
-            className="absolute z-50 flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
+            className="absolute z-40 flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
           >
-            <button
-              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
-              onClick={captureSortOption}
-              value="Most Upvotes"
-            >
-              Most Upvotes
-              {sortValue == "Most Upvotes" ? <CheckSVG /> : null}
-            </button>
-
-            <hr />
-
-            <button
-              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
-              onClick={captureSortOption}
-              value="Least Upvotes"
-            >
-              Least Upvotes
-              {sortValue == "Least Upvotes" ? <CheckSVG /> : null}
-            </button>
-
-            <hr />
-
-            <button
-              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
-              onClick={captureSortOption}
-              value="Most Comments"
-            >
-              Most Comments
-              {sortValue == "Most Comments" ? <CheckSVG /> : null}
-            </button>
-
-            <hr />
-
-            <button
-              className="flex items-center justify-between py-4 pl-4 text-left hover:text-button-pink hover:cursor-pointer"
-              onClick={captureSortOption}
-              value="Least Comments"
-            >
-              Least Comments
-              {sortValue == "Least Comments" ? <CheckSVG /> : null}
-            </button>
+            {buttonValues &&
+              buttonValues.map((item, i) => {
+                return (
+                  <ButtonTest
+                    key={item.id}
+                    value={item.value}
+                    captureSortOption={captureSortOption}
+                    sortValue={sortValue}
+                  />
+                );
+              })}
+            {categoryValues &&
+              categoryValues.map((item, i) => {
+                return (
+                  <ButtonTest
+                    key={item.id}
+                    value={item.value}
+                    captureSortOption={captureSortOption}
+                    sortValue={sortValue}
+                  />
+                );
+              })}
+            {statusValues &&
+              statusValues.map((item, i) => {
+                return (
+                  <ButtonTest
+                    key={item.id}
+                    value={item.value}
+                    captureSortOption={captureSortOption}
+                    sortValue={sortValue}
+                  />
+                );
+              })}
           </motion.div>
         )}
       </AnimatePresence>

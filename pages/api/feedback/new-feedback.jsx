@@ -9,6 +9,8 @@ export default async function newFeedbackHandler(req, res) {
     const enteredTitle = req.body.title;
     const enteredMessage = req.body.message;
     const enteredCategory = req.body.category;
+
+    const convertCategory = enteredCategory.toLowerCase();
     // const userFirstName = req.body.firstName;
     // const userLastName = req.body.lastName;
     // const userName = req.body.userName;
@@ -35,7 +37,7 @@ export default async function newFeedbackHandler(req, res) {
       .insertOne({
         feedbackID: Int32(1),
         title: enteredTitle,
-        category: enteredCategory,
+        category: convertCategory,
         upvotes: Int32(0),
         status: "suggestion",
         description: enteredMessage,

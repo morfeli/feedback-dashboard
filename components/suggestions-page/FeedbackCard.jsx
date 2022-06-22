@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 import UpvotesButton from "./UpvotesButton";
@@ -24,6 +25,8 @@ const FeedbackCard = ({
   const [stateColor, setStateColor] = useState(null);
   const [disable, setDisable] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     const sessionEmail = session.user.name.email;
     const user = userUpvoted ? userUpvoted.toString() : "";
@@ -41,13 +44,21 @@ const FeedbackCard = ({
     setDisable(true);
   };
 
+  const linkHandler = (e) => {
+    if (e.target.name === "deleteButton") {
+      e.stopPropagation();
+    } else {
+      router.push(`suggestions/${id}`);
+    }
+  };
+
   if (innerWidth == 0) {
     return <></>;
   } else if (isMobile) {
     return (
-      <Link href={`suggestions/${id}`} passHref>
+      <div onClick={linkHandler}>
         <motion.li
-          className="p-4 mx-4 mb-8 bg-white rounded-2xl"
+          className="relative z-0 p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
           variants={animateItem}
           initial={{
             opacity: 0,
@@ -62,13 +73,14 @@ const FeedbackCard = ({
           <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
             {category}
           </button>
-          <div className="flex justify-between pt-4">
+          <div className="relative z-0 flex justify-between pt-4">
             <UpvotesButton
               id={id}
               upvotes={totalUpvotes}
               stateUpvote={setTotalUpvotesHandler}
               stateColor={stateColor}
               userHasUpVoted={userHasUpVoted}
+              isMobile={isMobile}
             />
             <button className="flex items-center justify-between w-8">
               <CommentsSvg />
@@ -76,7 +88,7 @@ const FeedbackCard = ({
             </button>
           </div>
         </motion.li>
-      </Link>
+      </div>
     );
   } else {
     return (

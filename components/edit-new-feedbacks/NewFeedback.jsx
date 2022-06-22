@@ -5,14 +5,28 @@ import { useSession } from "next-auth/react";
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
 import classNames from "classnames";
+import SortingButton from "../dashboard-ui/UI/SortingButton";
 
 const isEmpty = (value) => value.trim() === "";
+
+const categoryValues = [
+  { id: 0, value: "Feature" },
+  { id: 1, value: "UI" },
+  { id: 2, value: "UX" },
+  { id: 3, value: "Enhancement" },
+  { id: 4, value: "Bug" },
+];
 
 const NewFeedback = () => {
   const [titleValid, setTitleIsValid] = useState(true);
   const [messageValid, setMessageIsValid] = useState(true);
+  const [categoryValue, setCategoryValue] = useState("Feature");
   const [userData, setUserData] = useState(null);
   const { data: session, status } = useSession();
+
+  const captureCategoryValue = (value) => {
+    setCategoryValue(value);
+  };
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -23,14 +37,15 @@ const NewFeedback = () => {
   const router = useRouter();
   const titleRef = useRef();
   const messageRef = useRef();
-  const categoryRef = useRef();
 
   const onSubmitNewFeedback = async (e) => {
+    if (e.target.name !== "test") {
+      e.stopPropagation();
+    }
     e.preventDefault();
 
     const enteredTitle = titleRef.current.value;
     const enteredMessage = messageRef.current.value;
-    const enteredCategory = categoryRef.current.value;
 
     let enteredTitleIsValid = !isEmpty(enteredTitle);
     let enteredMessageIsValid = !isEmpty(enteredMessage);
@@ -46,7 +61,7 @@ const NewFeedback = () => {
     const feedbackData = {
       title: enteredTitle,
       message: enteredMessage,
-      category: enteredCategory,
+      category: categoryValue,
       firstName: userData[0].firstName,
       lastName: userData[0].lastName,
       userName: userData[0].userName,
@@ -67,7 +82,7 @@ const NewFeedback = () => {
   };
 
   return (
-    <main className="pb-8 xl:mx-64">
+    <main className="z-50 pb-8 xl:mx-64">
       <GoBackBtn />
       <section className="flex flex-col p-4 m-8 bg-white rounded-md md:m-20">
         <div className="absolute top-60px md:top-100px">
@@ -77,7 +92,11 @@ const NewFeedback = () => {
           Create New Feedback
         </h1>
 
-        <form className="flex flex-col" onSubmit={onSubmitNewFeedback}>
+        <form
+          className="flex flex-col"
+          onSubmit={onSubmitNewFeedback}
+          name="test"
+        >
           <label htmlFor="title" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
               Feedback Title
@@ -109,18 +128,11 @@ const NewFeedback = () => {
             <h2 className="pb-2 font-jost-bold text-third-blue">Category</h2>
             Choose a category for your feedback
           </label>
-          <select
-            name="category"
-            id="category"
-            className="self-center w-2/3 px-2 border-r-8 border-transparent bg-light-gray h-11"
-            ref={categoryRef}
-          >
-            <option value="feature">Feature</option>
-            <option value="ui">UI</option>
-            <option value="ux">UX</option>
-            <option value="enhancement">Enhancement</option>
-            <option value="bug">Bug</option>
-          </select>
+
+          <SortingButton
+            categoryValues={categoryValues}
+            captureCategoryValue={captureCategoryValue}
+          />
 
           <label htmlFor="message" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
@@ -154,6 +166,7 @@ const NewFeedback = () => {
           <div className="flex flex-col mt-4 md:flex-row-reverse md:pr-20">
             <button
               type="submit"
+              name="submitButton"
               className="self-center px-4 py-1 my-2 text-white rounded-lg bg-button-pink"
             >
               Add Feedback

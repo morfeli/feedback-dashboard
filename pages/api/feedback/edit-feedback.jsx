@@ -5,6 +5,8 @@ export default async function editFeedbackHandler(req, res) {
     const updatedStatus = req.body.status;
     const updatedCategory = req.body.category;
     const updatedDescription = req.body.message;
+    const convertStatus = updatedStatus.toLowerCase();
+    const convertCategory = updatedCategory.toLowerCase();
 
     const client = await connectToDatabase();
 
@@ -15,8 +17,8 @@ export default async function editFeedbackHandler(req, res) {
         { feedbackID: id },
         {
           $set: {
-            status: updatedStatus,
-            category: updatedCategory,
+            status: convertStatus,
+            category: convertCategory,
             description: updatedDescription,
           },
         }

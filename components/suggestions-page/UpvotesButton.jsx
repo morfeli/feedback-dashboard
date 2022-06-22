@@ -20,7 +20,7 @@ const UpvotesButton = ({
   }, [status, session]);
 
   const buttonStyles = classNames(
-    "flex items-center justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold",
+    "z-50 flex items-center justify-between p-2 px-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-bold",
     {
       "bg-first-blue": userHasUpVoted || stateColor,
       "text-slate-50": userHasUpVoted || stateColor,
@@ -51,7 +51,12 @@ const UpvotesButton = ({
     }, 3);
   };
   return (
-    <button onClick={onClick} value={id} className={buttonStyles}>
+    <button
+      onClick={onClick}
+      value={id}
+      className={buttonStyles}
+      name="deleteButton"
+    >
       <IconArrowSvg userHasUpVoted={userHasUpVoted} stateColor={stateColor} />
       {upvotes}
     </button>

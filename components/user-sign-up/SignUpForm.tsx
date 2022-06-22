@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import classNames from "classnames";
 
 const isEmpty = (value: string) => value.trim() === "";
 
-const isTenChars = (value: string) => value.trim().length >= 10;
+const isTenChars = (value: string) => value.trim().length >= 5;
 
 const emailValidation = (value: string) => {
   const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -55,12 +56,12 @@ const intialFormState = {
     confirmPassword: false,
   },
   valid: {
-    firstName: false,
-    lastName: false,
-    userName: false,
-    email: false,
-    password: false,
-    confirmPassword: false,
+    firstName: true,
+    lastName: true,
+    userName: true,
+    email: true,
+    password: true,
+    confirmPassword: true,
   },
 };
 
@@ -79,7 +80,7 @@ const SignUpForm = (props: any) => {
 
     setForm((current) => ({
       ...current,
-      validity: {
+      valid: {
         firstName: firstNameIsValid,
         lastName: lastNameIsValid,
         userName: userNameIsValid,
@@ -141,7 +142,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.firstName}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.firstName || form.touched.firstName,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.firstName && !form.touched.firstName,
+              })}
             />
           </label>
         </div>
@@ -162,7 +168,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.lastName}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.lastName || form.touched.lastName,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.lastName && !form.touched.lastName,
+              })}
             />
           </label>
         </div>
@@ -183,7 +194,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.userName}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.userName || form.touched.userName,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.userName && !form.touched.userName,
+              })}
             />
           </label>
         </div>
@@ -192,7 +208,7 @@ const SignUpForm = (props: any) => {
             <input
               id="email"
               type="email"
-              placeholder="Enter your email address"
+              placeholder="Create a dummy email address"
               onChange={(e) =>
                 setForm((current) => ({
                   ...current,
@@ -204,7 +220,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.email}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.email || form.touched.email,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.email && !form.touched.email,
+              })}
             />
           </label>
         </div>
@@ -212,9 +233,8 @@ const SignUpForm = (props: any) => {
           <label htmlFor="password">
             <input
               id="password"
-              type="password"
-              placeholder="Create a password"
-              required
+              type="text"
+              placeholder="Password with min 5 characters"
               onChange={(e) =>
                 setForm((current) => ({
                   ...current,
@@ -226,7 +246,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.password}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.password || form.touched.password,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.password && !form.touched.password,
+              })}
             />
           </label>
         </div>
@@ -234,9 +259,8 @@ const SignUpForm = (props: any) => {
           <label htmlFor="confirmPassword">
             <input
               id="confirmPassword"
-              type="password"
+              type="text"
               placeholder="Confirm password"
-              required
               onChange={(e) =>
                 setForm((current) => ({
                   ...current,
@@ -248,7 +272,12 @@ const SignUpForm = (props: any) => {
                 }))
               }
               value={form.confirmPassword}
-              className="p-2 rounded-md w-60 bg-light-gray focus:outline-button-pink"
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.confirmPassword || form.touched.confirmPassword,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.confirmPassword && !form.touched.confirmPassword,
+              })}
             />
           </label>
         </div>

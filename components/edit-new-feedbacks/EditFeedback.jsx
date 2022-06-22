@@ -5,29 +5,51 @@ import { useRouter } from "next/router";
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import EditFeedbackSVG from "../dashboard-ui/UI/EditFeedbackSvg";
 import classNames from "classnames";
+import SortingButton from "../dashboard-ui/UI/SortingButton";
 
 // quick validation
 const isEmpty = (value) => value.trim() === "";
 
+const categoryValues = [
+  { id: 0, value: "Feature" },
+  { id: 1, value: "UI" },
+  { id: 2, value: "UX" },
+  { id: 3, value: "Enhancement" },
+  { id: 4, value: "Bug" },
+];
+
+const statusValues = [
+  { id: 0, value: "Planned" },
+  { id: 1, value: "Live" },
+  { id: 2, value: "In-Progress" },
+  { id: 3, value: "Suggestion" },
+];
+
 const EditFeedback = ({ item }) => {
   const [formValidation, setFormValidation] = useState(true);
+  const [categoryValue, setCategoryValue] = useState("Feature");
+  const [status, setStatus] = useState("Planned");
 
-  let title = item[0].title;
-  let description = item[0].description;
-  let id = item[0].feedbackID;
+  const captureCategoryValue = (value) => {
+    setCategoryValue(value);
+  };
+
+  const statusHandler = (value) => {
+    setStatus(value);
+  };
+
+  const title = item[0].title;
+  const description = item[0].description;
+  const id = item[0].feedbackID;
 
   const router = useRouter();
 
   const messageRef = useRef();
-  const categoryRef = useRef();
-  const statusRef = useRef();
 
   const onSubmitEditFeedback = async (e) => {
     e.preventDefault();
 
     const enteredMessage = messageRef.current.value;
-    const enteredCategory = categoryRef.current.value;
-    const enteredStatus = statusRef.current.value;
 
     let enteredMessageIsValid = !isEmpty(enteredMessage);
 
@@ -41,8 +63,8 @@ const EditFeedback = ({ item }) => {
     const editFeedbackData = {
       id: id,
       message: enteredMessage,
-      category: enteredCategory,
-      status: enteredStatus,
+      category: categoryValue,
+      status: status,
     };
 
     fetch("/api/feedback/edit-feedback", {
@@ -76,18 +98,10 @@ const EditFeedback = ({ item }) => {
             <h2 className="pb-2 font-jost-bold text-third-blue">Category</h2>
             Choose a category for your feedback
           </label>
-          <select
-            name="category"
-            id="category"
-            className="self-center w-2/3 pl-4 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
-            ref={categoryRef}
-          >
-            <option value="feature">Feature</option>
-            <option value="ui">UI</option>
-            <option value="ux">UX</option>
-            <option value="enhancement">Enhancement</option>
-            <option value="bug">Bug</option>
-          </select>
+          <SortingButton
+            categoryValues={categoryValues}
+            captureCategoryValue={captureCategoryValue}
+          />
 
           <label htmlFor="category" className="py-8 md:pl-4">
             <h2 className="pb-2 font-jost-bold text-third-blue">
@@ -95,17 +109,10 @@ const EditFeedback = ({ item }) => {
             </h2>
             Change feature state
           </label>
-          <select
-            name="category"
-            id="category"
-            className="self-center w-2/3 pl-4 border-r-8 border-transparent bg-light-gray h-11 md:w-3/4"
-            ref={statusRef}
-          >
-            <option value="planned">Planned</option>
-            <option value="in-progress">In-progress</option>
-            <option value="live">Live</option>
-            <option value="suggestion">Suggestion</option>
-          </select>
+          <SortingButton
+            statusValues={statusValues}
+            captureStatusValue={statusHandler}
+          />
 
           <label htmlFor="message" className="py-8">
             <h2 className="pb-2 font-jost-bold text-third-blue">
