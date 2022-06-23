@@ -114,6 +114,8 @@ export async function getServerSideProps(context) {
   let displayEditButton;
   if (sessionEmail === userEmailThatCreatedPost) {
     displayEditButton = true;
+  } else {
+    displayEditButton = false;
   }
 
   return {

@@ -69,7 +69,7 @@ const SortingButton = ({
 
   if (active) {
     motionDivStyle = classNames(
-      "absolute flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
+      "absolute z-40 flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
     );
   } else {
     motionDivStyle = classNames("bg-red-300");
@@ -93,7 +93,6 @@ const SortingButton = ({
           animate="visible"
           variants={activeDivVariants}
           transition={{ type: "spring", stiffness: 100, duration: 0.5 }}
-          exit="hidden"
           className={motionDivStyle}
         >
           {buttonValues &&

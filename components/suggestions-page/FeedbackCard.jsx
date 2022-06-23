@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import CommentsSvg from "../dashboard-ui/UI/CommentsSvg";
 import UpvotesButton from "./UpvotesButton";
+import classNames from "classnames";
 
 const FeedbackCard = ({
   session,
@@ -20,6 +21,10 @@ const FeedbackCard = ({
   isMobile,
   userUpvoted,
   user,
+  status,
+  color,
+  borderColor,
+  isRoadmap,
   totalCommentsLength,
   paramsId,
 }) => {
@@ -29,6 +34,7 @@ const FeedbackCard = ({
   const [disable, setDisable] = useState(false);
 
   const router = useRouter();
+  console.log(isRoadmap);
 
   useEffect(() => {
     const sessionEmail = session.user.name.email;
@@ -55,13 +61,39 @@ const FeedbackCard = ({
     }
   };
 
+  let containerStyle;
+  if (status && color && borderColor) {
+    containerStyle = classNames(
+      "cursor-pointer",
+      "p-4",
+      "mx-8",
+      "my-4",
+      "list-none",
+      "bg-white",
+      "border-t-8",
+      borderColor,
+      "rounded-md",
+      { "w-full": !isMobile }
+    );
+  } else {
+    containerStyle = classNames(
+      "relative",
+      "p-4",
+      "mb-8",
+      "mx-8",
+      "bg-white",
+      "cursor-pointer",
+      "rounded-2xl"
+    );
+  }
+
   if (innerWidth == 0) {
     return <></>;
-  } else if (isMobile) {
+  } else if (isMobile || isRoadmap) {
     return (
       <motion.div
         onClick={linkHandler}
-        className="relative z-0 p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+        className={containerStyle}
         variants={animateItem}
         initial={{
           opacity: 0,
@@ -73,14 +105,22 @@ const FeedbackCard = ({
       >
         <div className="flex justify-between">
           <div>
+            <div className="flex items-center pb-2">
+              {color && (
+                <div
+                  className={classNames(
+                    "w-4",
+                    "h-4",
+                    "rounded-xl",
+                    `bg-${color}`,
+                    `border-t-${color}`
+                  )}
+                />
+              )}
+              {status && <p className="pl-2 capitalize">{status}</p>}
+            </div>
             <h1 className="text-third-blue font-jost-bold ">{title}</h1>
             <p className="py-2 text-first-blue">{description}</p>
-          </div>
-          <div>
-            <p>
-              {user[0].firstName} {user[0].lastName}
-            </p>
-            <p>@{user[0].userName}</p>
           </div>
         </div>
         <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
@@ -100,11 +140,18 @@ const FeedbackCard = ({
             {comments ? comments.length : 0}
           </button>
         </div>
+        <div className="pt-4">
+          <p>
+            {user[0].firstName} {user[0].lastName}
+          </p>
+          <p>@{user[0].userName}</p>
+        </div>
       </motion.div>
     );
   } else {
     return (
       <motion.div
+        onClick={linkHandler}
         initial={{
           opacity: 0,
           translateY: -50,
@@ -112,17 +159,18 @@ const FeedbackCard = ({
         }}
         animate={{ opacity: 1, translateY: 0, translateX: 0 }}
         transition={{ duration: 0.8, delay: animateKey * 0.2 }}
-        className="relative z-0 flex items-center mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+        className="relative z-0 flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
       >
-        <div onClick={linkHandler} className="flex items-center w-full p-4">
-          <UpvotesButton
-            id={id}
-            upvotes={totalUpvotes}
-            stateUpvote={setTotalUpvotesHandler}
-            stateColor={stateColor}
-            userHasUpVoted={userHasUpVoted}
-          />
-          <li className="w-full">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center">
+            <UpvotesButton
+              id={id}
+              upvotes={totalUpvotes}
+              stateUpvote={setTotalUpvotesHandler}
+              stateColor={stateColor}
+              userHasUpVoted={userHasUpVoted}
+            />
+
             <div className="flex flex-col items-baseline pl-8">
               <h1 className="text-third-blue font-jost-bold ">{title}</h1>
               <p className="py-2 text-first-blue">{description}</p>
@@ -130,13 +178,19 @@ const FeedbackCard = ({
                 {category}
               </button>
             </div>
-            <div className="flex justify-between pt-4">
-              <button className="absolute flex items-center justify-between w-8 right-15px bottom-60px">
-                <CommentsSvg />
-                {comments ? comments.length : 0}
-              </button>
-            </div>
-          </li>
+          </div>
+          <div className="pt-4">
+            <p>
+              {user[0].firstName} {user[0].lastName}
+            </p>
+            <p>@{user[0].userName}</p>
+          </div>
+        </div>
+        <div className="flex justify-between pt-4">
+          <button className="absolute flex items-center justify-between w-8 right-15px bottom-60px">
+            <CommentsSvg />
+            {comments ? comments.length : 0}
+          </button>
         </div>
       </motion.div>
     );

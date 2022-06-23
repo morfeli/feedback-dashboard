@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 import { connectToDatabase } from "../../helper/HelperFunctions";
 
 import RoadmapHeader from "../../components/roadmap/RoadmapHeader";
 import Roadmap from "../../components/roadmap/Roadmap";
 
-const RoadmapPage = ({ data }) => {
+const RoadmapPage = ({ data, session }) => {
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 768;
 
@@ -23,14 +24,21 @@ const RoadmapPage = ({ data }) => {
   return (
     <>
       <RoadmapHeader />
-      <Roadmap data={data} innerWidth={innerWidth} isMobile={isMobile} />
+      <Roadmap
+        data={data}
+        session={session}
+        innerWidth={innerWidth}
+        isMobile={isMobile}
+      />
     </>
   );
 };
 
 export default RoadmapPage;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
   const storeData = [];
 
   const client = await connectToDatabase();
@@ -56,6 +64,6 @@ export const getServerSideProps = async () => {
   };
 
   return {
-    props: { data: JSON.parse(JSON.stringify(roadmapData)) },
+    props: { session, data: JSON.parse(JSON.stringify(roadmapData)) },
   };
 };

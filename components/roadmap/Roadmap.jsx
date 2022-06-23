@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import MobileRoadmap from "./MobileRoadmap";
 import RoadmapDesktop from "./RoadmapDesktop";
 
-const Roadmap = ({ data, innerWidth, isMobile }) => {
+const Roadmap = ({ data, session, innerWidth, isMobile }) => {
   const { plannedData, progressData, liveData } = data;
   const [renderStatus, setRenderStatus] = useState();
 
@@ -58,6 +58,7 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
   } else if (isMobile) {
     return (
       <MobileRoadmap
+        session={session}
         renderStatus={renderStatus}
         progressData={progressData}
         liveData={liveData}
@@ -76,6 +77,7 @@ const Roadmap = ({ data, innerWidth, isMobile }) => {
   } else {
     return (
       <RoadmapDesktop
+        session={session}
         progressData={progressData}
         liveData={liveData}
         plannedData={plannedData}

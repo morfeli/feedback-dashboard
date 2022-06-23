@@ -1,7 +1,9 @@
 import classNames from "classnames";
+import FeedbackCard from "../suggestions-page/FeedbackCard";
 import RoadmapCards from "./RoadmapCards";
 
 const MobileRoadmap = ({
+  session,
   changeStatus,
   renderStatus,
   plannedData,
@@ -64,8 +66,12 @@ const MobileRoadmap = ({
         {renderStatus &&
           renderStatus.map((item, i) => {
             let comments = item.comments;
+            const usersWhomUpvoted = item.upVotedUsers;
+            const postedUser = item.postedBy;
+
             return (
-              <RoadmapCards
+              <FeedbackCard
+              session={session}
                 animateKey={i}
                 key={item.feedbackID}
                 id={item.feedbackID}
@@ -74,6 +80,8 @@ const MobileRoadmap = ({
                 category={item.category}
                 upvotes={item.upvotes}
                 status={item.status}
+                user={postedUser}
+                userUpvoted={usersWhomUpvoted}
                 comments={comments ? comments : null}
                 color={color}
                 borderColor={borderColor}
@@ -87,3 +95,25 @@ const MobileRoadmap = ({
 };
 
 export default MobileRoadmap;
+
+// {renderStatus &&
+//   renderStatus.map((item, i) => {
+//     let comments = item.comments;
+
+//     return (
+//       <RoadmapCards
+//         animateKey={i}
+//         key={item.feedbackID}
+//         id={item.feedbackID}
+//         title={item.title}
+//         description={item.description}
+//         category={item.category}
+//         upvotes={item.upvotes}
+//         status={item.status}
+//         comments={comments ? comments : null}
+//         color={color}
+//         borderColor={borderColor}
+//         isMobile={isMobile}
+//       />
+//     );
+//   })}
