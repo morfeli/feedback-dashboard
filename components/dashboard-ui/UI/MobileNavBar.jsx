@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import classNames from "classnames";
 
 // components
@@ -9,9 +8,6 @@ import LogOutBtn from "../../dashboard-ui/UI/LogOutBtn";
 
 const MobileNavBar = ({
   data,
-  // plannedLength,
-  // liveLength,
-  // inProgressLength,
   isOpen,
   categoryFN,
   toggleMenu,
@@ -21,10 +17,10 @@ const MobileNavBar = ({
 }) => {
   let mobileMenuClass;
 
+  // block px-8 py-8 bg-light-gray absolute right-0px z-50
+
   if (isOpen) {
-    mobileMenuClass = classNames(
-      "block px-8 py-8 bg-light-gray absolute right-0px z-50 "
-    );
+    mobileMenuClass = classNames("hidden");
   } else {
     mobileMenuClass = classNames("hidden px-8 bg-light-gray absolute ");
   }
@@ -52,13 +48,7 @@ const MobileNavBar = ({
             activeLink={activeLink}
             toggleActiveLink={toggleActiveLink}
           />
-          <DashboardRoadmap
-            isMobile={isMobile}
-            data={data}
-            // plannedLength={plannedLength}
-            // liveLength={liveLength}
-            // inProgressLength={inProgressLength}
-          />
+          <DashboardRoadmap isMobile={isMobile} data={data} />
           <LogOutBtn />
         </motion.div>
       )}
