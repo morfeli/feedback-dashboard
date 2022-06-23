@@ -15,7 +15,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="w-screen h-screen pb-8 overflow-hidden font-serif bg-light-gray">
+        <body className="w-screen pb-8 font-serif bg-light-gray">
           <Main />
           <NextScript />
         </body>
