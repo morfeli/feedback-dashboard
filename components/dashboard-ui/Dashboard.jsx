@@ -22,7 +22,7 @@ const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
     return <></>;
   } else if (isMobile) {
     return (
-      <>
+      <div className="overflow-hidden">
         <DashboardHeader isOpen={menuIsOpen} toggleMenu={toggleMenu} />
 
         <MobileNavBar
@@ -34,7 +34,7 @@ const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
           activeLink={activeLink}
           toggleActiveLink={toggleActiveLink}
         />
-      </>
+      </div>
     );
   } else {
     return (
