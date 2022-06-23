@@ -19,11 +19,14 @@ const FeedbackCard = ({
   innerWidth,
   isMobile,
   userUpvoted,
+  totalCommentsLength,
+  paramsId,
 }) => {
   const [totalUpvotes, setTotalUpvotes] = useState(upvotes);
   const [userHasUpVoted, setUserHasUpVoted] = useState(false);
   const [stateColor, setStateColor] = useState(null);
   const [disable, setDisable] = useState(false);
+  console.log(paramsId);
 
   const router = useRouter();
 
@@ -45,7 +48,7 @@ const FeedbackCard = ({
   };
 
   const linkHandler = (e) => {
-    if (e.target.name === "deleteButton") {
+    if (paramsId || e.target.name === "deleteButton") {
       e.stopPropagation();
     } else {
       router.push(`suggestions/${id}`);
@@ -100,16 +103,16 @@ const FeedbackCard = ({
         }}
         animate={{ opacity: 1, translateY: 0, translateX: 0 }}
         transition={{ duration: 0.8, delay: animateKey * 0.2 }}
-        className="relative z-0 flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+        className="relative z-0 flex items-center mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
       >
-        <UpvotesButton
-          id={id}
-          upvotes={totalUpvotes}
-          stateUpvote={setTotalUpvotesHandler}
-          stateColor={stateColor}
-          userHasUpVoted={userHasUpVoted}
-        />
-        <Link href={`suggestions/${id}`} passHref>
+        <div onClick={linkHandler} className="flex items-center w-full p-4">
+          <UpvotesButton
+            id={id}
+            upvotes={totalUpvotes}
+            stateUpvote={setTotalUpvotesHandler}
+            stateColor={stateColor}
+            userHasUpVoted={userHasUpVoted}
+          />
           <li className="w-full">
             <div className="flex flex-col items-baseline pl-8">
               <h1 className="text-third-blue font-jost-bold ">{title}</h1>
@@ -125,7 +128,7 @@ const FeedbackCard = ({
               </button>
             </div>
           </li>
-        </Link>
+        </div>
       </motion.div>
     );
   }

@@ -65,6 +65,16 @@ const SortingButton = ({
     );
   }
 
+  let motionDivStyle;
+
+  if (active) {
+    motionDivStyle = classNames(
+      "absolute flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
+    );
+  } else {
+    motionDivStyle = classNames("bg-red-300");
+  }
+
   return (
     <div className="relative self-center pl-1 ">
       <button
@@ -77,52 +87,50 @@ const SortingButton = ({
         <ArrowSVG rotate={active} />
       </button>
 
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={activeDivVariants}
-            transition={{ type: "spring", stiffness: 100, duration: 1 }}
-            exit={{ opacity: 0, y: -100 }}
-            className="absolute z-40 flex flex-col justify-around w-64 h-64 bg-white rounded-lg shadow-lg top-60px shadow-cyan-500/50"
-          >
-            {buttonValues &&
-              buttonValues.map((item, i) => {
-                return (
-                  <ButtonTest
-                    key={item.id}
-                    value={item.value}
-                    captureSortOption={captureSortOption}
-                    sortValue={sortValue}
-                  />
-                );
-              })}
-            {categoryValues &&
-              categoryValues.map((item, i) => {
-                return (
-                  <ButtonTest
-                    key={item.id}
-                    value={item.value}
-                    captureSortOption={captureSortOption}
-                    sortValue={sortValue}
-                  />
-                );
-              })}
-            {statusValues &&
-              statusValues.map((item, i) => {
-                return (
-                  <ButtonTest
-                    key={item.id}
-                    value={item.value}
-                    captureSortOption={captureSortOption}
-                    sortValue={sortValue}
-                  />
-                );
-              })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {active && (
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={activeDivVariants}
+          transition={{ type: "spring", stiffness: 100, duration: 0.5 }}
+          exit="hidden"
+          className={motionDivStyle}
+        >
+          {buttonValues &&
+            buttonValues.map((item, i) => {
+              return (
+                <ButtonTest
+                  key={item.id}
+                  value={item.value}
+                  captureSortOption={captureSortOption}
+                  sortValue={sortValue}
+                />
+              );
+            })}
+          {categoryValues &&
+            categoryValues.map((item, i) => {
+              return (
+                <ButtonTest
+                  key={item.id}
+                  value={item.value}
+                  captureSortOption={captureSortOption}
+                  sortValue={sortValue}
+                />
+              );
+            })}
+          {statusValues &&
+            statusValues.map((item, i) => {
+              return (
+                <ButtonTest
+                  key={item.id}
+                  value={item.value}
+                  captureSortOption={captureSortOption}
+                  sortValue={sortValue}
+                />
+              );
+            })}
+        </motion.div>
+      )}
     </div>
   );
 };

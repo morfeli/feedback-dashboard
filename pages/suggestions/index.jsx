@@ -61,7 +61,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
   };
 
   return (
-    <main className="overflow-hidden xl:flex xl:justify-evenly">
+    <main className=" xl:flex xl:justify-evenly">
       <div>
         <Dashboard
           isMobile={isMobile}
@@ -76,7 +76,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
           suggestionsLength={suggestionArrayLength}
         />
 
-        <Suggestions
+        {/* <Suggestions
           session={session}
           isLoading={loading}
           data={data}
@@ -85,7 +85,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
           category={categoryValue}
           isMobile={isMobile}
           innerWidth={innerWidth}
-        />
+        /> */}
       </div>
     </main>
   );
