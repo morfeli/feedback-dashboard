@@ -19,7 +19,7 @@ const MobileNavBar = ({
 
   if (isOpen) {
     mobileMenuClass = classNames(
-      "px-6 py-8 bg-light-gray absolute right-5px z-50 rounded-sm	"
+      "px-6 py-8 bg-light-gray absolute right-0px top-10px z-50 rounded-sm	"
     );
   } else {
     mobileMenuClass = classNames("hidden px-8 bg-light-gray absolute ");
