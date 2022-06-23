@@ -19,6 +19,7 @@ const FeedbackCard = ({
   innerWidth,
   isMobile,
   userUpvoted,
+  user,
   totalCommentsLength,
   paramsId,
 }) => {
@@ -26,7 +27,6 @@ const FeedbackCard = ({
   const [userHasUpVoted, setUserHasUpVoted] = useState(false);
   const [stateColor, setStateColor] = useState(null);
   const [disable, setDisable] = useState(false);
-  console.log(paramsId);
 
   const router = useRouter();
 
@@ -59,39 +59,48 @@ const FeedbackCard = ({
     return <></>;
   } else if (isMobile) {
     return (
-      <div onClick={linkHandler}>
-        <motion.li
-          className="relative z-0 p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
-          variants={animateItem}
-          initial={{
-            opacity: 0,
-            translateY: -50,
-            translateX: animateKey % 2 === 0 ? -50 : 50,
-          }}
-          animate={{ opacity: 1, translateY: 0, translateX: 0 }}
-          transition={{ duration: 0.8, delay: animateKey * 0.2 }}
-        >
-          <h1 className="text-third-blue font-jost-bold ">{title}</h1>
-          <p className="py-2 text-first-blue">{description}</p>
-          <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
-            {category}
-          </button>
-          <div className="relative z-0 flex justify-between pt-4">
-            <UpvotesButton
-              id={id}
-              upvotes={totalUpvotes}
-              stateUpvote={setTotalUpvotesHandler}
-              stateColor={stateColor}
-              userHasUpVoted={userHasUpVoted}
-              isMobile={isMobile}
-            />
-            <button className="flex items-center justify-between w-8">
-              <CommentsSvg />
-              {comments ? comments.length : 0}
-            </button>
+      <motion.div
+        onClick={linkHandler}
+        className="relative z-0 p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+        variants={animateItem}
+        initial={{
+          opacity: 0,
+          translateY: -50,
+          translateX: animateKey % 2 === 0 ? -50 : 50,
+        }}
+        animate={{ opacity: 1, translateY: 0, translateX: 0 }}
+        transition={{ duration: 0.8, delay: animateKey * 0.2 }}
+      >
+        <div className="flex justify-between">
+          <div>
+            <h1 className="text-third-blue font-jost-bold ">{title}</h1>
+            <p className="py-2 text-first-blue">{description}</p>
           </div>
-        </motion.li>
-      </div>
+          <div>
+            <p>
+              {user[0].firstName} {user[0].lastName}
+            </p>
+            <p>@{user[0].userName}</p>
+          </div>
+        </div>
+        <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
+          {category}
+        </button>
+        <div className="relative z-0 flex justify-between pt-4">
+          <UpvotesButton
+            id={id}
+            upvotes={totalUpvotes}
+            stateUpvote={setTotalUpvotesHandler}
+            stateColor={stateColor}
+            userHasUpVoted={userHasUpVoted}
+            isMobile={isMobile}
+          />
+          <button className="flex items-center justify-between w-8">
+            <CommentsSvg />
+            {comments ? comments.length : 0}
+          </button>
+        </div>
+      </motion.div>
     );
   } else {
     return (

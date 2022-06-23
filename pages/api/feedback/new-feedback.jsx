@@ -3,19 +3,20 @@ const mongodb = require("mongodb");
 
 const isEmpty = (value) => value.trim() === "";
 const Int32 = mongodb.Int32;
+const ObjectID = mongodb.ObjectId;
 
 export default async function newFeedbackHandler(req, res) {
   if (req.method === "POST") {
     const enteredTitle = req.body.title;
     const enteredMessage = req.body.message;
     const enteredCategory = req.body.category;
+    const userFirstName = req.body.firstName;
+    const userLastName = req.body.lastName;
+    const userName = req.body.userName;
+    const userEmail = req.body.userEmail;
+    const objectId = req.body.objectId;
 
     const convertCategory = enteredCategory.toLowerCase();
-    // const userFirstName = req.body.firstName;
-    // const userLastName = req.body.lastName;
-    // const userName = req.body.userName;
-
-    // Solve how to insert objectid ref the user post
 
     let titleIsValid = !isEmpty(enteredTitle);
     let messageIsValid = !isEmpty(enteredMessage);
@@ -35,6 +36,15 @@ export default async function newFeedbackHandler(req, res) {
       .db()
       .collection("posts")
       .insertOne({
+        createdByUserRef: ObjectID.createFromHexString(objectId),
+        postedBy: [
+          {
+            firstName: userFirstName,
+            lastName: userLastName,
+            userName: userName,
+            email: userEmail,
+          },
+        ],
         feedbackID: Int32(1),
         title: enteredTitle,
         category: convertCategory,

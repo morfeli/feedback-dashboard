@@ -76,7 +76,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
           suggestionsLength={suggestionArrayLength}
         />
 
-        {/* <Suggestions
+        <Suggestions
           session={session}
           isLoading={loading}
           data={data}
@@ -85,7 +85,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
           category={categoryValue}
           isMobile={isMobile}
           innerWidth={innerWidth}
-        /> */}
+        />
       </div>
     </main>
   );

@@ -7,7 +7,12 @@ import GoBackBtn from "../../components/dashboard-ui/UI/GoBackBtn";
 import EditFeedbackBtn from "../../components/dashboard-ui/UI/EditFeedbackBtn";
 import FeedbackCard from "../../components/suggestions-page/FeedbackCard";
 
-const SuggestionFeedbackDetailPage = ({ data, session, paramsId }) => {
+const SuggestionFeedbackDetailPage = ({
+  data,
+  session,
+  paramsId,
+  displayEditButton,
+}) => {
   const [innerWidth, setInnerWidth] = useState(0);
 
   const isMobile = innerWidth <= 767;
@@ -29,11 +34,12 @@ const SuggestionFeedbackDetailPage = ({ data, session, paramsId }) => {
       <div className="flex items-baseline justify-between">
         <GoBackBtn />
 
-        <EditFeedbackBtn item={data} />
+        {displayEditButton && <EditFeedbackBtn item={data} />}
       </div>
       <ul className="mt-8">
         {data.map((item, i) => {
           const usersThatHaveUpvoted = item.upVotedUsers;
+          const postedUser = item.postedBy;
 
           const comments = item.comments;
 
@@ -65,6 +71,7 @@ const SuggestionFeedbackDetailPage = ({ data, session, paramsId }) => {
               description={item.description}
               category={item.category}
               upvotes={item.upvotes}
+              user={postedUser}
               userUpvoted={usersThatHaveUpvoted}
               comments={comments}
               totalCommentsLength={totalCommentsLength}
@@ -101,10 +108,19 @@ export async function getServerSideProps(context) {
 
   item.push(singleFeedback);
 
+  const sessionEmail = session.user.name.email;
+  const userEmailThatCreatedPost = singleFeedback.postedBy[0].email;
+
+  let displayEditButton;
+  if (sessionEmail === userEmailThatCreatedPost) {
+    displayEditButton = true;
+  }
+
   return {
     props: {
       session,
       paramsId,
+      displayEditButton,
       data: JSON.parse(JSON.stringify(item)),
     },
   };

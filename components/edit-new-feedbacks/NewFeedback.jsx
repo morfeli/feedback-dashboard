@@ -65,6 +65,8 @@ const NewFeedback = () => {
       firstName: userData[0].firstName,
       lastName: userData[0].lastName,
       userName: userData[0].userName,
+      userEmail: userData[0].email,
+      objectId: userData[0].objectId,
     };
 
     fetch("/api/feedback/new-feedback", {

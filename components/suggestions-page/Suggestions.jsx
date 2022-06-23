@@ -135,7 +135,8 @@ const Feedback = ({
         <ul className="flex flex-col">
           {array.map((item, i) => {
             const comments = item.comments;
-            const usersThatHaveUpvoted = item.upVotedUsers;
+            const usersWhomUpvoted = item.upVotedUsers;
+            const postedUser = item.postedBy;
 
             return (
               <FeedbackCard
@@ -147,8 +148,9 @@ const Feedback = ({
                 description={item.description}
                 category={item.category}
                 upvotes={item.upvotes}
+                user={postedUser}
                 comments={comments}
-                userUpvoted={usersThatHaveUpvoted}
+                userUpvoted={usersWhomUpvoted}
                 isMobile={isMobile}
                 innerWidth={innerWidth}
               />

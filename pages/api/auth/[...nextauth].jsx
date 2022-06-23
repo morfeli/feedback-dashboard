@@ -26,6 +26,7 @@ export default NextAuth({
           lastName: user.lastName,
           email: user.email,
           userName: user.userName,
+          objectId: user._id,
         };
 
         if (!user) {
