@@ -70,7 +70,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
           data={roadmapData}
         />
       </div>
-      <div className="overflow-hidden xl:w-900px xl:mt-12">
+      <div className="xl:w-900px xl:mt-12">
         <SortingHeader
           sortFN={updateSortValue}
           suggestionsLength={suggestionArrayLength}
