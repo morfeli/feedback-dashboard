@@ -17,10 +17,10 @@ const MobileNavBar = ({
 }) => {
   let mobileMenuClass;
 
-  // block px-8 py-8 bg-light-gray absolute right-0px z-50
-
   if (isOpen) {
-    mobileMenuClass = classNames("hidden");
+    mobileMenuClass = classNames(
+      "block px-8 py-8 bg-light-gray absolute right-0px z-50 "
+    );
   } else {
     mobileMenuClass = classNames("hidden px-8 bg-light-gray absolute ");
   }
