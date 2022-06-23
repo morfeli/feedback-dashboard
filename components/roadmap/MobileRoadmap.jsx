@@ -67,14 +67,14 @@ const MobileRoadmap = ({
             return (
               <RoadmapCards
                 animateKey={i}
-                key={item.id}
+                key={item.feedbackID}
+                id={item.feedbackID}
                 title={item.title}
+                description={item.description}
                 category={item.category}
                 upvotes={item.upvotes}
                 status={item.status}
                 comments={comments ? comments : null}
-                description={item.description}
-                id={item.id}
                 color={color}
                 borderColor={borderColor}
                 isMobile={isMobile}
