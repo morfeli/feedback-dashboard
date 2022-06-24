@@ -16,16 +16,16 @@ const UserButtons = ({ item, updateAPIMessageHandler }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-baseline mr-8 md:flex-row">
       <Link href={`/suggestions/edit/${id}`} passHref>
-        <button className="p-2 mr-10 text-white rounded-xl bg-first-blue">
+        <button className="p-2 mr-2 text-white rounded-xl bg-first-blue">
           Edit Feedback
         </button>
       </Link>
 
       <button
         onClick={deleteFeedback}
-        className="p-2 mt-4 text-white bg-red-800 rounded-xl"
+        className="p-2 mt-2 text-white bg-red-800 rounded-xl"
       >
         Delete Feedback
       </button>

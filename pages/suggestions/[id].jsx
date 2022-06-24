@@ -59,12 +59,10 @@ const SuggestionFeedbackDetailPage = ({
         <GoBackBtn />
 
         {displayButtons && (
-          <div className="pr-8">
-            <UserButtons
-              item={data}
-              updateAPIMessageHandler={updateAPIMessageHandler}
-            />
-          </div>
+          <UserButtons
+            item={data}
+            updateAPIMessageHandler={updateAPIMessageHandler}
+          />
         )}
       </div>
       <ul className="mt-8">
