@@ -2,7 +2,6 @@ import { connectToDatabase } from "../../../helper/HelperFunctions";
 import EditFeedback from "../../../components/edit-new-feedbacks/EditFeedback";
 
 const EditFeedbackPage = ({ data }) => {
-  console.log(data);
   return <EditFeedback item={data} />;
 };
 

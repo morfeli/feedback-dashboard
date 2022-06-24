@@ -32,15 +32,14 @@ const SuggestionFeedbackDetailPage = ({
 
   useEffect(() => {
     APIMessage && setRenderModal((current) => !current);
-
-    setTimeout(() => {
-      setRenderModal(false);
-    }, 8000);
-
-    setTimeout(() => {
-      routeToHomePage();
-    }, 12000);
   }, [APIMessage]);
+
+  useEffect(() => {
+    renderModal &&
+      setTimeout(() => {
+        routeToHomePage();
+      }, 6000);
+  }, [renderModal]);
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 
@@ -114,7 +113,11 @@ const SuggestionFeedbackDetailPage = ({
         })}
       </ul>
       <SuggestionsComments item={data} />
-      <Modal active={renderModal}>{APIMessage}</Modal>
+      <Modal
+        active={renderModal}
+        status={APIMessage}
+        color="bg-red-500"
+      ></Modal>
     </main>
   );
 };
@@ -138,6 +141,8 @@ export async function getServerSideProps(context) {
     .db()
     .collection("posts")
     .findOne({ feedbackID: parseID });
+
+  client.close();
 
   item.push(singleFeedback);
 

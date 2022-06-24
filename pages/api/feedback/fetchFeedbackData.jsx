@@ -1,18 +1,18 @@
-import { connectToDatabase } from "../../../helper/HelperFunctions";
+// import { connectToDatabase } from "../../../helper/HelperFunctions";
 
-export default async function handler(req, res) {
-  const client = await connectToDatabase();
+// export default async function handler(req, res) {
+//   const client = await connectToDatabase();
 
-  const storeData = [];
+//   const storeData = [];
 
-  await client
-    .db()
-    .collection("posts")
-    .find()
-    .forEach((post) => storeData.push(post));
+//   await client
+//     .db()
+//     .collection("posts")
+//     .find()
+//     .forEach((post) => storeData.push(post));
 
-  const data = JSON.parse(JSON.stringify(storeData));
+//   const data = JSON.parse(JSON.stringify(storeData));
 
-  res.status(200).json(data);
-  client.close();
-}
+//   res.status(200).json(data);
+//   client.close();
+// }

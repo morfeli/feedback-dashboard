@@ -9,6 +9,6 @@ export default async function deleteFeedbackHandler(req, res) {
     await client.db().collection("posts").deleteOne({ feedbackID: id });
 
     client.close();
-    res.status(201).json({ message: "Your post has been deleted." });
+    res.status(201).json({ message: "Feedback successfully deleted." });
   }
 }

@@ -114,6 +114,8 @@ export const getServerSideProps = async (context) => {
       .find()
       .forEach((post) => storeData.push(post));
 
+    client.close();
+
     const suggestionArray = storeData.filter(
       (item) => item.status === "suggestion"
     );

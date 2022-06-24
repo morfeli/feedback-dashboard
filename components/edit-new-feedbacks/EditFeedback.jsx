@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
+import classNames from "classnames";
 
 // components
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import EditFeedbackSVG from "../dashboard-ui/UI/EditFeedbackSvg";
-import classNames from "classnames";
 import SortingButton from "../dashboard-ui/UI/SortingButton";
+import Modal from "../dashboard-ui/UI/Modal";
 
 // quick validation
 const isEmpty = (value) => value.trim() === "";
@@ -29,6 +30,30 @@ const EditFeedback = ({ item }) => {
   const [formValidation, setFormValidation] = useState(true);
   const [categoryValue, setCategoryValue] = useState("Feature");
   const [status, setStatus] = useState("Planned");
+  const [APIMessage, setAPIMessage] = useState(false);
+  const [renderModal, setRenderModal] = useState(false);
+
+  const router = useRouter();
+  const messageRef = useRef();
+
+  const title = item[0].title;
+  const description = item[0].description;
+  const id = item[0].feedbackID;
+
+  useEffect(() => {
+    APIMessage && setRenderModal((current) => !current);
+  }, [APIMessage]);
+
+  useEffect(() => {
+    renderModal &&
+      setTimeout(() => {
+        routeToHomePage();
+      }, 6000);
+  }, [renderModal]);
+
+  const routeToHomePage = () => {
+    router.replace("/suggestions");
+  };
 
   const captureCategoryValue = (value) => {
     setCategoryValue(value);
@@ -37,14 +62,6 @@ const EditFeedback = ({ item }) => {
   const statusHandler = (value) => {
     setStatus(value);
   };
-
-  const title = item[0].title;
-  const description = item[0].description;
-  const id = item[0].feedbackID;
-
-  const router = useRouter();
-
-  const messageRef = useRef();
 
   const onSubmitEditFeedback = async (e) => {
     e.preventDefault();
@@ -71,11 +88,12 @@ const EditFeedback = ({ item }) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editFeedbackData),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => setAPIMessage(data.message))
+      .catch((err) => console.log(err));
 
     messageRef.current.value = "";
-
-    router.replace("/suggestions");
   };
 
   const goBack = () => {
@@ -162,16 +180,8 @@ const EditFeedback = ({ item }) => {
             </button>
           </div>
         </form>
-
-        {/* <button
-          onClick={onDeleteFeedbackHandler}
-          ref={deleteRef}
-          value={id}
-          className="py-1 my-2 text-white bg-red-600 rounded-lg"
-        >
-          Delete
-        </button> */}
       </section>
+      <Modal active={renderModal} status={APIMessage} color="bg-button-pink" />
     </main>
   );
 };

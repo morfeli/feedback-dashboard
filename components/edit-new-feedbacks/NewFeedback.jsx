@@ -2,10 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
+import classNames from "classnames";
+
 import GoBackBtn from "../dashboard-ui/UI/GoBackBtn";
 import NewFeedbackSvg from "../dashboard-ui/UI/NewFeedbackSvg";
-import classNames from "classnames";
 import SortingButton from "../dashboard-ui/UI/SortingButton";
+import Modal from "../dashboard-ui/UI/Modal";
 
 const isEmpty = (value) => value.trim() === "";
 
@@ -22,11 +24,14 @@ const NewFeedback = () => {
   const [messageValid, setMessageIsValid] = useState(true);
   const [categoryValue, setCategoryValue] = useState("Feature");
   const [userData, setUserData] = useState(null);
+  const [APIMessage, setAPIMessage] = useState(false);
+  const [renderModal, setRenderModal] = useState(false);
+
   const { data: session, status } = useSession();
 
-  const captureCategoryValue = (value) => {
-    setCategoryValue(value);
-  };
+  const router = useRouter();
+  const titleRef = useRef();
+  const messageRef = useRef();
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -34,9 +39,24 @@ const NewFeedback = () => {
     }
   }, [status, session]);
 
-  const router = useRouter();
-  const titleRef = useRef();
-  const messageRef = useRef();
+  useEffect(() => {
+    APIMessage && setRenderModal((current) => !current);
+  }, [APIMessage]);
+
+  useEffect(() => {
+    renderModal &&
+      setTimeout(() => {
+        routeToHomePage();
+      }, 6000);
+  }, [renderModal]);
+
+  const routeToHomePage = () => {
+    router.replace("/suggestions");
+  };
+
+  const captureCategoryValue = (value) => {
+    setCategoryValue(value);
+  };
 
   const onSubmitNewFeedback = async (e) => {
     if (e.target.name !== "test") {
@@ -77,10 +97,8 @@ const NewFeedback = () => {
       body: JSON.stringify(feedbackData),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => setAPIMessage(data.message))
       .catch((err) => console.log(err));
-
-    router.replace("/suggestions");
   };
 
   return (
@@ -179,6 +197,7 @@ const NewFeedback = () => {
           </div>
         </form>
       </section>
+      <Modal active={renderModal} status={APIMessage} color="bg-first-blue" />
     </main>
   );
 };

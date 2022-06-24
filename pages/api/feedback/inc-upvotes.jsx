@@ -28,8 +28,8 @@ export default async function increaseUpvotes(req, res) {
           { $inc: { upvotes: 1 }, $addToSet: { upVotedUsers: userEmail } }
         );
 
-      res.status(201).json({ message: "Upvoted successfully!" });
       client.close();
+      res.status(201).json({ message: "Upvoted successfully!" });
     }
   }
 }

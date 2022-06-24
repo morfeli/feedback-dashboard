@@ -49,6 +49,8 @@ export const getServerSideProps = async (context) => {
     .find()
     .forEach((post) => storeData.push(post));
 
+  client.close();
+
   const plannedData = storeData.filter((item) => item.status === "planned");
 
   const progressData = storeData.filter(

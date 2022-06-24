@@ -34,7 +34,6 @@ const FeedbackCard = ({
   const [disable, setDisable] = useState(false);
 
   const router = useRouter();
-  console.log(isRoadmap);
 
   useEffect(() => {
     const sessionEmail = session.user.name.email;
@@ -43,7 +42,7 @@ const FeedbackCard = ({
     if (user.includes(sessionEmail)) {
       setUserHasUpVoted(true);
     }
-  }, []);
+  }, [session, userUpvoted]);
 
   const setTotalUpvotesHandler = () => {
     if (!disable) {

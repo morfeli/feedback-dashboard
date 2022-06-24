@@ -55,8 +55,8 @@ export default async function newFeedbackHandler(req, res) {
       });
 
     client.close();
-    res
-      .status(201)
-      .json({ message: "Feedback has successfully been added! :)" });
+    res.status(201).json({
+      message: "Feedback successfully created! :)",
+    });
   }
 }
