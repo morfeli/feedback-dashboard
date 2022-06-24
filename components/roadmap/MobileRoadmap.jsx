@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import classNames from "classnames";
 import FeedbackCard from "../suggestions-page/FeedbackCard";
 import RoadmapCards from "./RoadmapCards";
@@ -18,6 +20,7 @@ const MobileRoadmap = ({
   borderColor,
   isMobile,
 }) => {
+  const [roadmapState, __] = useState(true);
   return (
     <section className="overflow-hidden">
       <div className="flex items-center justify-between px-4 pt-8 border-b-4">
@@ -71,7 +74,7 @@ const MobileRoadmap = ({
 
             return (
               <FeedbackCard
-              session={session}
+                session={session}
                 animateKey={i}
                 key={item.feedbackID}
                 id={item.feedbackID}
@@ -80,6 +83,7 @@ const MobileRoadmap = ({
                 category={item.category}
                 upvotes={item.upvotes}
                 status={item.status}
+                isRoadmap={roadmapState}
                 user={postedUser}
                 userUpvoted={usersWhomUpvoted}
                 comments={comments ? comments : null}

@@ -1,21 +1,46 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { connectToDatabase } from "../../helper/HelperFunctions";
 
+import Modal from "../../components/dashboard-ui/UI/Modal";
 import SuggestionsComments from "../../components/suggestions-page/SuggestionsComments";
 import GoBackBtn from "../../components/dashboard-ui/UI/GoBackBtn";
-import EditFeedbackBtn from "../../components/dashboard-ui/UI/EditFeedbackBtn";
+import UserButtons from "../../components/dashboard-ui/UI/UserButtons";
 import FeedbackCard from "../../components/suggestions-page/FeedbackCard";
 
 const SuggestionFeedbackDetailPage = ({
   data,
   session,
   paramsId,
-  displayEditButton,
+  displayButtons,
 }) => {
   const [innerWidth, setInnerWidth] = useState(0);
-
+  const [APIMessage, setAPIMessage] = useState();
+  const [renderModal, setRenderModal] = useState(false);
   const isMobile = innerWidth <= 767;
+
+  const router = useRouter();
+
+  const updateAPIMessageHandler = (value) => {
+    setAPIMessage(value);
+  };
+
+  const routeToHomePage = () => {
+    router.replace("/suggestions");
+  };
+
+  useEffect(() => {
+    APIMessage && setRenderModal((current) => !current);
+
+    setTimeout(() => {
+      setRenderModal(false);
+    }, 8000);
+
+    setTimeout(() => {
+      routeToHomePage();
+    }, 12000);
+  }, [APIMessage]);
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 
@@ -34,7 +59,14 @@ const SuggestionFeedbackDetailPage = ({
       <div className="flex items-baseline justify-between">
         <GoBackBtn />
 
-        {displayEditButton && <EditFeedbackBtn item={data} />}
+        {displayButtons && (
+          <div className="pr-8">
+            <UserButtons
+              item={data}
+              updateAPIMessageHandler={updateAPIMessageHandler}
+            />
+          </div>
+        )}
       </div>
       <ul className="mt-8">
         {data.map((item, i) => {
@@ -82,6 +114,7 @@ const SuggestionFeedbackDetailPage = ({
         })}
       </ul>
       <SuggestionsComments item={data} />
+      <Modal active={renderModal}>{APIMessage}</Modal>
     </main>
   );
 };
@@ -111,18 +144,18 @@ export async function getServerSideProps(context) {
   const sessionEmail = session.user.name.email;
   const userEmailThatCreatedPost = singleFeedback.postedBy[0].email;
 
-  let displayEditButton;
+  let displayButtons;
   if (sessionEmail === userEmailThatCreatedPost) {
-    displayEditButton = true;
+    displayButtons = true;
   } else {
-    displayEditButton = false;
+    displayButtons = false;
   }
 
   return {
     props: {
       session,
       paramsId,
-      displayEditButton,
+      displayButtons,
       data: JSON.parse(JSON.stringify(item)),
     },
   };

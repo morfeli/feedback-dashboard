@@ -117,11 +117,20 @@ const FeedbackCard = ({
                   )}
                 />
               )}
+
               {status && <p className="pl-2 capitalize">{status}</p>}
             </div>
             <h1 className="text-third-blue font-jost-bold ">{title}</h1>
             <p className="py-2 text-first-blue">{description}</p>
           </div>
+          {!isRoadmap && (
+            <div className="pt-4">
+              <p>
+                {user[0].firstName} {user[0].lastName}
+              </p>
+              <p>@{user[0].userName}</p>
+            </div>
+          )}
         </div>
         <button className="p-2 capitalize text-second-blue rounded-xl bg-light-gray font-jost-semibold">
           {category}
@@ -140,12 +149,14 @@ const FeedbackCard = ({
             {comments ? comments.length : 0}
           </button>
         </div>
-        <div className="pt-4">
-          <p>
-            {user[0].firstName} {user[0].lastName}
-          </p>
-          <p>@{user[0].userName}</p>
-        </div>
+        {isRoadmap && (
+          <div className="pt-4">
+            <p>
+              {user[0].firstName} {user[0].lastName}
+            </p>
+            <p>@{user[0].userName}</p>
+          </div>
+        )}
       </motion.div>
     );
   } else {
@@ -159,7 +170,7 @@ const FeedbackCard = ({
         }}
         animate={{ opacity: 1, translateY: 0, translateX: 0 }}
         transition={{ duration: 0.8, delay: animateKey * 0.2 }}
-        className="relative z-0 flex items-center p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
+        className="relative z-0 flex items-center justify-between p-4 mx-4 mb-8 bg-white cursor-pointer rounded-2xl"
       >
         <div className="flex flex-col items-center">
           <div className="flex items-center">
@@ -179,15 +190,15 @@ const FeedbackCard = ({
               </button>
             </div>
           </div>
-          <div className="pt-4">
+        </div>
+        <div className="flex flex-col self-baseline ">
+          <div className="pb-6">
             <p>
               {user[0].firstName} {user[0].lastName}
             </p>
             <p>@{user[0].userName}</p>
           </div>
-        </div>
-        <div className="flex justify-between pt-4">
-          <button className="absolute flex items-center justify-between w-8 right-15px bottom-60px">
+          <button className="flex items-center justify-between w-8">
             <CommentsSvg />
             {comments ? comments.length : 0}
           </button>
