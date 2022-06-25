@@ -21,9 +21,9 @@ const RoadmapPage = ({ data, session }) => {
     };
   }, [isMobile]);
 
-  if (!session) {
-    return null;
-  }
+  // if (!session) {
+  //   return null;
+  // }
 
   return (
     <>
@@ -69,7 +69,9 @@ export const getServerSideProps = async (context) => {
     liveData,
   };
 
+  const data = JSON.parse(JSON.stringify(roadmapData));
+
   return {
-    props: { session, data: JSON.parse(JSON.stringify(roadmapData)) },
+    props: { session, data },
   };
 };
