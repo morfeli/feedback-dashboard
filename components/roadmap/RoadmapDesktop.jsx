@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import FeedbackCard from "../suggestions-page/FeedbackCard";
-import RoadmapCards from "./RoadmapCards";
 
 const RoadmapDesktop = ({
   session,
@@ -94,11 +93,13 @@ const RoadmapDesktop = ({
         </div>
 
         {liveData.map((item, i) => {
-          let comments = item.comments;
+          const comments = item.comments;
           const usersWhomUpvoted = item.upVotedUsers;
           const postedUser = item.postedBy;
-          let color = "light-blue";
-          let borderColor = "border-t-light-blue";
+          const color = "light-blue";
+          const borderColor = "border-t-light-blue";
+
+          console.log(item);
 
           return (
             <FeedbackCard
