@@ -33,6 +33,9 @@ const NewFeedback = () => {
   const titleRef = useRef();
   const messageRef = useRef();
 
+  const routeToHomePage = () => {
+    router.replace("/suggestions");
+  };
   useEffect(() => {
     if (status === "authenticated") {
       setUserData([session.user.name]);
@@ -49,10 +52,6 @@ const NewFeedback = () => {
         routeToHomePage();
       }, 6000);
   }, [renderModal, routeToHomePage]);
-
-  const routeToHomePage = () => {
-    router.replace("/suggestions");
-  };
 
   const captureCategoryValue = (value) => {
     setCategoryValue(value);
