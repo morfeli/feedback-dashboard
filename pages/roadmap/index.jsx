@@ -29,15 +29,18 @@ const RoadmapPage = ({ data, session }) => {
     <>
       <RoadmapHeader />
       <h1>hello</h1>
-      {/* <Roadmap
+    </>
+  );
+};
+
+{
+  /* <Roadmap
         data={data}
         session={session}
         innerWidth={innerWidth}
         isMobile={isMobile}
-      /> */}
-    </>
-  );
-};
+      /> */
+}
 
 export default RoadmapPage;
 
