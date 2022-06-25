@@ -21,26 +21,22 @@ const RoadmapPage = ({ data, session }) => {
     };
   }, [isMobile]);
 
-  // if (!session) {
-  //   return null;
-  // }
+  if (!session) {
+    return null;
+  }
 
   return (
     <>
       <RoadmapHeader />
-      <h1>hello</h1>
-    </>
-  );
-};
-
-{
-  /* <Roadmap
+      <Roadmap
         data={data}
         session={session}
         innerWidth={innerWidth}
         isMobile={isMobile}
-      /> */
-}
+      />
+    </>
+  );
+};
 
 export default RoadmapPage;
 
