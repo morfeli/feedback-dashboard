@@ -67,7 +67,7 @@ const MobileRoadmap = ({
         </div>
         {renderStatus &&
           renderStatus.map((item, i) => {
-            let comments = item.comments;
+            const comments = item.comments;
             const usersWhomUpvoted = item.upVotedUsers;
             const postedUser = item.postedBy;
 

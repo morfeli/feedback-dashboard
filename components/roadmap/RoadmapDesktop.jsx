@@ -12,9 +12,10 @@ const RoadmapDesktop = ({
   inProgress,
   isMobile,
 }) => {
+  console.log(liveData);
   const [roadmapState, _roadmapState] = useState(true);
   return (
-    <section className="grid grid-cols-3 gap-2 pt-8 mx-2 gap-y-16 lg:mx-8 lg:gap-4">
+    <section className="grid grid-cols-3 gap-2 pt-8 mx-2 overflow-hidden gap-y-16 lg:mx-8 lg:gap-4">
       <div className="flex flex-col items-center">
         <div className="self-start">
           <h1 className="font-jost-bold">{planned}</h1>
@@ -22,12 +23,12 @@ const RoadmapDesktop = ({
         </div>
 
         {plannedData.map((item, i) => {
-          let comments = item.comments;
+          const comments = item.comments;
           const usersWhomUpvoted = item.upVotedUsers;
           const postedUser = item.postedBy;
 
-          let borderColor = "border-t-first-orange";
-          let color = "first-orange";
+          const borderColor = "border-t-first-orange";
+          const color = "first-orange";
 
           return (
             <FeedbackCard
@@ -58,11 +59,11 @@ const RoadmapDesktop = ({
         </div>
 
         {progressData.map((item, i) => {
-          let comments = item.comments;
+          const comments = item.comments;
           const usersWhomUpvoted = item.upVotedUsers;
           const postedUser = item.postedBy;
-          let borderColor = "border-t-button-pink";
-          let color = "button-pink";
+          const borderColor = "border-t-button-pink";
+          const color = "button-pink";
 
           return (
             <FeedbackCard
@@ -103,6 +104,7 @@ const RoadmapDesktop = ({
 
           return (
             <FeedbackCard
+              session={session}
               key={i}
               animateKey={i}
               id={item.feedbackID}
