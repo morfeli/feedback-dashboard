@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import classNames from "classnames";
 import FeedbackCard from "../suggestions-page/FeedbackCard";
-import RoadmapCards from "./RoadmapCards";
 
 const MobileRoadmap = ({
   session,

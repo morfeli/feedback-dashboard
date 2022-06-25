@@ -7,6 +7,7 @@ import Roadmap from "../../components/roadmap/Roadmap";
 
 const RoadmapPage = ({ data, session }) => {
   const [innerWidth, setInnerWidth] = useState(0);
+  console.log(session);
   const isMobile = innerWidth <= 768;
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
@@ -20,6 +21,10 @@ const RoadmapPage = ({ data, session }) => {
       window.removeEventListener("resize", changeWidth);
     };
   }, [isMobile]);
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <>

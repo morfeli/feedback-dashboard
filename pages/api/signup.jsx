@@ -5,7 +5,7 @@ import {
 
 const isEmpty = (value) => value.trim() === "";
 
-const isTenChars = (value) => value.trim().length >= 10;
+const isNineChars = (value) => value.trim().length >= 9;
 
 const emailValidation = (value) => {
   const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const firstNameIsValid = !isEmpty(firstName);
     const lastNameisValid = !isEmpty(lastName);
     const emailIsValid = emailValidation(email);
-    const passwordisValid = isTenChars(password);
+    const passwordisValid = isNineChars(password);
     const userNameIsValid = !isEmpty(userName);
 
     let userDataIsValid =
@@ -44,12 +44,27 @@ export default async function handler(req, res) {
 
     const db = client.db();
 
-    const existingUser = await db.collection("users").findOne({ email: email });
+    const existingUserEmail = await db
+      .collection("users")
+      .findOne({ email: email });
 
-    if (existingUser) {
-      res.status(422).json({ message: "User already exists, please log in!" });
-      console.log("User already exists, please log in!");
+    if (existingUserEmail) {
       client.close();
+      res
+        .status(201)
+        .json({ message: "This email already exists.", email: true });
+      return;
+    }
+
+    const existingUserName = await db
+      .collection("users")
+      .findOne({ userName: userName });
+
+    if (existingUserName) {
+      client.close();
+      res
+        .status(201)
+        .json({ message: "This username is taken.", userName: true });
       return;
     }
 
@@ -65,8 +80,6 @@ export default async function handler(req, res) {
 
     client.close();
 
-    res.status(201).json({ message: "Signed up!" });
-  } else {
-    res.status(200).json({ data: req.body });
+    res.status(201).json({ message: "Succesful sign up!", success: true });
   }
 }

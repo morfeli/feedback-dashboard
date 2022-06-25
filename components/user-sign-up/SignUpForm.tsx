@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import LoadingSpinner from "../dashboard-ui/UI/LoadingSpinner";
+import Modal from "../dashboard-ui/UI/Modal";
 
 const isEmpty = (value: string) => value.trim() === "";
 
-const isTenChars = (value: string) => value.trim().length >= 5;
+const isNineChars = (value: string) => value.trim().length >= 9;
 
 const emailValidation = (value: string) => {
   const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -13,6 +15,19 @@ const emailValidation = (value: string) => {
   } else {
     return false;
   }
+};
+
+type APIMessage = {
+  message?: string;
+  email?: boolean;
+  userName?: boolean;
+  success?: boolean;
+};
+
+const initialAPIMessage = {
+  message: "",
+  email: false,
+  userName: false,
 };
 
 type UserSignUp = {
@@ -67,6 +82,10 @@ const intialFormState = {
 
 const SignUpForm = (props: any) => {
   const [form, setForm] = useState<UserSignUp>(intialFormState);
+  const [APIMessage, setAPIMessage] = useState<APIMessage>(initialAPIMessage);
+  const [loadingSpinner, setLoadingSpinner] = useState(false);
+  const [renderModal, setRenderModal] = useState(false);
+  const [passwordsDontMatch, setPasswordsDontMatch] = useState(false);
 
   const submitUserData = (e) => {
     e.preventDefault();
@@ -75,8 +94,8 @@ const SignUpForm = (props: any) => {
     const lastNameIsValid = !isEmpty(form.lastName);
     const userNameIsValid = !isEmpty(form.userName);
     const emailIsValid = emailValidation(form.email);
-    const passwordisValid = isTenChars(form.password);
-    const confirmPasswordIsValid = isTenChars(form.confirmPassword);
+    const passwordisValid = isNineChars(form.password);
+    const confirmPasswordIsValid = isNineChars(form.confirmPassword);
 
     setForm((current) => ({
       ...current,
@@ -91,11 +110,17 @@ const SignUpForm = (props: any) => {
     }));
 
     if (form.password != form.confirmPassword) {
-      throw new Error("Please enter matching passwords!");
+      setPasswordsDontMatch(true);
+      return;
     }
 
-    const formIsValid = firstNameIsValid && lastNameIsValid && userNameIsValid;
-    emailIsValid && passwordisValid && confirmPasswordIsValid;
+    const formIsValid =
+      firstNameIsValid &&
+      lastNameIsValid &&
+      userNameIsValid &&
+      emailIsValid &&
+      passwordisValid &&
+      confirmPasswordIsValid;
 
     let userData = {
       firstName: form.firstName,
@@ -107,17 +132,68 @@ const SignUpForm = (props: any) => {
 
     if (!formIsValid) {
       return;
+    } else {
+      fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => res.json())
+        .then((data) => setAPIMessage(data));
     }
-
-    fetch("/api/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    }).then((res) => console.log(res));
-
-    setForm(intialFormState);
-    props.directUser();
   };
+
+  // useEffect(() => {
+  //   if (APIMessage.success) {
+  //     setTimeout(() => {
+  //       props.directUser();
+  //     }, 5000);
+  //   }
+  // }, [APIMessage.success]);
+
+  useEffect(() => {
+    if (APIMessage.success) {
+      setLoadingSpinner(true);
+    }
+  }, [APIMessage.success]);
+
+  useEffect(() => {
+    if (loadingSpinner) {
+      setTimeout(() => {
+        setLoadingSpinner(false);
+      }, 5000);
+
+      setRenderModal(true);
+    }
+  }, [loadingSpinner]);
+
+  useEffect(() => {
+    if (renderModal) {
+      setTimeout(() => {
+        props.directUser();
+      }, 9000);
+    }
+  }, [renderModal]);
+
+  if (loadingSpinner) {
+    return (
+      <div className="p-20 mx-auto">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (renderModal) {
+    return (
+      <div className="p-8">
+        <Modal
+          active={renderModal}
+          status={APIMessage.message}
+          color="bg-second-blue"
+        />
+      </div>
+    );
+  }
 
   return (
     <form
@@ -177,33 +253,7 @@ const SignUpForm = (props: any) => {
             />
           </label>
         </div>
-        <div className="mb-2">
-          <label htmlFor="userName">
-            <input
-              id="userName"
-              type="text"
-              placeholder="Username"
-              onChange={(e) =>
-                setForm((current) => ({
-                  ...current,
-                  userName: e.target.value,
-                  touched: {
-                    ...current.touched,
-                    userName: true,
-                  },
-                }))
-              }
-              value={form.userName}
-              className={classNames({
-                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
-                  form.valid.userName || form.touched.userName,
-                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
-                  !form.valid.userName && !form.touched.userName,
-              })}
-            />
-          </label>
-        </div>
-        <div className="mb-2">
+        <div className="flex flex-col items-center mb-2">
           <label htmlFor="email">
             <input
               id="email"
@@ -228,13 +278,43 @@ const SignUpForm = (props: any) => {
               })}
             />
           </label>
+          {APIMessage.email && (
+            <p className="mt-2 text-center">{APIMessage.message}</p>
+          )}
         </div>
-        <div className="mb-2">
+        <div className="flex flex-col items-center mb-2">
+          <label htmlFor="userName">
+            <input
+              id="userName"
+              type="text"
+              placeholder="Username"
+              onChange={(e) =>
+                setForm((current) => ({
+                  ...current,
+                  userName: e.target.value,
+                  touched: {
+                    ...current.touched,
+                    userName: true,
+                  },
+                }))
+              }
+              value={form.userName}
+              className={classNames({
+                "p-2 rounded-md w-60 bg-light-gray border-none focus:outline-button-pink":
+                  form.valid.userName || form.touched.userName,
+                "p-2 rounded-md w-60 bg-light-gray border-b-2 border-red-900":
+                  !form.valid.userName && !form.touched.userName,
+              })}
+            />
+          </label>
+          {APIMessage.userName && <p className="mt-2">{APIMessage.message}</p>}
+        </div>
+        <div className="flex flex-col items-center mb-2">
           <label htmlFor="password">
             <input
               id="password"
-              type="text"
-              placeholder="Password with min 5 characters"
+              type="password"
+              placeholder="Password with min 9 characters"
               onChange={(e) =>
                 setForm((current) => ({
                   ...current,
@@ -254,12 +334,17 @@ const SignUpForm = (props: any) => {
               })}
             />
           </label>
+          {!form.valid.password && (
+            <p className="px-8 my-4 text-center">
+              Create a password with a minimum of 9 characters.
+            </p>
+          )}
         </div>
-        <div className="mb-2">
+        <div className="flex flex-col items-center mb-2">
           <label htmlFor="confirmPassword">
             <input
               id="confirmPassword"
-              type="text"
+              type="password"
               placeholder="Confirm password"
               onChange={(e) =>
                 setForm((current) => ({
@@ -280,6 +365,11 @@ const SignUpForm = (props: any) => {
               })}
             />
           </label>
+          {passwordsDontMatch && (
+            <p className="px-8 my-4 text-center">
+              Please enter matching passwords.
+            </p>
+          )}
         </div>
         <button className="py-1 mt-4 text-white rounded-md w-60 bg-sky-500">
           Submit

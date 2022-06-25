@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -34,6 +33,10 @@ const FeedbackCard = ({
   const [disable, setDisable] = useState(false);
 
   const router = useRouter();
+
+  if (!session) {
+    return null;
+  }
 
   useEffect(() => {
     const sessionEmail = session.user.name.email;

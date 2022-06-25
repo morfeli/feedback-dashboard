@@ -13,7 +13,12 @@ const LoadingSpinner = () => {
   return (
     <div className="w-14 h-14">
       <motion.div
-        animate={{ rotate: [0, 360, -360, 0], scale: [0.9, 1.2, 1.5] }}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotate: [0, 360, -360, 0],
+          scale: [0.9, 1.2, 1.5],
+        }}
         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
         className={loaderStyle}
       >

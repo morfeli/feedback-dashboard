@@ -31,7 +31,7 @@ const Modal = ({ active, status, color }) => {
           initial="hidden"
           animate="visible"
           exit="hidden"
-          transition={{ type: "spring", stiffness: 100, delay: 2 }}
+          transition={{ type: "spring", stiffness: 100, delay: 1 }}
           className={divStyle}
         >
           <p className="text-white">{status}</p>
