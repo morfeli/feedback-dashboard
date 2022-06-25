@@ -173,7 +173,7 @@ const SignUpForm = (props: any) => {
         props.directUser();
       }, 9000);
     }
-  }, [renderModal]);
+  }, [renderModal, props]);
 
   if (loadingSpinner) {
     return (

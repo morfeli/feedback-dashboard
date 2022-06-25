@@ -26,7 +26,7 @@ const SortingButton = ({
     if (statusValues) {
       setSortValue(statusValues[0].value);
     }
-  }, [buttonValues, categoryValues]);
+  }, [buttonValues, categoryValues, statusValues]);
 
   const captureSortOption = (e) => {
     setSortValue(e.target.value);

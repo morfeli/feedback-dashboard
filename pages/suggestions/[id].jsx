@@ -39,7 +39,7 @@ const SuggestionFeedbackDetailPage = ({
       setTimeout(() => {
         routeToHomePage();
       }, 6000);
-  }, [renderModal]);
+  }, [renderModal, routeToHomePage]);
 
   const changeWidth = () => setInnerWidth(window.innerWidth);
 

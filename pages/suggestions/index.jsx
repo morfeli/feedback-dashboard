@@ -50,7 +50,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
   };
   useEffect(() => {
     filterDataForRoadmapPage();
-  }, []);
+  }, [filterDataForRoadmapPage]);
 
   const updateSortValue = (value) => {
     setSortValue(value);

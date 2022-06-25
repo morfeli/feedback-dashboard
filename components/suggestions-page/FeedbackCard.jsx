@@ -34,18 +34,14 @@ const FeedbackCard = ({
 
   const router = useRouter();
 
-  if (!session) {
-    return null;
-  }
+  const sessionEmail = session.user.name.email;
+  const userVotes = userUpvoted ? userUpvoted.toString() : "";
 
   useEffect(() => {
-    const sessionEmail = session.user.name.email;
-    const user = userUpvoted ? userUpvoted.toString() : "";
-
-    if (user.includes(sessionEmail)) {
+    if (userVotes.includes(sessionEmail)) {
       setUserHasUpVoted(true);
     }
-  }, [session, userUpvoted]);
+  }, [sessionEmail, userVotes]);
 
   const setTotalUpvotesHandler = () => {
     if (!disable) {

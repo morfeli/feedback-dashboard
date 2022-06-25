@@ -49,7 +49,7 @@ const EditFeedback = ({ item }) => {
       setTimeout(() => {
         routeToHomePage();
       }, 6000);
-  }, [renderModal]);
+  }, [renderModal, routeToHomePage]);
 
   const routeToHomePage = () => {
     router.replace("/suggestions");

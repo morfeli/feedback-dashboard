@@ -48,7 +48,7 @@ const NewFeedback = () => {
       setTimeout(() => {
         routeToHomePage();
       }, 6000);
-  }, [renderModal]);
+  }, [renderModal, routeToHomePage]);
 
   const routeToHomePage = () => {
     router.replace("/suggestions");
