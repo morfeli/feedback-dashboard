@@ -28,12 +28,12 @@ const RoadmapPage = ({ data, session }) => {
   return (
     <>
       <RoadmapHeader />
-      <Roadmap
+      {/* <Roadmap
         data={data}
         session={session}
         innerWidth={innerWidth}
         isMobile={isMobile}
-      />
+      /> */}
     </>
   );
 };
