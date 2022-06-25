@@ -37,10 +37,12 @@ const FeedbackCard = ({
   const sessionEmail = session.user.name.email;
   const userVotes = userUpvoted ? userUpvoted.toString() : "";
 
+  // if (userVotes.includes(sessionEmail)) {
+  //   setUserHasUpVoted(true);
+  // }
+
   useEffect(() => {
-    if (userVotes.includes(sessionEmail)) {
-      setUserHasUpVoted(true);
-    }
+    userVotes.includes(sessionEmail) && setUserHasUpVoted(true);
   }, [sessionEmail, userVotes]);
 
   const setTotalUpvotesHandler = () => {
