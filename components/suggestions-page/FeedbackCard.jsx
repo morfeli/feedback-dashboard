@@ -189,7 +189,7 @@ const FeedbackCard = ({
             </div>
           </div>
         </div>
-        <div className="flex flex-col self-baseline ">
+        <div className="flex flex-col items-end self-baseline">
           <div className="pb-6">
             <p>
               {user[0].firstName} {user[0].lastName}
