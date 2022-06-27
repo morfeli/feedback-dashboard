@@ -5,7 +5,16 @@ import PostedComment from "./PostedComment";
 import Replies from "./Replies";
 import UserComment from "./UserComment";
 
-const FeedbackComments = ({ image, name, username, content, replyArray }) => {
+const FeedbackComments = ({
+  // image,
+  id,
+  commentID,
+  firstName,
+  lastName,
+  username,
+  content,
+  replyArray,
+}) => {
   const [reply, setReply] = useState(false);
   const [repliedComments, setRepliedComments] = useState([]);
 
@@ -20,15 +29,17 @@ const FeedbackComments = ({ image, name, username, content, replyArray }) => {
   return (
     <div className="pt-2">
       <UserComment
-        name={name}
-        image={image}
-        content={content}
-        toggleReply={toggleReply}
+        firstName={firstName}
+        lastName={lastName}
         username={username}
+        content={content}
+        // image={image}
+        toggleReply={toggleReply}
       />
 
       {reply && (
         <AddCommentForm
+          commentID={commentID}
           username={username}
           postComment={postComment}
           toggleReply={toggleReply}

@@ -14,6 +14,7 @@ const SuggestionFeedbackDetailPage = ({
   session,
   paramsId,
   displayButtons,
+  singleFeedbackComments,
 }) => {
   const [innerWidth, setInnerWidth] = useState(0);
   const [APIMessage, setAPIMessage] = useState();
@@ -70,26 +71,6 @@ const SuggestionFeedbackDetailPage = ({
           const usersThatHaveUpvoted = item.upVotedUsers;
           const postedUser = item.postedBy;
 
-          const comments = item.comments;
-
-          const commentsLength = comments ? comments.length : 0;
-
-          const replies = comments
-            ? comments.filter((comment) => comment.replies)
-            : null;
-
-          const mappedReplies = comments
-            ? replies.map((item) => item.replies)
-            : null;
-
-          const replyLength = comments
-            ? mappedReplies[0]
-              ? mappedReplies[0].length
-              : 0
-            : null;
-
-          const totalCommentsLength = commentsLength + replyLength;
-
           return (
             <FeedbackCard
               paramsId={paramsId}
@@ -102,15 +83,14 @@ const SuggestionFeedbackDetailPage = ({
               upvotes={item.upvotes}
               user={postedUser}
               userUpvoted={usersThatHaveUpvoted}
-              comments={comments}
-              totalCommentsLength={totalCommentsLength}
+              comments={singleFeedbackComments}
               innerWidth={innerWidth}
               isMobile={isMobile}
             />
           );
         })}
       </ul>
-      <SuggestionsComments item={data} />
+      <SuggestionsComments comments={singleFeedbackComments} id={paramsId} />
       <Modal
         active={renderModal}
         status={APIMessage}
@@ -140,6 +120,8 @@ export async function getServerSideProps(context) {
     .collection("posts")
     .findOne({ feedbackID: parseID });
 
+  const singleFeedbackComments = singleFeedback.comments;
+
   client.close();
 
   item.push(singleFeedback);
@@ -159,6 +141,8 @@ export async function getServerSideProps(context) {
       session,
       paramsId,
       displayButtons,
+      singleFeedbackComments,
+
       data: JSON.parse(JSON.stringify(item)),
     },
   };

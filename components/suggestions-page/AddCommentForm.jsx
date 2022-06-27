@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 const isEmpty = (value) => value.trim() === "";
 
 const AddCommentForm = ({
+  id,
+  commentID,
   username,
   postComment,
   postReplies,
@@ -13,6 +15,7 @@ const AddCommentForm = ({
     comment: true,
   });
 
+  console.log(commentID);
   const [userData, setUserData] = useState();
   const [maxLength, setMaxLength] = useState(250);
   const [charsLeft, setCharsLeft] = useState(250);
@@ -30,7 +33,6 @@ const AddCommentForm = ({
     e.preventDefault();
 
     const enteredText = textAreaRef.current.value;
-
     const enteredTextIsValid = !isEmpty(enteredText);
 
     setFormValidity({
@@ -44,23 +46,44 @@ const AddCommentForm = ({
     }
 
     let postedComment = {
+      feedbackToFilterBy: parseInt(id),
       message: enteredText,
       firstName: userData[0].firstName,
       lastName: userData[0].lastName,
-      username: userData[0].userName,
-      replyingTo: username ? username : null,
+      userName: userData[0].userName,
     };
+
+    if (commentID && username) {
+      postedComment = {
+        feedbackToFilterBy: parseInt(id),
+        commentToFilterBy: parseInt(commentID),
+        message: enteredText,
+        firstName: userData[0].firstName,
+        lastName: userData[0].lastName,
+        userName: userData[0].userName,
+        replyingTo: username,
+      };
+    }
 
     postComment ? postComment(postedComment) : null;
     postReplies ? postReplies(postedComment) : null;
     toggleReply ? toggleReply() : null;
+
+    fetch("/api/feedback/postComment", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(postedComment),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
 
     setCharsLeft(250);
     textAreaRef.current.value = "";
   };
 
   const decrementMaxLength = (e) => {
-    let charCount = e.target.value.length;
+    const charCount = e.target.value.length;
     const charLength = maxLength - charCount;
     setCharsLeft(charLength);
   };

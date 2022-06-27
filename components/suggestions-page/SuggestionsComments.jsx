@@ -4,37 +4,43 @@ import AddCommentForm from "./AddCommentForm";
 import FeedbackComments from "./FeedbackComments";
 import UserComment from "./UserComment";
 
-const SuggestionsComments = ({ item, length }) => {
+const SuggestionsComments = ({ comments, id }) => {
   const [postedComment, setPostedComment] = useState([]);
 
   const postComment = (data) => {
     setPostedComment((current) => [...current, data]);
   };
 
-  let isThereAnyComments;
-  if (item[0].comments) {
-    isThereAnyComments = item[0].comments;
+  let placeholder;
+  if (comments.length === 1) {
+    placeholder = "Comment";
   } else {
-    isThereAnyComments = null;
+    placeholder = "Comments";
   }
 
   return (
     <>
       <section className="py-4 mx-4 my-8 bg-white rounded-md">
-        <div className="flex p-8">
-          <h1 className="font-jost-bold text-third-blue">{length} Comments</h1>
+        <div className="flex p-4">
+          <h1 className="font-jost-bold text-third-blue">
+            {comments.length} {placeholder}
+          </h1>
         </div>
 
-        {isThereAnyComments &&
-          isThereAnyComments.map((item) => (
-            <FeedbackComments
-              key={item.feedbackID}
-              content={item.content}
-              name={item.user.name}
-              replyArray={item.replies}
-              username={item.user.userName}
-            />
-          ))}
+        {comments &&
+          comments.map((item) => {
+            return (
+              <FeedbackComments
+                key={item.id}
+                commentID={item.id}
+                content={item.content}
+                firstName={item.user.firstName}
+                lastName={item.user.lastName}
+                username={item.user.userName}
+                replyArray={item.replies}
+              />
+            );
+          })}
 
         {postedComment &&
           postedComment.map((item, i) => (
@@ -47,7 +53,7 @@ const SuggestionsComments = ({ item, length }) => {
             />
           ))}
       </section>
-      <AddCommentForm postComment={postComment} />
+      <AddCommentForm postComment={postComment} id={id} />
     </>
   );
 };
