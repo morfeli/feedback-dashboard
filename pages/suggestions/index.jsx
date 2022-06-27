@@ -7,9 +7,9 @@ import Dashboard from "../../components/dashboard-ui/Dashboard";
 import SortingHeader from "../../components/dashboard-ui/SortingHeader";
 import Suggestions from "../../components/suggestions-page/Suggestions";
 
-const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
+const SuggestionsPage = ({ session, data, suggestionArrayLength, roadmap }) => {
   const [loading, setLoading] = useState(true);
-  const [roadmapData, setRoadmapData] = useState([]);
+  const [roadmapData, setRoadmapData] = useState([roadmap]);
   const [sortValue, setSortValue] = useState("Most Upvotes");
   const [categoryValue, setCategoryValue] = useState("all");
   const [statusType, __] = useState("suggestion");
@@ -34,23 +34,6 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength }) => {
       loadingHandler();
     }, 5000);
   }, []);
-
-  const filterDataForRoadmapPage = () => {
-    const plannedData = data.filter((item) => item.status === "planned");
-    const liveData = data.filter((item) => item.status === "live");
-    const inProgressData = data.filter((item) => item.status === "in-progress");
-
-    const roadmap = {
-      plannedData,
-      liveData,
-      inProgressData,
-    };
-
-    setRoadmapData(roadmap);
-  };
-  useEffect(() => {
-    filterDataForRoadmapPage();
-  }, [filterDataForRoadmapPage]);
 
   const updateSortValue = (value) => {
     setSortValue(value);
@@ -119,13 +102,25 @@ export const getServerSideProps = async (context) => {
     const suggestionArray = storeData.filter(
       (item) => item.status === "suggestion"
     );
+    const plannedArray = storeData.filter((item) => item.status === "planned");
+    const liveArray = storeData.filter((item) => item.status === "live");
+    const progressArray = storeData.filter(
+      (item) => item.status === "progress"
+    );
 
     const suggestionArrayLength = suggestionArray.length;
 
+    const roadmapData = {
+      plannedArray,
+      liveArray,
+      progressArray,
+    };
     const data = JSON.parse(JSON.stringify(storeData));
 
+    const roadmap = JSON.parse(JSON.stringify(roadmapData));
+
     return {
-      props: { session, data, suggestionArrayLength },
+      props: { session, data, roadmap, suggestionArrayLength },
     };
   }
 };

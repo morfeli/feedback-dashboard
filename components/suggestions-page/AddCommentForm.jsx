@@ -15,7 +15,6 @@ const AddCommentForm = ({
     comment: true,
   });
 
-  console.log(commentID);
   const [userData, setUserData] = useState();
   const [maxLength, setMaxLength] = useState(250);
   const [charsLeft, setCharsLeft] = useState(250);
