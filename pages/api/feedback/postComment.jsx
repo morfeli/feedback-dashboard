@@ -14,7 +14,7 @@ export default async function postCommentHandler(req, res) {
     let commentID;
     if (req.body.replyingTo && req.body.commentToFilterBy) {
       replyingTo = req.body.replyingTo;
-      commentID = req.body.commentToFilterBy;
+      commentID = Int32(req.body.commentToFilterBy);
     }
 
     let postComment = {
@@ -41,17 +41,22 @@ export default async function postCommentHandler(req, res) {
 
     const client = await connectToDatabase();
 
-    if (commentID) {
-      const singleFeedback = await client
+    if (commentID && userName) {
+      await client
         .db()
         .collection("posts")
         .updateOne(
           {
-            $and: [{ feedbackID: selectedID }, { "comments.id": commentID }],
+            $and: [
+              { feedbackID: selectedID },
+              { comments: { $elemMatch: { id: commentID } } },
+            ],
           },
-          { $push: { "comments.replies": postComment } }
+          { $addToSet: { "comments.$[elem].replies": postComment } },
+
+          { arrayFilters: [{ "elem.id": commentID }] }
         );
-      console.log(singleFeedback);
+
       client.close();
     } else {
       await client
@@ -62,7 +67,7 @@ export default async function postCommentHandler(req, res) {
           { $inc: { "comments.$[].id": 1 } }
         );
 
-      const singleFeedback = await client
+      await client
         .db()
         .collection("posts")
         .updateOne(
@@ -72,8 +77,7 @@ export default async function postCommentHandler(req, res) {
 
       client.close();
     }
-
-    client.close();
-    res.status(201);
   }
+
+  res.status(201);
 }

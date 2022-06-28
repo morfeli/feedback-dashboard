@@ -90,7 +90,10 @@ const SuggestionFeedbackDetailPage = ({
           );
         })}
       </ul>
-      <SuggestionsComments comments={singleFeedbackComments} id={paramsId} />
+      <SuggestionsComments
+        comments={singleFeedbackComments}
+        searchID={paramsId}
+      />
       <Modal
         active={renderModal}
         status={APIMessage}

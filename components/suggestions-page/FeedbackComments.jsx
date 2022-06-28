@@ -1,13 +1,9 @@
 import { useState } from "react";
-
-import AddCommentForm from "./AddCommentForm";
-import PostedComment from "./PostedComment";
-import Replies from "./Replies";
 import UserComment from "./UserComment";
+import UserReplies from "./UserReplies";
 
 const FeedbackComments = ({
-  // image,
-  id,
+  searchID,
   commentID,
   firstName,
   lastName,
@@ -15,62 +11,48 @@ const FeedbackComments = ({
   content,
   replyArray,
 }) => {
-  const [reply, setReply] = useState(false);
-  const [repliedComments, setRepliedComments] = useState([]);
-
-  const toggleReply = () => {
-    setReply((current) => !current);
-  };
-
-  const postComment = (data) => {
-    setRepliedComments((current) => [...current, data]);
+  const [stateReplies, setStateReplies] = useState([]);
+  const postReplies = (data) => {
+    setStateReplies((current) => [...current, data]);
   };
 
   return (
-    <div className="pt-2">
+    <div>
       <UserComment
+        searchID={searchID}
+        commentID={commentID}
         firstName={firstName}
         lastName={lastName}
         username={username}
         content={content}
-        // image={image}
-        toggleReply={toggleReply}
+        postReplies={postReplies}
       />
 
-      {reply && (
-        <AddCommentForm
-          commentID={commentID}
-          username={username}
-          postComment={postComment}
-          toggleReply={toggleReply}
-        />
-      )}
-
-      {repliedComments &&
-        repliedComments.map((item, i) => (
-          <PostedComment
+      {replyArray &&
+        replyArray.map((item, i) => (
+          <UserReplies
             key={i}
-            firstName={item.firstName}
-            lastName={item.lastName}
-            message={item.message}
-            username={item.username}
+            firstName={item.user.firstName}
+            lastName={item.user.lastName}
+            username={item.user.userName}
+            content={item.content}
             replyingTo={item.replyingTo}
           />
         ))}
 
-      {replyArray &&
-        replyArray.map((reply, i) => (
-          <Replies
-            key={i}
-            name={reply.user.name}
-            image={reply.user.image}
-            username={reply.user.username}
-            content={reply.content}
-            replyingTo={reply.replyingTo}
-          />
-        ))}
-
-      {/* <hr /> */}
+      {stateReplies &&
+        stateReplies.map((item, i) => {
+          return (
+            <UserReplies
+              key={i}
+              username={item.userName}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              message={item.message}
+              replyingTo={item.replyingTo}
+            />
+          );
+        })}
     </div>
   );
 };

@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import AddCommentForm from "./AddCommentForm";
 import FeedbackComments from "./FeedbackComments";
 import UserComment from "./UserComment";
 
-const SuggestionsComments = ({ comments, id }) => {
-  const [postedComment, setPostedComment] = useState([]);
+const SuggestionsComments = ({ comments, searchID }) => {
+  const router = useRouter();
+  const [stateComments, setStateComments] = useState([]);
+  const [incrementCommentID, setIncrementCommentID] = useState(null);
+  const [reply, setReply] = useState(false);
 
   const postComment = (data) => {
-    setPostedComment((current) => [...current, data]);
+    setStateComments((current) => [...current, data]);
+  };
+
+  const toggleReply = () => {
+    setReply((current) => !current);
   };
 
   let placeholder;
@@ -17,6 +25,10 @@ const SuggestionsComments = ({ comments, id }) => {
   } else {
     placeholder = "Comments";
   }
+
+  useEffect(() => {
+    setIncrementCommentID(stateComments.length);
+  }, [stateComments]);
 
   return (
     <>
@@ -28,11 +40,17 @@ const SuggestionsComments = ({ comments, id }) => {
         </div>
 
         {comments &&
-          comments.map((item) => {
+          comments.map((item, i) => {
+            let commentUserID = item.id;
+
+            if (incrementCommentID) {
+              commentUserID += incrementCommentID;
+            }
             return (
               <FeedbackComments
+                searchID={searchID}
                 key={item.id}
-                commentID={item.id}
+                commentID={commentUserID}
                 content={item.content}
                 firstName={item.user.firstName}
                 lastName={item.user.lastName}
@@ -42,18 +60,26 @@ const SuggestionsComments = ({ comments, id }) => {
             );
           })}
 
-        {postedComment &&
-          postedComment.map((item, i) => (
-            <UserComment
-              key={i}
-              firstName={item.firstName}
-              lastName={item.lastName}
-              message={item.message}
-              username={item.username}
-            />
-          ))}
+        {stateComments &&
+          stateComments.map((item, i) => {
+            return (
+              <UserComment
+                searchID={searchID}
+                key={item.id}
+                firstName={item.firstName}
+                lastName={item.lastName}
+                message={item.message}
+                username={item.userName}
+                toggleReply={toggleReply}
+              />
+            );
+          })}
       </section>
-      <AddCommentForm postComment={postComment} id={id} />
+      <AddCommentForm
+        postComment={postComment}
+        searchID={searchID}
+        // toggleRefresh={toggleRefresh}
+      />
     </>
   );
 };

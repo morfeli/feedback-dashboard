@@ -28,17 +28,17 @@ const DashboardRoadmap = ({ isMobile, data }) => {
         </div>
         <RoadmapStatus
           status={"Planned"}
-          number={data.plannedData.length}
+          number={data.plannedData ? data.plannedData.length : 0}
           color="bg-first-orange"
         />
         <RoadmapStatus
           status={"In-Progress"}
-          number={data.inProgressData.length}
+          number={data.inProgressData ? data.inProgressData.length : 0}
           color="bg-button-pink"
         />
         <RoadmapStatus
           status={"Live"}
-          number={data.liveData.length}
+          number={data.liveData ? data.liveData.length : 0}
           color="bg-light-blue"
         />
       </div>

@@ -100,8 +100,6 @@ const RoadmapDesktop = ({
           const color = "light-blue";
           const borderColor = "border-t-light-blue";
 
-          console.log(item);
-
           return (
             <FeedbackCard
               session={session}

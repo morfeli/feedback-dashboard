@@ -1,19 +1,23 @@
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 const isEmpty = (value) => value.trim() === "";
 
 const AddCommentForm = ({
-  id,
+  searchID,
   commentID,
   username,
   postComment,
   postReplies,
   toggleReply,
+  toggleRefresh,
 }) => {
   const [formValidity, setFormValidity] = useState({
     comment: true,
   });
+
+  const router = useRouter();
 
   const [userData, setUserData] = useState();
   const [maxLength, setMaxLength] = useState(250);
@@ -45,7 +49,7 @@ const AddCommentForm = ({
     }
 
     let postedComment = {
-      feedbackToFilterBy: parseInt(id),
+      feedbackToFilterBy: parseInt(searchID),
       message: enteredText,
       firstName: userData[0].firstName,
       lastName: userData[0].lastName,
@@ -54,7 +58,7 @@ const AddCommentForm = ({
 
     if (commentID && username) {
       postedComment = {
-        feedbackToFilterBy: parseInt(id),
+        feedbackToFilterBy: parseInt(searchID),
         commentToFilterBy: parseInt(commentID),
         message: enteredText,
         firstName: userData[0].firstName,
@@ -64,7 +68,7 @@ const AddCommentForm = ({
       };
     }
 
-    postComment ? postComment(postedComment) : null;
+    postComment && postComment(postedComment);
     postReplies ? postReplies(postedComment) : null;
     toggleReply ? toggleReply() : null;
 
@@ -79,6 +83,8 @@ const AddCommentForm = ({
 
     setCharsLeft(250);
     textAreaRef.current.value = "";
+
+    toggleRefresh && toggleRefresh();
   };
 
   const decrementMaxLength = (e) => {
