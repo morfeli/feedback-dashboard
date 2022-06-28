@@ -101,7 +101,7 @@ const FeedbackCard = ({
         animate={{ opacity: 1, translateY: 0, translateX: 0 }}
         transition={{ duration: 0.8, delay: animateKey * 0.2 }}
       >
-        <div className="flex justify-between">
+        <div className="flex items-baseline justify-between">
           <div>
             <div className="flex items-center pb-2">
               {color && (
@@ -118,12 +118,14 @@ const FeedbackCard = ({
 
               {status && <p className="pl-2 capitalize">{status}</p>}
             </div>
-            <h1 className="text-third-blue font-jost-bold ">{title}</h1>
+            <h1 className="overflow-hidden w-45vw text-ellipsis text-third-blue font-jost-bold">
+              {title}
+            </h1>
             <p className="py-2 text-first-blue">{description}</p>
           </div>
           {!isRoadmap && (
-            <div className="pt-4">
-              <p>
+            <div className="pt-4 pl-4">
+              <p className="w-max">
                 {user[0].firstName} {user[0].lastName}
               </p>
               <p>@{user[0].userName}</p>

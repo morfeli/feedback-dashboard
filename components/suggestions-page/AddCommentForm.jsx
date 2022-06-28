@@ -11,7 +11,6 @@ const AddCommentForm = ({
   postComment,
   postReplies,
   toggleReply,
-  toggleRefresh,
 }) => {
   const [formValidity, setFormValidity] = useState({
     comment: true,
@@ -83,8 +82,6 @@ const AddCommentForm = ({
 
     setCharsLeft(250);
     textAreaRef.current.value = "";
-
-    toggleRefresh && toggleRefresh();
   };
 
   const decrementMaxLength = (e) => {

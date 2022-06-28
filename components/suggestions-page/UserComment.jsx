@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AddCommentForm from "./AddCommentForm";
-import UserReplies from "./UserReplies";
 
 const UserComment = ({
   username,

@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 import AddCommentForm from "./AddCommentForm";
 import FeedbackComments from "./FeedbackComments";
 import UserComment from "./UserComment";
 
 const SuggestionsComments = ({ comments, searchID }) => {
-  const router = useRouter();
   const [stateComments, setStateComments] = useState([]);
   const [incrementCommentID, setIncrementCommentID] = useState(null);
-  const [reply, setReply] = useState(false);
 
   const postComment = (data) => {
     setStateComments((current) => [...current, data]);
@@ -70,16 +67,11 @@ const SuggestionsComments = ({ comments, searchID }) => {
                 lastName={item.lastName}
                 message={item.message}
                 username={item.userName}
-                toggleReply={toggleReply}
               />
             );
           })}
       </section>
-      <AddCommentForm
-        postComment={postComment}
-        searchID={searchID}
-        // toggleRefresh={toggleRefresh}
-      />
+      <AddCommentForm postComment={postComment} searchID={searchID} />
     </>
   );
 };

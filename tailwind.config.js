@@ -19,6 +19,7 @@ module.exports = {
       },
       width: {
         "900px": "900px",
+        "45vw": "45vw",
       },
     },
 
