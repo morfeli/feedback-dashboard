@@ -7,13 +7,15 @@ import DashboardRoadmap from "../DashboardRoadmap";
 import LogOutBtn from "../../dashboard-ui/UI/LogOutBtn";
 
 const MobileNavBar = ({
-  data,
   isOpen,
   categoryFN,
   toggleMenu,
   isMobile,
   activeLink,
   toggleActiveLink,
+  plannedLength,
+  liveLength,
+  progressLength,
 }) => {
   let mobileMenuClass;
 
@@ -48,7 +50,12 @@ const MobileNavBar = ({
             activeLink={activeLink}
             toggleActiveLink={toggleActiveLink}
           />
-          <DashboardRoadmap isMobile={isMobile} data={data} />
+          <DashboardRoadmap
+            isMobile={isMobile}
+            progressLength={progressLength}
+            liveLength={liveLength}
+            plannedLength={plannedLength}
+          />
           <LogOutBtn />
         </motion.div>
       )}

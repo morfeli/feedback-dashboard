@@ -18,6 +18,10 @@ const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
     setMenuIsOpen((current) => !current);
   };
 
+  const plannedLength = data[0].plannedArray.length;
+  const liveLength = data[0].liveArray.length;
+  const progressLength = data[0].progressArray.length;
+
   if (innerWidth == 0) {
     return <></>;
   } else if (isMobile) {
@@ -26,6 +30,9 @@ const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
         <DashboardHeader isOpen={menuIsOpen} toggleMenu={toggleMenu} />
 
         <MobileNavBar
+          plannedLength={plannedLength}
+          liveLength={liveLength}
+          progressLength={progressLength}
           data={data}
           isOpen={menuIsOpen}
           isMobile={isMobile}
@@ -53,7 +60,12 @@ const Dashboard = ({ categoryFN, isMobile, innerWidth, data }) => {
           activeLink={activeLink}
           toggleActiveLink={toggleActiveLink}
         />
-        <DashboardRoadmap isMobile={isMobile} data={data} />
+        <DashboardRoadmap
+          isMobile={isMobile}
+          plannedLength={plannedLength}
+          liveLength={liveLength}
+          progressLength={progressLength}
+        />
       </header>
     );
   }

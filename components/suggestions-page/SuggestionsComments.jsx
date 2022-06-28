@@ -32,7 +32,7 @@ const SuggestionsComments = ({ comments, searchID }) => {
       <section className="py-4 mx-4 my-8 bg-white rounded-md">
         <div className="flex p-4">
           <h1 className="font-jost-bold text-third-blue">
-            {comments.length} {placeholder}
+            {stateComments.length || comments.length} {placeholder}
           </h1>
         </div>
 
