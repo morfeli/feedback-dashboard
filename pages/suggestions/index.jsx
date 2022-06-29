@@ -44,7 +44,7 @@ const SuggestionsPage = ({ session, data, suggestionArrayLength, roadmap }) => {
   };
 
   return (
-    <main className="overflow-hidden xl:flex xl:justify-evenly">
+    <main className="xl:flex xl:justify-evenly">
       <div>
         <Dashboard
           isMobile={isMobile}
