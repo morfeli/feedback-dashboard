@@ -74,10 +74,11 @@ const LoginForm = () => {
     });
 
     if (!result.error) {
-      console.log(true);
+      setLoginResult("Successful Login");
       router.push("/suggestions");
+    } else if (result.error.includes("firstName")) {
+      setLoginResult("Invalid email address");
     } else {
-      console.log(result.error);
       setLoginResult(result.error);
     }
 
@@ -133,7 +134,7 @@ const LoginForm = () => {
         </label>
       </div>
 
-      {loginResult && <p>{loginResult}</p>}
+      {loginResult && <p className="pt-4 text-center">{loginResult}</p>}
       <button className="py-1 mt-4 text-white rounded-md w-60 bg-sky-500">
         Log In
       </button>

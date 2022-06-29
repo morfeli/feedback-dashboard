@@ -35,12 +35,12 @@ export default function UserSignUpPage() {
   }, [router]);
 
   if (isLoading) {
-    return <Logo />;
+    return (
+      <div className="mx-auto">
+        <Logo />
+      </div>
+    );
   }
 
-  return (
-    <>
-      <LoginPage />
-    </>
-  );
+  return <LoginPage />;
 }
