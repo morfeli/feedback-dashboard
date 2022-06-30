@@ -14,6 +14,29 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap"
             rel="stylesheet"
           />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:site"
+            content="https://feedback-dashboard-morfeli.vercel.app/"
+          />
+          <meta name="twitter:title" content="Feedback Dashboard" />
+          <meta name="twitter:description" content="Public Blog Site" />
+          <meta
+            name="twitter:image"
+            content="https://feedback-dashboard-morfeli.vercel.app/screenshot.png"
+          />
+
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Feedback Dashboard" />
+          <meta property="og:description" content="Public Blog Site" />
+          <meta
+            property="og:url"
+            content="https://feedback-dashboard-morfeli.vercel.app/"
+          />
+          <meta
+            property="og:image"
+            content="https://feedback-dashboard-morfeli.vercel.app/screenshot.png"
+          />
         </Head>
         <body className="w-screen pb-8 font-serif bg-light-gray">
           <Main />
