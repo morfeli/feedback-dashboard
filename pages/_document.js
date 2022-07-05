@@ -25,10 +25,10 @@ class MyDocument extends Document {
           <meta name="twitter:description" content="Public Blog Site" />
           <meta
             name="twitter:image"
-            content="https://feedback-dashboard-morfeli.vercel.app/screenshot.png"
+            content="https://feedback-dashboard-morfeli.vercel.app/suggestions.png"
           />
 
-          <meta property="og:type" content="website" />
+          <meta property="og:type" content="Website" />
           <meta property="og:title" content="Feedback Dashboard" />
           <meta property="og:description" content="Public Blog Site" />
           <meta
@@ -37,7 +37,7 @@ class MyDocument extends Document {
           />
           <meta
             property="og:image"
-            content="https://feedback-dashboard-morfeli.vercel.app/screenshot.png"
+            content="https://feedback-dashboard-morfeli.vercel.app/suggestions.png"
           />
         </Head>
         <body className="w-screen pb-8 font-serif bg-light-gray">
