@@ -5,7 +5,7 @@ import { connectToDatabase } from "../../helper/HelperFunctions";
 import RoadmapHeader from "../../components/roadmap/RoadmapHeader";
 import Roadmap from "../../components/roadmap/Roadmap";
 
-const RoadmapPage = ({ data, session }) => {
+const RoadmapPage = ({ data, session, thereIsData }) => {
   const [innerWidth, setInnerWidth] = useState(0);
   const isMobile = innerWidth <= 768;
 
@@ -30,6 +30,7 @@ const RoadmapPage = ({ data, session }) => {
       <RoadmapHeader />
       <Roadmap
         data={data}
+        thereIsData={thereIsData}
         session={session}
         innerWidth={innerWidth}
         isMobile={isMobile}
@@ -69,9 +70,15 @@ export const getServerSideProps = async (context) => {
     liveData,
   };
 
+  const plannedDataLength = plannedData.length;
+  const progressDataLength = progressData.length;
+  const liveDataLength = liveData.length;
+
+  const thereIsData = plannedDataLength && progressDataLength && liveDataLength;
+
   const data = JSON.parse(JSON.stringify(roadmapData));
 
   return {
-    props: { session, data },
+    props: { session, data, thereIsData },
   };
 };
