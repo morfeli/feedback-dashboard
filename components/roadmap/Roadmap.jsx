@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import MobileRoadmap from "./MobileRoadmap";
 import RoadmapDesktop from "./RoadmapDesktop";
 
-const Roadmap = ({ data, session, innerWidth, isMobile, thereIsData }) => {
+const Roadmap = ({ data, session, innerWidth, isMobile }) => {
   const { plannedData, progressData, liveData } = data;
   const [renderStatus, setRenderStatus] = useState();
 
@@ -55,15 +55,6 @@ const Roadmap = ({ data, session, innerWidth, isMobile, thereIsData }) => {
 
   if (innerWidth == 0) {
     return <></>;
-  } else if (thereIsData === 0) {
-    return (
-      <div className="p-8 text-center">
-        <p>
-          There isn't any feedback with a status of live, in-progress, or
-          planned yet.
-        </p>
-      </div>
-    );
   } else if (isMobile) {
     return (
       <MobileRoadmap
