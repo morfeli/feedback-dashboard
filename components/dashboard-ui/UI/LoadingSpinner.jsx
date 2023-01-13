@@ -19,7 +19,11 @@ const LoadingSpinner = () => {
           rotate: [0, 360, -360, 0],
           scale: [0.9, 1.2, 1.5],
         }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+        transition={{
+          duration: [0, 2, 5, 8],
+          repeat: Infinity,
+          ease: "linear",
+        }}
         className={loaderStyle}
       >
         <motion.div

@@ -58,6 +58,13 @@ const LoginPage = () => {
         )}
       </div>
 
+      <div className="py-8 text-center">
+        <h2 className="text-xl">Dummy Credentials</h2>
+
+        <p className="py-2">Email: test@gmail.com</p>
+        <p>Password: testtesttest</p>
+      </div>
+
       <MorfeliSVG />
     </main>
   );

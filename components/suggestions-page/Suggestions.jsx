@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
 import NoSuggestions from "./NoSuggestions";
 import FeedbackCard from "./FeedbackCard";
 import LoadingSpinner from "../dashboard-ui/UI/LoadingSpinner";

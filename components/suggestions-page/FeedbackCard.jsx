@@ -24,7 +24,6 @@ const FeedbackCard = ({
   color,
   borderColor,
   isRoadmap,
-  totalCommentsLength,
   paramsId,
 }) => {
   const [totalUpvotes, setTotalUpvotes] = useState(upvotes);
