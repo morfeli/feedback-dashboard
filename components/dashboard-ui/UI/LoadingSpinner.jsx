@@ -1,19 +1,15 @@
 import { motion } from "framer-motion";
-import classNames from "classnames";
 
-const loaderStyle = classNames(
-  "box-border w-full h-full border-8 border-solid rounded-full border-slate-800 border-t-first-blue border-b-button-pink"
-);
+const loaderStyle =
+  "box-border w-full h-full border-8 border-solid rounded-full border-slate-800 border-t-first-blue border-b-button-pink";
 
-const innerLoaderStyle = classNames(
-  "box-border w-full h-full border-8 border-solid rounded-full border-slate-800 border-t-slate-200 border-b-slate-200"
-);
+const innerLoaderStyle =
+  "box-border w-full h-full border-8 border-solid rounded-full border-slate-800 border-t-slate-200 border-b-slate-200";
 
 const LoadingSpinner = () => {
   return (
-    <div className="w-14 h-14">
+    <div className="mx-auto w-14 h-14">
       <motion.div
-        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: [0, 360, -360, 0],
